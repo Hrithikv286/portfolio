@@ -1,551 +1,1202 @@
+
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hrithik Venkatesh — Mechatronics Engineer & Portfolio</title>
+    <meta name="description" content="Professional engineering portfolio of Hrithik Venkatesh, a pre-final year Mechatronics Engineering student specializing in mechanical design, robotics, and automation.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <title>Hrithik Venkatesh — Mechatronics & Mechanical Design Engineer</title>
-    <meta name="author" content="Hrithik Venkatesh"/>
-    <meta name="description" content="Portfolio of Hrithik Venkatesh, Mechatronics Engineering student specialising in mechanical design, robotics, manufacturing and industrial automation."/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        background: 'var(--background)',
-                        foreground: 'var(--foreground)',
-                        surface: 'var(--surface)',
-                        primary: {
-                            DEFAULT: 'var(--primary)',
-                            foreground: 'var(--primary-foreground)'
-                        },
-                        muted: {
-                            DEFAULT: 'var(--muted)',
-                            foreground: 'var(--muted-foreground)'
-                        },
-                        border: 'var(--border)',
-                        card: {
-                            DEFAULT: 'var(--card)',
-                            foreground: 'var(--card-foreground)'
-                        },
-                        accent: {
-                            DEFAULT: 'var(--accent)',
-                            foreground: 'var(--accent-foreground)'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['"Instrument Serif"', 'serif'],
-                        mono: ['"JetBrains Mono"', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --background: #09090b;
-            --foreground: #fafafa;
-            --surface: #121216;
-            --primary: #3b82f6;
-            --primary-foreground: #ffffff;
-            --muted: #27272a;
-            --muted-foreground: #a1a1aa;
-            --border: #27272a;
-            --card: #18181b;
-            --card-foreground: #fafafa;
-            --accent: #27272a;
-            --accent-foreground: #fafafa;
-            --gradient-surface: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 70%);
-            --shadow-elevated: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+            --bg-color: #FAF8F3;
+            --bg-card: #F4EFE6;
+            --text-main: #111111;
+            --text-muted: #333333;
+            --accent: #E85D2A;
+            --accent-hover: #d04d1f;
+            --border-color: rgba(17, 17, 17, 0.1);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --font-heading: 'Playfair Display', 'Cormorant Garamond', serif;
+            --font-body: 'Inter', 'Poppins', sans-serif;
+            --shadow: 0 10px 30px rgba(0,0,0,0.03);
+            --modal-bg: rgba(250, 248, 243, 0.98);
         }
 
-        .light {
-            --background: #ffffff;
-            --foreground: #09090b;
-            --surface: #f4f4f5;
-            --primary: #2563eb;
-            --primary-foreground: #ffffff;
-            --muted: #e4e4e7;
-            --muted-foreground: #71717a;
-            --border: #e4e4e7;
-            --card: #ffffff;
-            --card-foreground: #09090b;
-            --accent: #f4f4f5;
-            --accent-foreground: #09090b;
-            --gradient-surface: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08), transparent 70%);
-            --shadow-elevated: 0 10px 30px -10px rgba(37, 99, 235, 0.15);
+        [data-theme="dark"] {
+            --bg-color: #0d0d0d;
+            --bg-card: #161616;
+            --text-main: #FAF8F3;
+            --text-muted: #cccccc;
+            --accent: #E85D2A;
+            --accent-hover: #ff6b35;
+            --border-color: rgba(250, 248, 243, 0.12);
+            --shadow: 0 10px 30px rgba(0,0,0,0.3);
+            --modal-bg: rgba(13, 13, 13, 0.98);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         html {
             scroll-behavior: smooth;
         }
 
-        .glass-card {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 1rem;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .glass-card:hover {
-            border-color: var(--primary);
-            box-shadow: var(--shadow-elevated);
+        @media (hover: hover) and (pointer: fine) {
+            body, body * {
+                cursor: none !important;
+            }
         }
 
-        .grid-backdrop {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
-                              linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
-        .reveal {
-            opacity: 1; /* Fallback if JS disabled */
-            transform: translateY(0);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        ul {
+            list-style: none;
         }
 
-        .reveal.lazy-load {
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        section {
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5vw;
+            background: rgba(250, 248, 243, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(13, 13, 13, 0.85);
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.03em;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--text-main);
+            cursor: none;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 8rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+            gap: clamp(2.5rem, 6vw, 6rem);
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3vw, 3.6rem);
+            line-height: 1.05;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        .hero-content {
+            text-align: left;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-portrait {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .hero-portrait img {
+            display: block;
+            width: min(100%, 440px);
+            height: auto;
+            max-height: min(68vh, 640px);
+            object-fit: contain;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.09);
+        }
+
+        .interactive-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            background: var(--bg-color);
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            pointer-events: none;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translate(-50%, -50%) scale(0.6);
+            transition: width 160ms ease, height 160ms ease, opacity 160ms ease, transform 160ms ease, background-color 160ms ease;
+            z-index: 3000;
         }
 
-        .reveal.active {
+        .interactive-cursor::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .interactive-cursor.interactive {
+            width: 42px;
+            height: 42px;
+        }
+
+        .interactive-cursor.interactive::before {
+            content: '\f061';
+            width: auto;
+            height: auto;
+            background: none;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.8rem;
+        }
+
+        .interactive-cursor.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .interactive-cursor.pressed {
+            transform: translate(-50%, -50%) scale(0.8);
+            background: var(--accent);
+            color: #fff;
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .interactive-cursor {
+                display: none;
+            }
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-text .section-title {
+            font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .skill-group h4 {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            margin-top: 4rem;
+            padding-left: 2rem;
+            border-left: 2px solid var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.3rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            border: 3px solid var(--bg-color);
+        }
+
+        .timeline-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeline-role {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-company {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-list {
+            margin-top: 1rem;
+            padding-left: 1.2rem;
+        }
+
+        .timeline-list li {
+            list-style-type: disc;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .project-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 0 0 2rem;
+        }
+
+        .project-gallery figure {
+            margin: 0;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .project-gallery img {
+            display: block;
+            width: 100%;
+            height: 210px;
+            object-fit: contain;
+        }
+
+        .project-gallery figcaption {
+            padding: 0.7rem 0.8rem;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.35;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-pill {
+            font-size: 0.75rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        /* Protosem View Styles */
+        .protosem-trigger-card {
+            cursor: pointer;
+            border: 2px dashed var(--accent);
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            margin-top: 2rem;
+        }
+        .protosem-trigger-card:hover {
+            background: var(--border-color);
+            transform: translateY(-3px);
+        }
+
+        .protosem-view {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .protosem-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes quoteFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-designation {
+            display: block;
+            text-align: left;
+            font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 0.4rem;
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-quote {
+            display: block;
+            text-align: left;
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--accent);
+            font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+            max-width: 900px;
+            margin: 0.2rem 0 2rem;
+            line-height: 1.45;
+            opacity: 0;
+            animation: quoteFade 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 220ms;
+        }
+
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .week-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .week-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        .week-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .week-card h5 {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 0.45rem;
+        }
+        .week-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .week-document-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            margin-top: 1.25rem;
+            padding: 0.55rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            background: transparent;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: inherit;
+            line-height: 1.2;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .week-document-button:hover:not(:disabled) {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .week-document-button:disabled {
+            border-color: var(--border-color);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .week-document-button:disabled:hover {
+            background: transparent;
+            color: var(--text-muted);
+            transform: none;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-details {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input, .form-group textarea {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--text-main);
+            outline: none;
+            font-family: var(--font-body);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        footer {
+            padding: 4rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid, .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .project-gallery {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-bg);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--text-main);
+            font-weight: 600;
         }
     </style>
 </head>
-<body class="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground font-sans antialiased">
+<body data-theme="light">
 
-    <!-- Header / Navigation -->
-    <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300 bg-background/80 backdrop-blur-md border-b border-border/40">
-        <nav aria-label="Main navigation" class="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3.5 lg:px-8">
-            <a href="#home" class="flex min-w-0 items-center gap-2.5">
-                <span class="font-display text-2xl leading-none">HV.</span>
-                <span class="truncate font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground">/ Hrithik Venkatesh</span>
-            </a>
-            <div class="flex items-center gap-2">
-                <ul class="hidden items-center gap-1 xl:flex">
-                    <li><a href="#home" class="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors hover:text-primary text-foreground">Home</a></li>
-                    <li><a href="#about" class="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors text-muted-foreground hover:text-primary">About</a></li>
-                    <li><a href="#education" class="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors text-muted-foreground hover:text-primary">Education</a></li>
-                    <li><a href="#skills" class="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors text-muted-foreground hover:text-primary">Skills</a></li>
-                    <li><a href="#experience" class="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors text-muted-foreground hover:text-primary">Experience</a></li>
-                    <li><a href="#projects" class="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors text-muted-foreground hover:text-primary">Projects</a></li>
-                    <li><a href="#contact" class="rounded-full px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors text-muted-foreground hover:text-primary">Contact</a></li>
-                </ul>
-                
-                <!-- Theme Toggle Button -->
-                <button type="button" id="theme-toggle" aria-label="Switch theme" class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border bg-card text-foreground transition-all hover:border-primary hover:text-primary">
-                    <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                </button>
-
-                <a href="#" download class="hidden items-center gap-2 rounded-full border border-foreground/25 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary sm:inline-flex">Resume ↓</a>
-                
-                <!-- Mobile Menu Toggle -->
-                <button type="button" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false" class="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-border bg-card xl:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
-                </button>
-            </div>
-        </nav>
-        
-        <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden border-b border-border bg-background px-5 py-4 xl:hidden">
-            <ul class="flex flex-col gap-2 font-mono text-xs uppercase tracking-wider">
-                <li><a href="#home" class="block py-2 text-foreground">Home</a></li>
-                <li><a href="#about" class="block py-2 text-muted-foreground hover:text-primary">About</a></li>
-                <li><a href="#education" class="block py-2 text-muted-foreground hover:text-primary">Education</a></li>
-                <li><a href="#skills" class="block py-2 text-muted-foreground hover:text-primary">Skills</a></li>
-                <li><a href="#experience" class="block py-2 text-muted-foreground hover:text-primary">Experience</a></li>
-                <li><a href="#projects" class="block py-2 text-muted-foreground hover:text-primary">Projects</a></li>
-                <li><a href="#contact" class="block py-2 text-muted-foreground hover:text-primary">Contact</a></li>
-            </ul>
+    <!-- Sticky Navigation -->
+    <nav>
+        <a href="#home" class="nav-logo">H.V. // Hrithik Venkatesh</a>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+            <button class="menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <!-- Hero Section -->
-        <section id="home" class="relative overflow-hidden pb-20 pt-32 sm:pb-28 sm:pt-40">
-            <div class="grid-backdrop pointer-events-none absolute inset-0 opacity-40" aria-hidden="true"></div>
-            <div class="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[image:var(--gradient-surface)]" aria-hidden="true"></div>
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="theme-toggle" onclick="toggleMobileMenu()" style="position: absolute; top: 2rem; right: 2rem;"><i class="fa-solid fa-xmark"></i></button>
+        <a href="#home" onclick="toggleMobileMenu()">Home</a>
+        <a href="#about" onclick="toggleMobileMenu()">About</a>
+        <a href="#experience" onclick="toggleMobileMenu()">Experience</a>
+        <a href="#projects" onclick="toggleMobileMenu()">Projects</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Engineering the Future Through Innovation, Precision, and Intelligent Design.</h1>
+                    <p>Hello! I'm <strong>Hrithik Venkatesh</strong>, a pre-final year Mechatronics Engineering student passionate about mechanical design, robotics, manufacturing, and industrial automation.</p>
+                    <p class="hero-designation">Mechatronics Engineering Student | Mechanical Design Enthusiast | Robotics &amp; Manufacturing Enthusiast</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn-primary">Explore Projects <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#contact" class="btn-secondary">Get in Touch</a>
+                    </div>
+                </div>
+                <div class="hero-portrait">
+                    <img src="Hrithik%20photo.png" alt="Hrithik Venkatesh">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="project-category">Profile & Background</span>
+                    <h2 class="section-title">Bridging mechanical precision with smart automation.</h2>
+                    <p>As a pre-final year Mechatronics Engineering student, I combine core mechanical engineering concepts with industrial control systems. I possess strong soft skills like <strong>teamwork and problem-solving</strong> which help me excel in collaborative engineering environments.</p>
+                    <p>Outside of engineering, I enjoy <strong>reading books, traveling, watching movies, gaining knowledge in manufacturing and automotive systems, and playing outdoor games</strong>.</p>
+                </div>
+                <div class="skills-container">
+                    <div class="skill-group">
+                        <h4>CAD & Design Tools</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">SolidWorks</span>
+                            <span class="skill-tag">Fusion 360</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h4>Automation & Controls</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">PLC Programming</span>
+                            <span class="skill-tag">LiDAR Integration</span>
+                            <span class="skill-tag">Robotic Hardware</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h4>Manufacturing & Core</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Drilling & Tapping Machines</span>
+                            <span class="skill-tag">Friction Stir Welding</span>
+                            <span class="skill-tag">Transformers & Chokes (Assembly)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <span class="project-category">Career & Activities</span>
+            <h2 class="section-title">Experience & Leadership</h2>
             
-            <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-5 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-role">Intern</h3>
+                                <span class="timeline-company">RV Machine Tools</span>
+                            </div>
+                            <span class="timeline-date">Core Industry Internship</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Learned machine manufacturing, specifically working with drilling and tapping machines and friction stir welding machines.</li>
+                            <li>Utilized SolidWorks for design tasks and participated in quality control procedures.</li>
+                            <li>Gained a basic idea of the electronics department and worked with PLC.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-role">Intern</h3>
+                                <span class="timeline-company">Procon Controls</span>
+                            </div>
+                            <span class="timeline-date">Manufacturing Internship</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Worked in the assembly and winding section for industrial transformer and choke manufacturing operations.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-role">Qbotix Club</h3>
+                                <span class="timeline-company">College Technical Club</span>
+                            </div>
+                            <span class="timeline-date">Robotics & Mechanical Design</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Gained fundamental mechanical engineering knowledge and used Fusion 360 for component design.</li>
+                            <li>Won the competitive <strong>Tug of War Robot Competition</strong>.</li>
+                            <li>Observed and identified the necessary electronics equipment required to build a fully functional robot.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects & Protosem Section -->
+    <section id="projects">
+        <div class="container">
+            <span class="project-category">Portfolio Showcase</span>
+            <h2 class="section-title">Featured Projects & Programs</h2>
+            
+            <!-- Main Projects View -->
+            <div id="mainProjectsView">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <span class="project-category">AGV Project | Management &amp; Mechanical Design</span>
+                        <h3 class="project-title">Automated Guided Vehicle (AGV)</h3>
+                        <p class="project-desc">Leading project coordination while contributing to the mechanical design and development of an AGV. My work focuses on chassis design, structural arrangement, wheel configuration, mobility, and overall mechanical integration.</p>
+                        <div class="project-gallery">
+                            <figure>
+                                <img src="AGV/WhatsApp%20Image%202026-08-08%20at%201.46.05%20PM.jpeg" alt="AGV chassis assembly in progress">
+                                <figcaption>Chassis assembly and mechanical integration</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="AGV/WhatsApp%20Image%202026-08-08%20at%201.51.20%20PM.jpeg" alt="AGV chassis prototype with wheel configuration">
+                                <figcaption>AGV prototype and wheel configuration</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="AGV/WhatsApp%20Image%202026-08-08%20at%201.51.19%20PM.jpeg" alt="CAD model of the Automated Guided Vehicle">
+                                <figcaption>CAD concept for the AGV structure</figcaption>
+                            </figure>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-pill">Project Management</span>
+                            <span class="tech-pill">Chassis Design</span>
+                            <span class="tech-pill">Structural Design</span>
+                            <span class="tech-pill">Wheel Configuration</span>
+                            <span class="tech-pill">Mechanical Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Protosem Tab Trigger Card -->
+                <div class="protosem-trigger-card" onclick="toggleProtosemView(true)">
+                    <i class="fa-solid fa-laptop-code" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 0.5rem;">Protosem Immersion Program</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Click here to view week-by-week curriculum and progress tracking from Week 0 to Week 20.</p>
+                </div>
+            </div>
+
+            <!-- Protosem Detailed View (Week 0 to Week 20) -->
+            <div id="protosemDetailedView" class="protosem-view">
+                <button class="btn-secondary" onclick="toggleProtosemView(false)" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Projects
+                </button>
+                <span class="project-category">Immersion Program</span>
+                <h2 class="section-title">Protosem Journey: Week 0 to Week 20</h2>
+                <p class="project-desc">An extensive engineering innovation and design thinking journey structured week-by-week.</p>
+
+                <div class="weeks-grid" id="weeksContainer">
+                    <!-- Populated via JavaScript -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-grid">
                 <div>
-                    <div class="reveal">
-                        <h1 class="text-5xl leading-[0.95] sm:text-7xl lg:text-[5.5ref] font-normal tracking-tight">
-                            Designing <span class="italic font-display text-primary">Intelligent</span> Systems<span class="text-primary">.</span><br/>Building the Future.
-                        </h1>
-                        <p class="mt-5 font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground">Hrithik Venkatesh — Mechatronics Engineering</p>
-                    </div>
+                    <span class="project-category">Get in Touch</span>
+                    <h2 class="section-title">Let's build something great together.</h2>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">I am actively looking for internship and career opportunities in mechatronics, robotics, and industrial manufacturing.</p>
                     
-                    <div class="reveal mt-4">
-                        <p id="typed-text" class="min-h-[2rem] font-mono text-sm text-primary sm:text-base font-medium"></p>
-                    </div>
-                    
-                    <div class="reveal mt-6">
-                        <p class="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                            Hello! I'm Hrithik Venkatesh, a pre-final year Mechatronics Engineering student passionate about mechanical design, robotics, manufacturing engineering, industrial automation, and product development. I enjoy transforming engineering concepts into practical solutions through design, innovation, and hands-on industrial experience.
-                        </p>
-                    </div>
-                    
-                    <div class="reveal mt-9 flex flex-wrap gap-3">
-                        <a href="#contact" class="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-elevated)]">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg> Contact Me
-                        </a>
-                        <a href="#projects" class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/></svg> View Projects
-                        </a>
-                        <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Hero Badge Graphic -->
-                <div class="relative hidden lg:grid place-items-center">
-                    <div class="relative w-72 h-72 rounded-3xl glass-card flex flex-col items-center justify-center p-8 text-center border-primary/30 shadow-2xl">
-                        <div class="text-6xl font-display font-bold text-primary mb-2">HV</div>
-                        <div class="font-mono text-xs uppercase tracking-widest text-muted-foreground">Mechatronics Engineer</div>
-                        <div class="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">
-                            <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span> Available for Opportunities
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <a href="mailto:hrithikv286@gmail.com">hrithikv286@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <a href="tel:8248387615">8248387615</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-brands fa-linkedin"></i>
+                            <a href="https://www.linkedin.com/in/hrithik-venkatesh-9b936132a?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank">LinkedIn Profile</a>
                         </div>
                     </div>
                 </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent.');">
+                    <div class="form-group">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Email</label>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="4" placeholder="Type your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="justify-content: center;">Send Message</button>
+                </form>
             </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="bg-surface py-20 sm:py-28 border-y border-border/50">
-            <div class="mx-auto max-w-7xl px-5 lg:px-8">
-                <div class="reveal mx-auto mb-12 max-w-2xl text-center">
-                    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">About</p>
-                    <h2 class="mt-3 text-4xl leading-[1.05] sm:text-5xl font-normal tracking-tight">Designing systems that actually get built</h2>
-                </div>
-                
-                <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-                    <div class="reveal glass-card grid place-items-center p-8">
-                        <div class="relative">
-                            <div class="grid h-48 w-48 place-items-center rounded-full bg-foreground text-6xl font-display text-background sm:h-56 sm:w-56 font-bold">HV</div>
-                            <span class="absolute inset-0 -m-3 animate-pulse rounded-full border border-primary/30"></span>
-                        </div>
-                        <p class="mt-6 text-center text-sm text-muted-foreground font-mono">Mechatronics Engineering · Pre-Final Year</p>
-                    </div>
-                    
-                    <div class="reveal glass-card space-y-5 p-8 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                        <p>I'm Hrithik Venkatesh, currently pursuing my Bachelor's degree in Mechatronics Engineering. I have a strong interest in mechanical design, manufacturing technologies, robotics, industrial automation, and the automobile industry.</p>
-                        <p>Throughout my academic journey, I have actively participated in robotics competitions, engineering clubs, internships, and department projects that strengthened my technical and problem-solving skills. I enjoy designing mechanical systems using CAD software and continuously expanding my knowledge through practical industrial exposure.</p>
-                        <p>Apart from engineering, I enjoy reading books, travelling, watching movies, playing outdoor games, and exploring new technologies in manufacturing and automobiles.</p>
-                        
-                        <div class="flex flex-wrap gap-2 pt-2">
-                            <span class="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">Fusion 360</span>
-                            <span class="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">SolidWorks</span>
-                            <span class="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">Robotics</span>
-                            <span class="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">PLC Basics</span>
-                            <span class="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-muted-foreground">Quality Control</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education" class="py-20 sm:py-28">
-            <div class="mx-auto max-w-7xl px-5 lg:px-8">
-                <div class="reveal mx-auto mb-12 max-w-2xl text-center">
-                    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">Education</p>
-                    <h2 class="mt-3 text-4xl leading-[1.05] sm:text-5xl font-normal tracking-tight">Academic timeline</h2>
-                </div>
-                
-                <div class="relative mx-auto max-w-3xl pl-8">
-                    <span class="absolute left-2 top-2 h-[calc(100%-1rem)] w-px bg-border" aria-hidden="true"></span>
-                    
-                    <div class="reveal relative mb-8 last:mb-0">
-                        <span class="absolute -left-[1.6rem] top-6 grid h-4 w-4 place-items-center rounded-full border-2 border-primary bg-background"><span class="h-1.5 w-1.5 rounded-full bg-primary"></span></span>
-                        <article class="glass-card p-6">
-                            <div class="flex min-w-0 items-start gap-3">
-                                <div class="min-w-0">
-                                    <h3 class="text-base font-semibold">Bachelor of Engineering — Mechatronics Engineering</h3>
-                                    <p class="mt-1 font-mono text-[11px] uppercase tracking-widest text-primary">Pre-Final Year Student</p>
-                                    <p class="mt-3 text-sm text-muted-foreground">Core focus on mechanical design, robotics, control systems, manufacturing technology and industrial automation.</p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    
-                    <div class="reveal relative mb-8 last:mb-0">
-                        <span class="absolute -left-[1.6rem] top-6 grid h-4 w-4 place-items-center rounded-full border-2 border-primary bg-background"><span class="h-1.5 w-1.5 rounded-full bg-primary"></span></span>
-                        <article class="glass-card p-6">
-                            <div class="flex min-w-0 items-start gap-3">
-                                <div class="min-w-0">
-                                    <h3 class="text-base font-semibold">Qbotix Robotics Club</h3>
-                                    <p class="mt-1 font-mono text-[11px] uppercase tracking-widest text-primary">Active Member</p>
-                                    <p class="mt-3 text-sm text-muted-foreground">CAD modelling with Fusion 360, mechanical assembly, robot mechanisms and electronics integration.</p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section id="skills" class="bg-surface py-20 sm:py-28 border-y border-border/50">
-            <div class="mx-auto max-w-7xl px-5 lg:px-8">
-                <div class="reveal mx-auto mb-12 max-w-2xl text-center">
-                    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">Skills</p>
-                    <h2 class="mt-3 text-4xl leading-[1.05] sm:text-5xl font-normal tracking-tight">Technical toolkit</h2>
-                    <p class="mt-4 text-sm text-muted-foreground sm:text-base">From CAD modelling to shop-floor manufacturing, embedded electronics and automation fundamentals.</p>
-                </div>
-                
-                <div class="reveal mx-auto max-w-4xl">
-                    <ul class="flex flex-wrap justify-center gap-3">
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Mechanical Design</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Manufacturing Engineering</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Robotics</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Industrial Automation</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">CAD Design</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">SolidWorks</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Fusion 360</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">AutoCAD</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">ESP32 & Arduino</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Embedded Systems</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">PLC Basics</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">C Programming</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Problem Solving</li>
-                        <li class="glass-card px-5 py-2.5 text-sm font-medium">Product Development</li>
-                    </ul>
-                </div>
-                
-                <div class="reveal mt-14">
-                    <h3 class="text-center text-lg font-semibold">Soft Skills</h3>
-                    <ul class="mt-6 flex flex-wrap justify-center gap-3">
-                        <li class="glass-card px-5 py-3 text-sm font-medium">Teamwork</li>
-                        <li class="glass-card px-5 py-3 text-sm font-medium">Problem Solving</li>
-                        <li class="glass-card px-5 py-3 text-sm font-medium">Leadership</li>
-                        <li class="glass-card px-5 py-3 text-sm font-medium">Communication</li>
-                        <li class="glass-card px-5 py-3 text-sm font-medium">Adaptability</li>
-                        <li class="glass-card px-5 py-3 text-sm font-medium">Time Management</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="py-20 sm:py-28">
-            <div class="mx-auto max-w-7xl px-5 lg:px-8">
-                <div class="reveal mx-auto mb-12 max-w-2xl text-center">
-                    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">Experience</p>
-                    <h2 class="mt-3 text-4xl leading-[1.05] sm:text-5xl font-normal tracking-tight">Club & industry experience</h2>
-                    <p class="mt-4 text-sm text-muted-foreground sm:text-base">Hands-on exposure across robotics projects and industrial manufacturing internships.</p>
-                </div>
-                
-                <div class="reveal glass-card mb-10 p-7">
-                    <div class="min-w-0">
-                        <h3 class="text-lg font-semibold">Qbotix Robotics Club</h3>
-                        <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Being an active member of Qbotix, I gained practical exposure to robotics and mechanical engineering. I worked on robotics projects where I learned CAD modelling using Fusion 360, mechanical assembly, robot mechanisms, and the electronic components required to build robots.</p>
-                        <div class="mt-5 rounded-xl border border-border bg-accent/50 p-4">
-                            <p class="text-sm font-semibold">Robot design & team competition</p>
-                            <p class="mt-2 text-sm text-muted-foreground">Designed and developed a robot as part of a team, enhancing my understanding of robot mechanics, electronics integration, and teamwork.</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="grid gap-6 lg:grid-cols-2">
-                    <!-- RV Machine Tools -->
-                    <div class="reveal glass-card flex flex-col p-7">
-                        <div class="min-w-0">
-                            <h3 class="text-lg font-semibold">RV Machine Tools</h3>
-                            <p class="mt-1 font-mono text-[11px] uppercase tracking-widest text-primary">Engineering Intern</p>
-                        </div>
-                        <p class="mt-4 text-sm text-muted-foreground">RV Machine Tools specializes in manufacturing industrial machinery such as Drilling & Tapping Machines and Friction Stir Welding Machines (FSW).</p>
-                        <h4 class="mt-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Responsibilities</h4>
-                        <ul class="mt-3 space-y-2">
-                            <li class="flex gap-2 text-sm text-muted-foreground"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>Learned machine manufacturing processes</li>
-                            <li class="flex gap-2 text-sm text-muted-foreground"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>Worked on mechanical designs using SolidWorks</li>
-                            <li class="flex gap-2 text-sm text-muted-foreground"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>Assisted in Quality Control and inspection workflow</li>
-                        </ul>
-                    </div>
-
-                    <!-- Procon Controls -->
-                    <div class="reveal glass-card flex flex-col p-7">
-                        <div class="min-w-0">
-                            <h3 class="text-lg font-semibold">Procon Controls</h3>
-                            <p class="mt-1 font-mono text-[11px] uppercase tracking-widest text-primary">Engineering Intern</p>
-                        </div>
-                        <p class="mt-4 text-sm text-muted-foreground">Gained comprehensive insights into industrial instrumentation, process control systems, and automation panels.</p>
-                        <h4 class="mt-6 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Responsibilities</h4>
-                        <ul class="mt-3 space-y-2">
-                            <li class="flex gap-2 text-sm text-muted-foreground"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>Observed control panel assembly and wiring</li>
-                            <li class="flex gap-2 text-sm text-muted-foreground"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>Understood sensor integration and calibration</li>
-                            <li class="flex gap-2 text-sm text-muted-foreground"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"></span>Explored automation workflows and testing</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="bg-surface py-20 sm:py-28 border-y border-border/50">
-            <div class="mx-auto max-w-7xl px-5 lg:px-8">
-                <div class="reveal mx-auto mb-12 max-w-2xl text-center">
-                    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">Projects</p>
-                    <h2 class="mt-3 text-4xl leading-[1.05] sm:text-5xl font-normal tracking-tight">Featured engineering works</h2>
-                    <p class="mt-4 text-sm text-muted-foreground sm:text-base">Highlights of systems, prototypes, and robotic designs built during academic and club activities.</p>
-                </div>
-                
-                <div class="grid gap-6 md:grid-cols-2">
-                    <div class="reveal glass-card p-7 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xl font-semibold">Competitive Robotics Mechanism</h3>
-                            <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Designed custom robot chassis and drive trains utilizing Fusion 360. Addressed weight reduction, structural rigidity, and optimal gear ratios for competition scenarios.</p>
-                        </div>
-                        <div class="mt-6 flex flex-wrap gap-2">
-                            <span class="px-2.5 py-1 rounded-md bg-accent text-xs font-mono">Fusion 360</span>
-                            <span class="px-2.5 py-1 rounded-md bg-accent text-xs font-mono">Prototyping</span>
-                        </div>
-                    </div>
-
-                    <div class="reveal glass-card p-7 flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-xl font-semibold">Industrial Automation Model</h3>
-                            <p class="mt-3 text-sm leading-relaxed text-muted-foreground">Built a conceptual control circuit integration combining microcontrollers and sensor networks to automate sorting steps on a miniature conveyor setup.</p>
-                        </div>
-                        <div class="mt-6 flex flex-wrap gap-2">
-                            <span class="px-2.5 py-1 rounded-md bg-accent text-xs font-mono">ESP32</span>
-                            <span class="px-2.5 py-1 rounded-md bg-accent text-xs font-mono">Sensors</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 sm:py-28">
-            <div class="mx-auto max-w-3xl px-5 text-center lg:px-8">
-                <div class="reveal">
-                    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-primary">Contact</p>
-                    <h2 class="mt-3 text-4xl leading-[1.05] sm:text-5xl font-normal tracking-tight">Let's build something together</h2>
-                    <p class="mt-4 text-sm text-muted-foreground sm:text-base">I'm actively looking for internships, engineering collaborations, and discussions on mechanical design or automation.</p>
-                </div>
-                
-                <div class="reveal glass-card mt-10 p-8 text-left">
-                    <form onsubmit="event.preventDefault(); alert('Thank you for your message! This is a static demo form.');" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">Your Name</label>
-                            <input type="text" required class="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none" placeholder="John Doe">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">Your Email</label>
-                            <input type="email" required class="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none" placeholder="john@example.com">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">Message</label>
-                            <textarea rows="4" required class="w-full rounded-lg border border-border bg-background px-4 py-3 text-sm focus:border-primary focus:outline-none" placeholder="Let's discuss an opportunity..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="border-t border-border py-8 text-center text-xs text-muted-foreground font-mono">
-        <p>© 2026 Hrithik Venkatesh. Built for Mechatronics & Mechanical Design.</p>
+    <footer>
+        <div class="nav-logo">Hrithik Venkatesh // 2026</div>
+        <p class="footer-quote">"Design. Build. Innovate."</p>
     </footer>
 
-    <!-- JavaScript Interactions -->
+    <div class="interactive-cursor" id="interactiveCursor" aria-hidden="true"></div>
+
     <script>
-        // Theme Switcher Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
-        
-        themeToggle.addEventListener('click', () => {
-            htmlElement.classList.toggle('dark');
-            htmlElement.classList.toggle('light');
-        });
+        // Theme Toggle Functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+        }
 
         // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Close mobile menu on link click
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
-
-        // Typing Effect for Hero Subtitle
-        const words = ["Mechatronics Engineer", "Mechanical Designer", "Robotics Enthusiast", "Automation Explorer"];
-        let i = 0;
-        let timer;
-
-        function typingEffect() {
-            let word = words[i].split("");
-            var loopTyping = function() {
-                if (word.length > 0) {
-                    document.getElementById('typed-text').innerHTML += word.shift();
-                } else {
-                    setTimeout(deletingEffect, 2000);
-                    return;
-                }
-                timer = setTimeout(loopTyping, 100);
-            };
-            loopTyping();
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
         }
 
-        function deletingEffect() {
-            let word = words[i].split("");
-            var loopDeleting = function() {
-                if (word.length > 0) {
-                    word.pop();
-                    document.getElementById('typed-text').innerHTML = word.join("");
-                } else {
-                    if (words.length > (i + 1)) {
-                        i++;
-                    } else {
-                        i = 0;
-                    }
-                    setTimeout(typingEffect, 500);
-                    return;
-                }
-                timer = setTimeout(loopDeleting, 50);
-            };
-            loopDeleting();
-        }
-
-        typingEffect();
-
-        // Scroll Reveal Animation Observer
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
+        // Generate Week 0 to Week 20 cards dynamically
+        const weeksContainer = document.getElementById('weeksContainer');
+        const weekData = [
+            "<strong>Learned 16 Personalities and Zen Pencils.</strong>",
+            "<strong>Created portfolio and learned 5S methodology.</strong>",
+            ""
+        ];
+        const weekTitles = {
+            2: "Learning, Thinking & Building"
         };
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+        // Add a Google Docs share link here when each week's document is ready.
+        // Week 0 currently opens the document saved in this portfolio.
+        const weekDocumentLinks = [
+            "week-0.html", // Week 0
+            "week-1.html", // Week 1
+            "week-2.html", // Week 2
+            "", // Week 3
+            "", // Week 4
+            "", // Week 5
+            "", // Week 6
+            "", // Week 7
+            "", // Week 8
+            "", // Week 9
+            "", // Week 10
+            "", // Week 11
+            "", // Week 12
+            "", // Week 13
+            "", // Week 14
+            "", // Week 15
+            "", // Week 16
+            "", // Week 17
+            "", // Week 18
+            "", // Week 19
+            ""  // Week 20
+        ];
 
-        document.querySelectorAll('.reveal').forEach(element => {
-            element.classList.add('lazy-load');
-            observer.observe(element);
+        for (let i = 0; i <= 20; i++) {
+            const card = document.createElement('div');
+            card.className = 'week-card';
+            const description = i < weekData.length
+                ? weekData[i]
+                : `<span style="color: var(--accent); font-weight: 500;">Coming Soon</span>`;
+            const documentLink = weekDocumentLinks[i];
+            const documentButton = documentLink
+                ? `<a class="week-document-button" href="${documentLink}" target="_blank" rel="noopener noreferrer">View document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`
+                : `<button class="week-document-button" type="button" disabled title="This week's document has not been added yet">Document coming soon</button>`;
+
+            const title = weekTitles[i] ? `<h5>${weekTitles[i]}</h5>` : '';
+            const descriptionMarkup = description ? `<p>${description}</p>` : '';
+            card.innerHTML = `<h4>Week ${i}</h4>${title}${descriptionMarkup}${documentButton}`;
+            weeksContainer.appendChild(card);
+        }
+
+        // Toggle View Function for Protosem Section
+        function toggleProtosemView(showProtosem) {
+            const mainView = document.getElementById('mainProjectsView');
+            const detailedView = document.getElementById('protosemDetailedView');
+            
+            if (showProtosem) {
+                mainView.style.display = 'none';
+                detailedView.classList.add('active');
+            } else {
+                detailedView.classList.remove('active');
+                mainView.style.display = 'block';
+            }
+        }
+
+        // Custom cursor for interactive buttons
+        const interactiveCursor = document.getElementById('interactiveCursor');
+        const interactiveElements = document.querySelectorAll('.btn-primary, .btn-secondary, .theme-toggle, .menu-toggle, .week-document-button');
+
+        document.addEventListener('mousemove', (event) => {
+            interactiveCursor.style.left = `${event.clientX}px`;
+            interactiveCursor.style.top = `${event.clientY}px`;
+            interactiveCursor.classList.add('visible');
+        });
+
+        interactiveElements.forEach((element) => {
+            element.addEventListener('mouseenter', () => interactiveCursor.classList.add('interactive'));
+            element.addEventListener('mouseleave', () => interactiveCursor.classList.remove('interactive', 'pressed'));
+            element.addEventListener('mousedown', () => interactiveCursor.classList.add('pressed'));
+            element.addEventListener('mouseup', () => interactiveCursor.classList.remove('pressed'));
         });
     </script>
 </body>
