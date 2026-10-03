@@ -758,6 +758,56 @@
             display: block;
         }
 
+        .iot-next-task {
+            position: fixed;
+            z-index: 1100;
+            left: 1rem;
+            top: 50vh;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+            font: 600 .9rem/1 var(--font-body);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-50%) translateX(-8px);
+            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+        }
+
+        .iot-next-task.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50%);
+        }
+
+        .iot-next-task:disabled {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            color: var(--text-muted);
+            cursor: default;
+        }
+
+        .iot-page-next {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            margin: 0 0 1.5rem;
+        }
+
+        .iot-page-next-bottom {
+            margin: 1.5rem 0 0;
+        }
+
+        @media (max-width: 600px) {
+            .iot-next-task { left: .6rem; padding: .75rem .85rem; font-size: .8rem; }
+        }
+
         .iot-document-frame {
             width: 100%;
             min-height: 80vh;
@@ -1296,6 +1346,7 @@
                 <button class="btn-secondary" type="button" onclick="closeIotTaskOne()" style="margin-bottom: 2rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to IoT
                 </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
                 <div class="web-control-hero" style="margin-bottom: 1.25rem;">
                     <span class="web-control-kicker"><i class="fa-solid fa-wifi"></i> Task 1 · ESP32</span>
                     <h2 class="web-control-title">HTTP LED Web Control</h2>
@@ -1306,54 +1357,63 @@
                     src="iot-task1-content.html?v=6"
                     title="Task 1: HTTP LED Web Control"
                     onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
             </div>
 
             <div id="iotTaskTwoView" class="iot-detail-view">
                 <button class="btn-secondary" type="button" onclick="closeIotTaskTwo()" style="margin-bottom: 2rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to IoT
                 </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
                 <div class="web-control-hero" style="margin-bottom: 1.25rem;">
                     <span class="web-control-kicker"><i class="fa-solid fa-cloud"></i> Task 2 · MQTT</span>
                     <h2 class="web-control-title">MQTT Cloud Dashboard with Relay Control</h2>
                     <p class="web-control-lead">Control a relay connected to an ESP32 through an Adafruit IO dashboard and MQTT messaging.</p>
                 </div>
                 <iframe class="iot-document-frame" src="iot-task2-content.html?v=5" title="Task 2: MQTT Cloud Dashboard with Relay Control details" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
             </div>
 
             <div id="iotTaskThreeView" class="iot-detail-view">
                 <button class="btn-secondary" type="button" onclick="closeIotTaskThree()" style="margin-bottom: 2rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to IoT
                 </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
                 <div class="web-control-hero" style="margin-bottom: 1.25rem;">
                     <span class="web-control-kicker"><i class="fa-solid fa-microphone"></i> Task 3 · Voice automation</span>
                     <h2 class="web-control-title">Voice Control with Google Assistant and IFTTT</h2>
                     <p class="web-control-lead">Add hands-free control to the MQTT relay system through voice triggers, IFTTT automation, and Adafruit IO.</p>
                 </div>
                 <iframe class="iot-document-frame" src="iot-task3-content.html?v=3" title="Task 3: Voice Control project details" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
             </div>
 
             <div id="iotTaskFourView" class="iot-detail-view">
                 <button class="btn-secondary" type="button" onclick="closeIotTaskFour()" style="margin-bottom: 2rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to IoT
                 </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
                 <div class="web-control-hero" style="margin-bottom: 1.25rem;">
                     <span class="web-control-kicker"><i class="fa-solid fa-table-columns"></i> Task 4 · Dashboard UI</span>
                     <h2 class="web-control-title">Smart Home Monitoring Dashboard</h2>
                     <p class="web-control-lead">A clear web interface for checking live sensor readings and controlling the ESP32 relay from one place.</p>
                 </div>
                 <iframe class="iot-document-frame" src="iot-task4-content.html?v=4" title="Task 4: Smart Home Dashboard UI" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
             </div>
 
             <div id="iotTaskFiveView" class="iot-detail-view">
                 <button class="btn-secondary" type="button" onclick="closeIotTaskFive()" style="margin-bottom: 2rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to IoT
                 </button>
+                <button class="btn-primary iot-page-next" type="button" disabled>All tasks complete <i class="fa-solid fa-check" aria-hidden="true"></i></button>
                 <div class="web-control-hero" style="margin-bottom: 1.25rem;">
                     <span class="web-control-kicker"><i class="fa-solid fa-microchip"></i> Task 5 · Arduino Integration</span>
                     <h2 class="web-control-title">ESP32 Smart Home Integration</h2>
                     <p class="web-control-lead">Sensors, Firebase, the dashboard, and relay control working together as one connected IoT system.</p>
                 </div>
                 <iframe class="iot-document-frame" src="iot-task5-content.html?v=2" title="Task 5: Arduino Integration project details" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" disabled>All tasks complete <i class="fa-solid fa-check" aria-hidden="true"></i></button>
             </div>
 
         </div>
@@ -1389,6 +1449,9 @@
     </footer>
 
     <div class="interactive-cursor" id="interactiveCursor" aria-hidden="true"></div>
+    <button class="iot-next-task" id="iotNextTask" type="button" aria-label="Go to the next IoT task">
+        Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </button>
 
     <script>
         function toggleTheme() {
@@ -1524,6 +1587,44 @@
             iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        const iotTaskViews = [
+            'iotTaskOneView', 'iotTaskTwoView', 'iotTaskThreeView', 'iotTaskFourView', 'iotTaskFiveView'
+        ].map(id => document.getElementById(id));
+        const iotNextTaskButton = document.getElementById('iotNextTask');
+
+        function getActiveIotTaskIndex() {
+            return iotTaskViews.findIndex(view => view.classList.contains('active'));
+        }
+
+        function updateIotNextTask() {
+            const taskIndex = getActiveIotTaskIndex();
+            const taskBounds = taskIndex >= 0 ? iotTaskViews[taskIndex].getBoundingClientRect() : null;
+            const taskIsVisible = taskBounds && taskBounds.bottom > 120 && taskBounds.top < window.innerHeight - 120;
+            const showButton = taskIndex >= 0 && window.scrollY > 300 && taskIsVisible;
+            iotNextTaskButton.classList.toggle('visible', showButton);
+            iotNextTaskButton.disabled = taskIndex === iotTaskViews.length - 1;
+            iotNextTaskButton.innerHTML = taskIndex === iotTaskViews.length - 1
+                ? 'Last task <i class="fa-solid fa-check" aria-hidden="true"></i>'
+                : `Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>`;
+        }
+
+        function openNextIotTask() {
+            const taskIndex = getActiveIotTaskIndex();
+            if (taskIndex < 0 || taskIndex >= iotTaskViews.length - 1) return;
+            iotTaskViews[taskIndex].classList.remove('active');
+            const nextView = iotTaskViews[taskIndex + 1];
+            nextView.classList.add('active');
+            nextView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            updateIotNextTask();
+        }
+
+        iotNextTaskButton.addEventListener('click', openNextIotTask);
+        window.addEventListener('scroll', updateIotNextTask, { passive: true });
+        document.addEventListener('mousemove', (event) => {
+            iotNextTaskButton.style.top = `${Math.min(Math.max(event.clientY, 64), window.innerHeight - 64)}px`;
+            updateIotNextTask();
+        });
+
         function styleIotDocument(frame) {
             const doc = frame.contentDocument;
             if (!doc) return;
@@ -1653,7 +1754,7 @@
         }
 
         const interactiveCursor = document.getElementById('interactiveCursor');
-        const interactiveElements = document.querySelectorAll('.btn-primary, .btn-secondary, .theme-toggle, .menu-toggle, .week-document-button, .program-trigger-card');
+        const interactiveElements = document.querySelectorAll('.btn-primary, .btn-secondary, .theme-toggle, .menu-toggle, .week-document-button, .program-trigger-card, .iot-next-task');
         document.addEventListener('mousemove', (event) => {
             interactiveCursor.style.left = `${event.clientX}px`;
             interactiveCursor.style.top = `${event.clientY}px`;
