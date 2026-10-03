@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 4: Smart Home Dashboard UI</title>
+    <style>
+        :root { color-scheme: light; --ink: #17251f; --muted: #718078; --line: #e3ebe6; --green: #198b62; }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: #f4f7f5; color: var(--ink); font: 15px/1.6 Inter, "Segoe UI", Arial, sans-serif; }
+        .page { max-width: 1000px; margin: auto; padding: clamp(20px, 4vw, 40px); }
+        .eyebrow { color: var(--green); font-size: 12px; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+        h1 { margin: 8px 0 10px; font-size: clamp(28px, 5vw, 42px); letter-spacing: -.04em; }
+        .intro { max-width: 720px; margin: 0; color: #59685f; }
+        .dashboard { margin: 28px 0; padding: clamp(16px, 3vw, 28px); border: 1px solid var(--line); border-radius: 22px; background: #fff; box-shadow: 0 16px 45px #1731260c; }
+        .dash-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+        .dash-head h2 { margin: 0; font-size: 19px; }
+        .online { display: inline-flex; align-items: center; gap: 8px; color: #16754f; font-size: 13px; font-weight: 700; }
+        .online::before { width: 8px; height: 8px; border-radius: 50%; background: #27b47b; content: ""; box-shadow: 0 0 0 4px #27b47b1c; }
+        .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+        .metric { min-height: 142px; padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(145deg, #fff, #f8fbf9); }
+        .metric-label { color: var(--muted); font-size: 13px; }
+        .metric-value { margin: 12px 0 2px; font-size: clamp(26px, 4vw, 34px); font-weight: 750; letter-spacing: -.04em; }
+        .metric-note { color: #819087; font-size: 12px; }
+        .lower { display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; margin-top: 14px; }
+        .panel { padding: 18px; border: 1px solid var(--line); border-radius: 16px; }
+        .panel h3 { margin: 0 0 12px; font-size: 15px; }
+        .relay-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .relay-state { padding: 6px 11px; border-radius: 999px; background: #e9f7ef; color: #16754f; font-size: 12px; font-weight: 750; }
+        .switch { width: 42px; height: 24px; padding: 3px; border: 0; border-radius: 99px; background: var(--green); }
+        .switch::after { display: block; width: 18px; height: 18px; margin-left: auto; border-radius: 50%; background: white; content: ""; }
+        .system-line { color: #68776e; font-size: 13px; }
+        .note { margin: 10px 0 0; color: #66756c; font-size: 13px; }
+        .section-title { margin: 30px 0 8px; font-size: 21px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+        .feature { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+        .feature strong { display: block; margin-bottom: 5px; }
+        .feature p { margin: 0; color: #65736b; font-size: 13px; }
+        @media (max-width: 650px) { .metrics, .feature-grid { grid-template-columns: 1fr; } .lower { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <div class="eyebrow">Task 4 · Interface design</div>
+        <h1>Smart Home Dashboard</h1>
+        <p class="intro">The dashboard brings environmental readings and appliance control into one simple view. Its layout is designed to make the system state easy to scan on a desktop or phone.</p>
+
+        <section class="dashboard" aria-label="Illustrative smart home dashboard preview">
+            <div class="dash-head">
+                <h2>Home overview</h2>
+                <span class="online">ESP32 connected</span>
+            </div>
+            <div class="metrics">
+                <article class="metric"><div class="metric-label">Temperature</div><div class="metric-value">24.8°</div><div class="metric-note">Celsius · DHT11</div></article>
+                <article class="metric"><div class="metric-label">Humidity</div><div class="metric-value">56%</div><div class="metric-note">Relative humidity · DHT11</div></article>
+                <article class="metric"><div class="metric-label">Light level</div><div class="metric-value">68%</div><div class="metric-note">Ambient reading · LDR</div></article>
+            </div>
+            <div class="lower">
+                <div class="panel">
+                    <h3>Appliance control</h3>
+                    <div class="relay-row"><span>Room lamp</span><span class="relay-state">ON</span><button class="switch" type="button" aria-label="Illustrative relay switch, currently on" aria-pressed="true"></button></div>
+                    <p class="note">Relay state is shown separately from the sensor readings.</p>
+                </div>
+                <div class="panel">
+                    <h3>System status</h3>
+                    <div class="system-line">Last update <strong>just now</strong></div>
+                    <div class="system-line">Data service <strong>Firebase</strong></div>
+                    <div class="system-line">Refresh interval <strong>2 seconds</strong></div>
+                </div>
+            </div>
+            <p class="note">Dashboard preview with illustrative readings.</p>
+        </section>
+
+        <h2 class="section-title">Dashboard and hardware connection</h2>
+        <p>The ESP32 gathers temperature and humidity from a DHT11 sensor and ambient light from an LDR. It samples the sensors every two seconds and smooths the light readings to reduce small fluctuations. Readings travel over Wi-Fi to Firebase, where the web dashboard can display them.</p>
+        <p>Relay commands travel back through Firebase to the ESP32, which switches the connected appliance. The relay in this setup is active-LOW: a LOW GPIO signal activates it, and a HIGH signal deactivates it. The dashboard keeps sensor readings, connection status, and relay state in separate areas so each is easy to understand.</p>
+        <div class="panel system-line" style="margin-top:14px;padding:16px;">
+            <strong>Data flow</strong><br>
+            Sensors → ESP32 → Wi-Fi → Firebase → Dashboard<br>
+            Dashboard → Firebase → ESP32 → Relay → Appliance
+        </div>
+        <h2 class="section-title">Design focus</h2>
+        <p>The interface groups temperature, humidity, and light into consistent metric cards, then gives relay control its own panel. Connection and update details remain visible so a user can distinguish sensor information from appliance state. Responsive spacing keeps the same hierarchy on smaller screens.</p>
+        <div class="feature-grid">
+            <article class="feature"><strong>At-a-glance readings</strong><p>Three sensor values use clear labels, units, and a consistent visual scale.</p></article>
+            <article class="feature"><strong>Direct device control</strong><p>The relay control is paired with an explicit ON state and device label.</p></article>
+            <article class="feature"><strong>Connected system</strong><p>ESP32 and Firebase status provide context for the data shown in the dashboard.</p></article>
+        </div>
+            <h2 class="section-title">Dashboard preview</h2>
+        <figure>
+            <img src="images/IOT/task4/task4webpage2.png" alt="Smart home dashboard showing live temperature, humidity, light, and relay controls" loading="lazy">
+            <figcaption>Smart home dashboard interface with sensor readings and appliance controls.</figcaption>
+        </figure>
+            <h2 class="section-title">More dashboard screens and hardware</h2>
+        <figure>
+            <img src="images/IOT/task4/task4webpage.png" alt="Task 4 smart home dashboard sign-in screen" loading="lazy">
+            <figcaption>Sign-in screen for the smart home dashboard.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/IOT/task4/task4webpage3.png" alt="Task 4 dashboard appliance settings and manual control screen" loading="lazy">
+            <figcaption>Manual appliance controls and device settings.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/IOT/task4/task4webpage5.png" alt="Task 4 dashboard recent readings and sensor analytics chart" loading="lazy">
+            <figcaption>Recent sensor readings and analytics chart.</figcaption>
+        </figure>
+        <figure>
+            <img src="images/IOT/task4/task%204%20and%205.jpeg" alt="ESP32, sensors, relay, and lamp wired as the smart home hardware prototype" loading="lazy">
+            <figcaption>Hardware prototype with the ESP32, sensors, relay module, and lamp.</figcaption>
+        </figure>
+            <section class="task4-documentation">
+            <h2 class="section-title">IoT Session — Task 4: Forge Web Dashboard</h2>
+
+            <h3>1. Overview</h3>
+            <h4>Objective</h4>
+            <p>The goal of this task is to create a responsive three-page dashboard for Forge using HTML, CSS, and JavaScript. The dashboard allows users to view sensor readings and control a bulb from different screen sizes.</p>
+            <h4>Problem Being Addressed</h4>
+            <p>In earlier tasks, the ESP32 was controlled through a local web page, an Adafruit IO dashboard, and Google Assistant. None of these provided Forge with its own dedicated interface. This task creates a single, clean place for sign-in, live monitoring, bulb control, mode selection, and data download.</p>
+            <p>This interface is built before the hardware is connected. Firebase is set up through a placeholder configuration file, and the real values are added in Task 5.</p>
+            <h4>Project Summary</h4>
+            <p>This project is a three-page web app: a landing page, a login page, and a dashboard. The dashboard displays live temperature, humidity, and light values, includes an animated bulb toggle, provides manual and automatic modes, has a light-sensitivity slider, shows a history table, and supports CSV export.</p>
+            <p><strong>Basic operation:</strong> User &rarr; Landing Page &rarr; Login Page &rarr; Dashboard &rarr; Firebase Realtime Database</p>
+
+            <h3>2. Concepts</h3>
+            <h4>Dashboard</h4>
+            <p>The web page used to see the sensor data and control the bulb. Here it is a small three-page web app, built on its own before any hardware is connected.</p>
+            <h4>Three-Page Web App</h4>
+            <p>A landing page announcing Forge, a login page, and the dashboard itself.</p>
+            <h4>HTML, CSS and JavaScript</h4>
+            <p>The three languages of every web page: HTML is the structure, CSS is the look, JavaScript is the behaviour. Forge uses only these, with no framework.</p>
+            <h4>State Management</h4>
+            <p>Keeping track of what the page currently knows, for example whether the bulb toggle is a manual command or the automatic mode's decision.</p>
+            <h4>Mode Selector</h4>
+            <p>The control that switches between manual and automatic.</p>
+            <h4>Light-Sensitivity Slider</h4>
+            <p>The slider that sets the threshold (0–4095) used in automatic mode.</p>
+            <h4>History Table</h4>
+            <p>The list of the latest recorded readings.</p>
+            <h4>CSV Export</h4>
+            <p>One click downloads the recorded temperature, humidity and light as a spreadsheet file.</p>
+            <h4>Input Validation</h4>
+            <p>Checking what a user types before it is used, so bad values never reach the database.</p>
+            <h4>Loading and Error States</h4>
+            <p>What the page shows while data is still arriving, and what it says when something goes wrong, instead of a blank screen.</p>
+            <h4>Responsive CSS</h4>
+            <p>Styles that adapt to the screen size. The dashboard was tested on phone, tablet and desktop.</p>
+            <h4>Transition Animation</h4>
+            <p>A short smooth change between two states. Without it the toggle felt dead; with it the same response felt instant.</p>
+            <h4>Perceived Performance</h4>
+            <p>How fast something feels rather than how fast it is. Users do not care about the stack, they care that clicking ON turns the light on.</p>
+
+            <h3>3. System Design</h3>
+            <h4>System Architecture</h4>
+            <p>The complete system contains four major elements:</p>
+            <p><strong>User &rarr; Web Dashboard (Browser) &rarr; Firebase (Auth + Realtime Database) &rarr; ESP32 &rarr; Bulb</strong></p>
+            <p>In this task only the first two parts are built and checked. The Firebase and ESP32 connection is completed in Task 5.</p>
+            <h4>Data Flow</h4>
+            <ol>
+                <li>The user opens the landing page and selects <strong>Sign in</strong>.</li>
+                <li>The login page validates the email and password and signs in with Firebase Authentication (or Google).</li>
+                <li>If the user is already signed in, the login page redirects straight to the dashboard.</li>
+                <li>The dashboard checks the sign-in state and redirects to the login page if nobody is signed in.</li>
+                <li>Real-time listeners read the bulb state, settings and latest 20 readings from the database.</li>
+                <li>The page redraws cards, bulb, mode and history table whenever data changes.</li>
+                <li>The user toggles the bulb, changes the mode or moves the slider; the change is written to the database.</li>
+                <li>The user can export up to the latest 5000 readings as a CSV file</li>
+            </ol>
+        </section>
+    </main>
+</body>
+</html>

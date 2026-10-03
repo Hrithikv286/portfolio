@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f7f5">
+    <title>Task 5: Arduino Integration</title>
+    <style>
+        :root { color-scheme: light; --ink: #17251f; --muted: #637169; --line: #dfe8e3; --green: #198b62; --wash: #f4f7f5; }
+        * { box-sizing: border-box; }
+        body { margin: 0; background: var(--wash); color: var(--ink); font: 16px/1.72 Inter, "Segoe UI", Arial, sans-serif; }
+        .page { width: min(100%, 1080px); margin: 0 auto; padding: clamp(22px, 4vw, 48px); }
+        .eyebrow { color: var(--green); font-size: .76rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+        h1 { max-width: 850px; margin: .45rem 0 .8rem; font-size: clamp(2.2rem, 6vw, 3.7rem); line-height: 1.08; letter-spacing: -.045em; }
+        h2 { margin: 2.5rem 0 .65rem; font-size: clamp(1.45rem, 3vw, 1.9rem); line-height: 1.2; letter-spacing: -.025em; }
+        h3 { margin: 0 0 .35rem; font-size: 1rem; }
+        p { margin: .55rem 0 1rem; color: #46564d; }
+        .lede { max-width: 800px; margin: 0; color: #56665d; font-size: 1.08rem; }
+        .hero, .card { border: 1px solid var(--line); border-radius: 20px; background: #fff; box-shadow: 0 14px 40px #1731260b; }
+        .hero { margin: 1.7rem 0 2rem; padding: clamp(18px, 3vw, 30px); }
+        .flow { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); align-items: center; gap: .55rem; }
+        .node { min-height: 74px; display: grid; place-items: center; padding: .7rem; border: 1px solid var(--line); border-radius: 13px; background: #f8fbf9; text-align: center; font-size: .9rem; font-weight: 700; }
+        .arrow { color: var(--green); text-align: center; font-weight: 800; }
+        .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+        .card { padding: 18px; }
+        .card p:last-child { margin-bottom: 0; }
+        .tag { display: inline-block; margin-bottom: .55rem; color: var(--green); font-size: .75rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
+        .list { margin: .4rem 0 0; padding-left: 1.25rem; color: #46564d; }
+        .list li { margin: .35rem 0; padding-left: .2rem; }
+        .callout { margin: 1.2rem 0; padding: 1rem 1.15rem; border-left: 3px solid var(--green); border-radius: 0 12px 12px 0; background: #eaf4ef; color: #405248; }
+        .gallery { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; margin-top: 1rem; }
+        figure { min-width: 0; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: #fff; box-shadow: 0 14px 36px #1731260c; }
+        .photo-frame { display: grid; place-items: center; height: clamp(250px, 34vw, 390px); padding: 14px; overflow: hidden; background: radial-gradient(ellipse at center, #fff 0%, #edf3ef 100%); }
+        .photo-frame img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; border-radius: 10px; object-fit: contain; transition: transform .3s ease; }
+        .photo-frame:hover img { transform: scale(1.025); }
+        figcaption { padding: .9rem 1rem 1rem; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+        .video-card { width: min(100%, 900px); margin: 1rem auto 0; padding: 12px; }
+        .video-card video { display: block; width: 100%; height: auto; max-height: min(72vh, 680px); aspect-ratio: 16 / 9; border-radius: 12px; background: #101613; object-fit: contain; }
+        .report-frame { display: block; width: 100%; height: min(78vh, 900px); min-height: 620px; margin-top: 1rem; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+        .asset-link { color: var(--green); font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+        .pin-table { width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 12px; }
+        .pin-table th, .pin-table td { padding: .7rem .8rem; border-bottom: 1px solid var(--line); text-align: left; }
+        .pin-table th { background: #edf4f0; color: #35483d; font-size: .88rem; }
+        .pin-table td { color: #46564d; }
+        .pin-table tr:last-child td { border-bottom: 0; }
+        @media (max-width: 680px) {
+            .flow { grid-template-columns: 1fr; gap: .3rem; }
+            .node { min-height: 52px; }
+            .arrow { transform: rotate(90deg); }
+            .grid, .gallery { grid-template-columns: 1fr; }
+            .gallery { gap: 14px; }
+            .photo-frame { height: clamp(230px, 72vw, 360px); padding: 10px; }
+            .photo-frame img { max-width: 100%; max-height: 100%; }
+            .video-card { padding: 8px; border-radius: 14px; }
+            .video-card video { max-height: 70vh; min-height: 220px; }
+            .pin-table th, .pin-table td { padding: .6rem .5rem; font-size: .9rem; }
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+    <header>
+        <div class="eyebrow">IoT project · Task 5 · Forge</div>
+        <h1>Firebase &amp; Real-Time Integration</h1>
+        <p class="lede">A complete ESP32 smart-home loop: environmental sensors send readings to Firebase, while the web dashboard sends control settings back to the device.</p>
+    </header>
+
+    <section class="hero" aria-label="System data flow">
+        <div class="flow">
+            <div class="node">DHT11 + LDR<br>Environment</div><div class="arrow" aria-hidden="true">→</div>
+            <div class="node">ESP32<br>Arduino firmware</div><div class="arrow" aria-hidden="true">→</div>
+            <div class="node">Firebase<br>Realtime Database</div>
+        </div>
+        <div class="flow" style="margin-top:.55rem">
+            <div class="node">Dashboard<br>Live readings</div><div class="arrow" aria-hidden="true">←</div>
+            <div class="node">Firebase<br>Settings &amp; control</div><div class="arrow" aria-hidden="true">→</div>
+            <div class="node">ESP32 → Relay → Bulb</div>
+        </div>
+    </section>
+
+    <h2>Project overview</h2>
+    <p>The ESP32 reads temperature and humidity from a DHT11 and ambient light from an LDR. It uploads each reading to Firebase, where the Task 4 dashboard updates live. In the other direction, the ESP32 reads the dashboard's control mode and light threshold, then switches a relay-connected bulb manually or automatically.</p>
+    <div class="grid">
+        <article class="card"><span class="tag">01 · Sensors &amp; relay</span><h3>Prepare the physical system</h3><p>Connect and verify the DHT11, LDR voltage divider, relay, and bulb load with the ESP32.</p></article>
+        <article class="card"><span class="tag">02 · Firebase backend</span><h3>Configure cloud access</h3><p>Set up Firebase Authentication and Realtime Database for authorized users, device settings, and sensor records.</p></article>
+        <article class="card"><span class="tag">03 · Integration</span><h3>Close the feedback loop</h3><p>Connect the ESP32, Firebase, and Task 4 dashboard so readings and control changes flow in both directions.</p></article>
+        <article class="card"><span class="tag">01 · Hardware</span><h3>Sensor and relay wiring</h3><p>DHT11, LDR voltage divider, relay module, bulb load, breadboard, and jumper wires connect to the ESP32.</p></article>
+        <article class="card"><span class="tag">02 · Cloud</span><h3>Firebase connection</h3><p>Firebase Authentication identifies the user, while Realtime Database stores device settings and timestamped sensor readings.</p></article>
+        <article class="card"><span class="tag">03 · Firmware</span><h3>Arduino integration</h3><p>The ESP32 joins Wi-Fi, reads settings, samples sensors, selects the relay state, and publishes fresh data on a roughly two-second cycle.</p></article>
+        <article class="card"><span class="tag">04 · Dashboard</span><h3>Live control and monitoring</h3><p>The web interface presents temperature, humidity, light level, connection state, history, export, and manual or automatic bulb control.</p></article>
+    </div>
+
+    <h2>Pin configuration</h2>
+    <div class="card">
+        <table class="pin-table">
+            <thead><tr><th>Component signal</th><th>ESP32 connection</th></tr></thead>
+            <tbody>
+                <tr><td>DHT11 DATA</td><td>GPIO 4</td></tr>
+                <tr><td>LDR analog output</td><td>GPIO 34 (ADC1)</td></tr>
+                <tr><td>Relay IN</td><td>GPIO 26</td></tr>
+                <tr><td>DHT11 power</td><td>3.3 V and GND</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="callout">GPIO 34 is on ADC1, which remains usable while Wi-Fi is active. The LDR and 10 kΩ resistor form a voltage divider; a bare four-pin DHT11 needs a pull-up on its data line.</div>
+
+    <h2>Hardware and software</h2>
+    <div class="grid">
+        <article class="card"><h3>Hardware used</h3><ul class="list"><li>ESP32 development board and USB cable</li><li>DHT11 temperature and humidity sensor</li><li>LDR and 10 kΩ resistor</li><li>5 V relay module with bulb load</li><li>Breadboard and jumper wires</li><li>Wi-Fi router or mobile hotspot</li></ul></article>
+        <article class="card"><h3>Software and services</h3><ul class="list"><li>Arduino IDE and ESP32 Arduino core</li><li>DHT Sensor and Adafruit Unified Sensor libraries</li><li>Firebase Arduino Client Library by Mobizt</li><li>Firebase Authentication and Realtime Database</li><li>HTML, CSS, JavaScript dashboard</li><li>Python local HTTP server and Chrome for local preview</li></ul></article>
+    </div>
+
+    <h2>Firmware and data handling</h2>
+    <div class="grid">
+        <article class="card"><h3>Sensor sampling</h3><p>The DHT11 is sampled at its supported interval of about two seconds. The ESP32 takes 15 LDR samples and averages them to soften noisy analog readings (12-bit ADC range: 0–4095).</p></article>
+        <article class="card"><h3>Manual and automatic modes</h3><p>Manual mode follows the bulb command stored in Firebase. Automatic mode compares the averaged light reading with the configured threshold and controls the relay accordingly.</p></article>
+        <article class="card"><h3>Database records</h3><p>The database keeps user bulb control, operating mode, light threshold, and timestamp-keyed readings. Each reading includes temperature, humidity, light intensity, and relay state.</p></article>
+        <article class="card"><h3>Libraries and tools</h3><p>Arduino IDE, ESP32 Arduino core, DHT sensor and Adafruit Unified Sensor libraries, Firebase Arduino Client Library by Mobizt, Firebase Authentication, and Realtime Database.</p></article>
+    </div>
+
+    <h2>Firebase data structure</h2>
+    <p>Timestamp-keyed readings retain a history for the dashboard. Authentication identifies authorized users, and database rules control access to user controls and shared settings.</p>
+    <div class="grid">
+        <article class="card"><h3>Control and settings</h3><ul class="list"><li><code>users/&lt;uid&gt;/bulb</code> — user's bulb command</li><li><code>settings/mode</code> — manual or automatic mode</li><li><code>settings/threshold</code> — light trigger threshold</li></ul></article>
+        <article class="card"><h3>Sensor history</h3><ul class="list"><li><code>readings/&lt;unix time&gt;</code> — timestamped record</li><li>Temperature and humidity</li><li>Light intensity and relay state</li></ul></article>
+    </div>
+
+    <h2>Dashboard capabilities</h2>
+    <div class="card"><ul class="list"><li>Google sign-in and authenticated access</li><li>Live temperature, humidity, and light readings</li><li>Manual bulb ON/OFF and automatic operating mode</li><li>Adjustable light threshold and historical readings</li><li>CSV export and connection status</li></ul><p style="margin-top:1rem">For a local preview, serve the project folder with <code>python -m http.server 8000</code>.</p></div>
+
+    <h2>Observed results and implementation notes</h2>
+    <div class="grid">
+        <article class="card"><h3>Reported test timing</h3><ul class="list"><li>Sensor reading interval: about 2 seconds</li><li>Dashboard synchronization: about 1–2 seconds</li><li>Relay response: about 10 ms</li><li>Firebase database reads: about 50–200 ms</li><li>Realtime stream updates: generally under 1 second</li></ul></article>
+        <article class="card"><h3>Challenges addressed</h3><ul class="list"><li>Smoothed noisy LDR readings with 15-sample averaging</li><li>Kept DHT11 sampling to its supported interval</li><li>Used ADC1 GPIO34 to avoid ADC2 and Wi-Fi conflicts</li><li>Used a flatter Firebase structure for easier access</li><li>Placed the relay OFF when Wi-Fi or Firebase is unavailable</li></ul></article>
+    </div>
+
+    <h2>Project photos</h2>
+    <p>Photos from the Task 5 build and connected system.</p>
+    <div class="gallery">
+        <figure><a class="photo-frame" href="images/IOT/task5/task%204%20and%205.jpeg" target="_blank" rel="noopener noreferrer"><img src="images/IOT/task5/task%204%20and%205.jpeg" alt="ESP32 smart-home hardware setup for IoT Tasks 4 and 5" loading="lazy"></a><figcaption>ESP32, sensors, and relay hardware used for the integrated smart-home project. <a class="asset-link" href="images/IOT/task5/task%204%20and%205.jpeg" target="_blank" rel="noopener noreferrer">Open image</a></figcaption></figure>
+        <figure><a class="photo-frame" href="images/IOT/task5/task4webpage5.png" target="_blank" rel="noopener noreferrer"><img src="images/IOT/task5/task4webpage5.png" alt="Smart-home dashboard screen used with the Task 5 integration" loading="lazy"></a><figcaption>Dashboard view connected to the Firebase and ESP32 integration. <a class="asset-link" href="images/IOT/task5/task4webpage5.png" target="_blank" rel="noopener noreferrer">Open image</a></figcaption></figure>
+    </div>
+
+    <h2>System demonstration</h2>
+    <p>Video recorded during the Task 5 demonstration.</p>
+    <figure class="video-card">
+        <video controls preload="metadata" playsinline aria-label="Task 5 Arduino and ESP32 system demonstration">
+            <source src="images/IOT/task5/WhatsApp%20Video%202026-09-29%20at%203.02.39%20PM.mp4" type="video/mp4">
+            Your browser does not support embedded video. Please open the MP4 file directly.
+        </video>
+        <figcaption>ESP32 hardware and dashboard demonstration for Arduino Integration. <a class="asset-link" href="images/IOT/task5/WhatsApp%20Video%202026-09-29%20at%203.02.39%20PM.mp4" target="_blank" rel="noopener noreferrer">Open video file</a></figcaption>
+    </figure>
+
+    <h2>Task 5 project document</h2>
+    <p>Read the original project report, including the objective, implementation, testing, and final outcome. <a class="asset-link" href="images/IOT/task5/Untitleddocument.html" target="_blank" rel="noopener noreferrer">Open the full document in a new tab</a>.</p>
+    <iframe class="report-frame" src="images/IOT/task5/Untitleddocument.html" title="Task 5: Forge Firebase and Real-Time Integration report" loading="lazy"></iframe>
+
+    <h2>Outcome</h2>
+    <p>The completed system links physical sensing, cloud storage, and web control. Sensor readings reach the dashboard in near real time, and relay commands travel back to the ESP32. If Wi-Fi or Firebase communication is lost, the firmware places the relay in the OFF state.</p>
+    <p>The project demonstrates how embedded sensors, cloud databases, authentication, and a web interface can operate as one system. It also highlights the value of filtering noisy sensor data and using realtime listeners to keep the dashboard current without page refreshes.</p>
+</main>
+</body>
+</html>

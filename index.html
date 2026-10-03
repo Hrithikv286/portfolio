@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,6 +81,10 @@
             max-width: 1300px;
             margin: 0 auto;
             padding: 0 5vw;
+        }
+
+        #projects > .container:has(#iotTaskOneView.active) {
+            max-width: 1800px;
         }
 
         section {
@@ -569,7 +572,7 @@
         }
 
         /* Protosem View Styles */
-        .protosem-trigger-card {
+        .program-trigger-card {
             cursor: pointer;
             border: 2px dashed var(--accent);
             background: var(--bg-card);
@@ -578,10 +581,35 @@
             text-align: center;
             transition: var(--transition);
             margin-top: 2rem;
+            width: 100%;
+            font: inherit;
+            color: inherit;
         }
-        .protosem-trigger-card:hover {
+        .program-trigger-card:hover,
+        .program-trigger-card:focus-visible {
             background: var(--border-color);
             transform: translateY(-3px);
+            outline: none;
+        }
+
+        .iot-trigger-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            width: fit-content;
+            margin: 1.25rem auto 0;
+            padding: 0.8rem 1.25rem;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 999px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .iot-trigger-card i {
+            color: var(--accent);
+            font-size: 1.1rem;
         }
 
         .protosem-view {
@@ -661,6 +689,205 @@
         .week-card p {
             font-size: 0.9rem;
             color: var(--text-muted);
+        }
+
+        .iot-showcase {
+            background: radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 38%), var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: clamp(1.75rem, 5vw, 4rem);
+            overflow: hidden;
+        }
+
+        .iot-showcase-title {
+            font-family: var(--font-body);
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 500;
+            letter-spacing: -0.055em;
+            line-height: 1;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .iot-showcase-intro {
+            max-width: 900px;
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            line-height: 1.65;
+        }
+
+        .iot-task-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .iot-task-tab {
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+            padding: 0.85rem 1.35rem;
+        }
+
+        .iot-task-tab:hover,
+        .iot-task-tab:focus-visible,
+        .iot-task-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            outline: none;
+        }
+
+        .iot-task-detail {
+            min-height: 3.5rem;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .iot-detail-view {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .iot-detail-view.active {
+            display: block;
+        }
+
+        .iot-document-frame {
+            width: 100%;
+            min-height: 80vh;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            background: #fff;
+            cursor: auto !important;
+        }
+
+        .web-control-hero {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 15%, var(--bg-card)), var(--bg-card));
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: clamp(1.75rem, 5vw, 4rem);
+        }
+
+        .web-control-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .web-control-title {
+            font-family: var(--font-body);
+            font-size: clamp(2.5rem, 6vw, 4.8rem);
+            letter-spacing: -0.05em;
+            line-height: 1;
+            margin: 1rem 0;
+        }
+
+        .web-control-lead {
+            max-width: 850px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.75;
+        }
+
+        .web-control-stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .web-control-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.5rem;
+        }
+
+        .web-control-card h3 {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .web-control-card ul {
+            display: grid;
+            gap: 0.75rem;
+            list-style: disc inside;
+            color: var(--text-muted);
+        }
+
+        .web-control-code {
+            background: #101313;
+            border-radius: 12px;
+            color: #d9e5e2;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            padding: 1.25rem;
+        }
+
+        .web-control-code .code-accent { color: #ff8a5c; }
+
+        .web-control-screenshot {
+            margin: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .web-control-gallery {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(220px, 0.65fr);
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .web-control-screenshot img {
+            display: block;
+            width: 100%;
+            max-height: 720px;
+            object-fit: contain;
+            background: #101313;
+        }
+
+        .web-control-screenshot figcaption {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 0.85rem 1.1rem;
+        }
+
+        .web-control-build-photo img {
+            height: min(520px, 45vw);
+            object-fit: cover;
+        }
+
+        .web-control-cloud-photo {
+            width: min(100%, 520px);
+            margin: 1.25rem auto 0 !important;
+        }
+
+        .web-control-cloud-photo img {
+            height: auto;
+            max-height: 680px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 760px) {
+            .web-control-stack { grid-template-columns: 1fr; }
+            .web-control-gallery { grid-template-columns: 1fr; }
+            .web-control-build-photo img { height: auto; object-fit: contain; }
         }
 
         .week-document-button {
@@ -986,6 +1213,10 @@
         <div class="container">
             <span class="project-category">Portfolio Showcase</span>
             <h2 class="section-title">Featured Projects & Programs</h2>
+            <button class="program-trigger-card iot-trigger-card" type="button" onclick="showProgramView('iot')" aria-label="View IoT projects and programs">
+                <i class="fa-solid fa-microchip"></i>
+                <span>Explore IoT</span>
+            </button>
             
             <!-- Main Projects View -->
             <div id="mainProjectsView">
@@ -1018,17 +1249,18 @@
                     </div>
                 </div>
 
-                <!-- Protosem Tab Trigger Card -->
-                <div class="protosem-trigger-card" onclick="toggleProtosemView(true)">
+                <!-- Program Tab Trigger Cards -->
+                <button class="program-trigger-card" type="button" onclick="showProgramView('protosem')">
                     <i class="fa-solid fa-laptop-code" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
                     <h3 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 0.5rem;">Protosem Immersion Program</h3>
                     <p style="color: var(--text-muted); font-size: 0.95rem;">Click here to view week-by-week curriculum and progress tracking from Week 0 to Week 20.</p>
-                </div>
+                </button>
+
             </div>
 
             <!-- Protosem Detailed View (Week 0 to Week 20) -->
             <div id="protosemDetailedView" class="protosem-view">
-                <button class="btn-secondary" onclick="toggleProtosemView(false)" style="margin-bottom: 2rem;">
+                <button class="btn-secondary" onclick="showProgramView()" style="margin-bottom: 2rem;">
                     <i class="fa-solid fa-arrow-left"></i> Back to Projects
                 </button>
                 <span class="project-category">Immersion Program</span>
@@ -1038,6 +1270,90 @@
                 <div class="weeks-grid" id="weeksContainer">
                     <!-- Populated via JavaScript -->
                 </div>
+            </div>
+
+            <!-- IoT Detailed View -->
+            <div id="iotDetailedView" class="protosem-view">
+                <button class="btn-secondary" onclick="showProgramView()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Projects
+                </button>
+                <div class="iot-showcase">
+                    <span class="project-category">Internet of Things</span>
+                    <h2 class="iot-showcase-title">From Prototype to Production</h2>
+                    <p class="iot-showcase-intro">5 tasks, 1 vision — building a smart home from the ground up on an ESP32, from local web control to a voice-controlled, self-monitoring system with production-grade UI and complete Arduino integration.</p>
+                    <div class="iot-task-tabs" role="tablist" aria-label="IoT project tasks">
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskOne()">Task 1: HTTP LED Web Control</button>
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskTwo()">Task 2: MQTT Cloud Dashboard</button>
+                        <button class="iot-task-tab active" type="button" role="tab" aria-selected="true" onclick="openIotTaskThree()">Task 3: Voice Control</button>
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskFour()">Task 4: Dashboard UI</button>
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskFive(this)">Task 5: Arduino Integration</button>
+                    </div>
+                    <p id="iotTaskDetail" class="iot-task-detail" role="tabpanel"><strong>Task 3:</strong> Chains five platforms together for voice automation.</p>
+                </div>
+            </div>
+
+            <div id="iotTaskOneView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskOne()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-wifi"></i> Task 1 · ESP32</span>
+                    <h2 class="web-control-title">HTTP LED Web Control</h2>
+                    <p class="web-control-lead">Control an ESP32 onboard LED from a browser over the local Wi-Fi network using an embedded HTTP server.</p>
+                </div>
+                <iframe
+                    class="iot-document-frame"
+                    src="iot-task1-content.html?v=6"
+                    title="Task 1: HTTP LED Web Control"
+                    onload="styleIotDocument(this)"></iframe>
+            </div>
+
+            <div id="iotTaskTwoView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskTwo()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-cloud"></i> Task 2 · MQTT</span>
+                    <h2 class="web-control-title">MQTT Cloud Dashboard with Relay Control</h2>
+                    <p class="web-control-lead">Control a relay connected to an ESP32 through an Adafruit IO dashboard and MQTT messaging.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task2-content.html?v=5" title="Task 2: MQTT Cloud Dashboard with Relay Control details" onload="styleIotDocument(this)"></iframe>
+            </div>
+
+            <div id="iotTaskThreeView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskThree()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-microphone"></i> Task 3 · Voice automation</span>
+                    <h2 class="web-control-title">Voice Control with Google Assistant and IFTTT</h2>
+                    <p class="web-control-lead">Add hands-free control to the MQTT relay system through voice triggers, IFTTT automation, and Adafruit IO.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task3-content.html?v=3" title="Task 3: Voice Control project details" onload="styleIotDocument(this)"></iframe>
+            </div>
+
+            <div id="iotTaskFourView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskFour()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-table-columns"></i> Task 4 · Dashboard UI</span>
+                    <h2 class="web-control-title">Smart Home Monitoring Dashboard</h2>
+                    <p class="web-control-lead">A clear web interface for checking live sensor readings and controlling the ESP32 relay from one place.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task4-content.html?v=4" title="Task 4: Smart Home Dashboard UI" onload="styleIotDocument(this)"></iframe>
+            </div>
+
+            <div id="iotTaskFiveView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskFive()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-microchip"></i> Task 5 · Arduino Integration</span>
+                    <h2 class="web-control-title">ESP32 Smart Home Integration</h2>
+                    <p class="web-control-lead">Sensors, Firebase, the dashboard, and relay control working together as one connected IoT system.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task5-content.html?v=2" title="Task 5: Arduino Integration project details" onload="styleIotDocument(this)"></iframe>
             </div>
 
         </div>
@@ -1051,42 +1367,22 @@
                     <span class="project-category">Get in Touch</span>
                     <h2 class="section-title">Let's build something great together.</h2>
                     <p style="color: var(--text-muted); margin-top: 1rem;">I am actively looking for internship and career opportunities in mechatronics, robotics, and industrial manufacturing.</p>
-                    
                     <div class="contact-details">
-                        <div class="contact-item">
-                            <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:hrithikv286@gmail.com">hrithikv286@gmail.com</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fa-solid fa-phone"></i>
-                            <a href="tel:8248387615">8248387615</a>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fa-brands fa-linkedin"></i>
-                            <a href="https://www.linkedin.com/in/hrithik-venkatesh-9b936132a?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank">LinkedIn Profile</a>
-                        </div>
+                        <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:hrithikv286@gmail.com">hrithikv286@gmail.com</a></div>
+                        <div class="contact-item"><i class="fa-solid fa-phone"></i><a href="tel:8248387615">8248387615</a></div>
+                        <div class="contact-item"><i class="fa-brands fa-linkedin"></i><a href="https://www.linkedin.com/in/hrithik-venkatesh-9b936132a?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div>
                     </div>
                 </div>
                 <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent.');">
-                    <div class="form-group">
-                        <label>Your Name</label>
-                        <input type="text" placeholder="Enter your name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Your Email</label>
-                        <input type="email" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea rows="4" placeholder="Type your message here..." required></textarea>
-                    </div>
+                    <div class="form-group"><label>Your Name</label><input type="text" placeholder="Enter your name" required></div>
+                    <div class="form-group"><label>Your Email</label><input type="email" placeholder="Enter your email" required></div>
+                    <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Type your message here..." required></textarea></div>
                     <button type="submit" class="btn-primary" style="justify-content: center;">Send Message</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="nav-logo">Hrithik Venkatesh // 2026</div>
         <p class="footer-quote">"Design. Build. Innovate."</p>
@@ -1095,60 +1391,28 @@
     <div class="interactive-cursor" id="interactiveCursor" aria-hidden="true"></div>
 
     <script>
-        // Theme Toggle Functionality
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('themeIcon');
-            if (body.getAttribute('data-theme') === 'light') {
-                body.setAttribute('data-theme', 'dark');
-                themeIcon.className = 'fa-solid fa-sun';
-            } else {
-                body.setAttribute('data-theme', 'light');
-                themeIcon.className = 'fa-solid fa-moon';
-            }
+            const isLight = body.getAttribute('data-theme') === 'light';
+            body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            themeIcon.className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
         }
 
-        // Mobile Menu Toggle
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('active');
+            document.getElementById('mobileMenu').classList.toggle('active');
         }
 
-        // Generate Week 0 to Week 20 cards dynamically
         const weeksContainer = document.getElementById('weeksContainer');
         const weekData = [
-            "<strong>Learned 16 Personalities and Zen Pencils.</strong>",
-            "<strong>Created portfolio and learned 5S methodology.</strong>",
-            ""
+            '<strong>Learned 16 Personalities and Zen Pencils.</strong>',
+            '<strong>Created portfolio and learned 5S methodology.</strong>',
+            ''
         ];
-        const weekTitles = {
-            2: "Learning, Thinking & Building"
-        };
-
-        // Add a Google Docs share link here when each week's document is ready.
-        // Week 0 currently opens the document saved in this portfolio.
+        const weekTitles = { 2: 'Learning, Thinking & Building' };
         const weekDocumentLinks = [
-            "week-0.html", // Week 0
-            "week-1.html", // Week 1
-            "week-2.html", // Week 2
-            "", // Week 3
-            "", // Week 4
-            "", // Week 5
-            "", // Week 6
-            "", // Week 7
-            "", // Week 8
-            "", // Week 9
-            "", // Week 10
-            "", // Week 11
-            "", // Week 12
-            "", // Week 13
-            "", // Week 14
-            "", // Week 15
-            "", // Week 16
-            "", // Week 17
-            "", // Week 18
-            "", // Week 19
-            ""  // Week 20
+            'week-0.html', 'week-1.html', 'week-2.html', 'week-3.html',
+            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''
         ];
 
         for (let i = 0; i <= 20; i++) {
@@ -1156,42 +1420,245 @@
             card.className = 'week-card';
             const description = i < weekData.length
                 ? weekData[i]
-                : `<span style="color: var(--accent); font-weight: 500;">Coming Soon</span>`;
+                : '<span style="color: var(--accent); font-weight: 500;">Coming Soon</span>';
             const documentLink = weekDocumentLinks[i];
             const documentButton = documentLink
-                ? `<a class="week-document-button" href="${documentLink}" target="_blank" rel="noopener noreferrer">View document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`
-                : `<button class="week-document-button" type="button" disabled title="This week's document has not been added yet">Document coming soon</button>`;
-
+                ? `<a class="week-document-button" href="${documentLink}">View document <i class="fa-solid fa-arrow-right"></i></a>`
+                : '<button class="week-document-button" type="button" disabled title="This week\'s document has not been added yet">Document coming soon</button>';
             const title = weekTitles[i] ? `<h5>${weekTitles[i]}</h5>` : '';
             const descriptionMarkup = description ? `<p>${description}</p>` : '';
             card.innerHTML = `<h4>Week ${i}</h4>${title}${descriptionMarkup}${documentButton}`;
             weeksContainer.appendChild(card);
         }
 
-        // Toggle View Function for Protosem Section
-        function toggleProtosemView(showProtosem) {
+        function showProgramView(program) {
             const mainView = document.getElementById('mainProjectsView');
-            const detailedView = document.getElementById('protosemDetailedView');
-            
-            if (showProtosem) {
-                mainView.style.display = 'none';
-                detailedView.classList.add('active');
-            } else {
-                detailedView.classList.remove('active');
-                mainView.style.display = 'block';
-            }
+            const protosemView = document.getElementById('protosemDetailedView');
+            const iotView = document.getElementById('iotDetailedView');
+            const iotTaskOneView = document.getElementById('iotTaskOneView');
+            const iotTaskTwoView = document.getElementById('iotTaskTwoView');
+            const iotTaskThreeView = document.getElementById('iotTaskThreeView');
+            const iotTaskFourView = document.getElementById('iotTaskFourView');
+            const iotTaskFiveView = document.getElementById('iotTaskFiveView');
+            const selectedView = program === 'protosem' ? protosemView : program === 'iot' ? iotView : null;
+
+            mainView.style.display = selectedView ? 'none' : 'block';
+            protosemView.classList.toggle('active', program === 'protosem');
+            iotView.classList.toggle('active', program === 'iot');
+            iotTaskOneView.classList.remove('active');
+            iotTaskTwoView.classList.remove('active');
+            iotTaskThreeView.classList.remove('active');
+            iotTaskFourView.classList.remove('active');
+            iotTaskFiveView.classList.remove('active');
+            if (selectedView) selectedView.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
-        // Custom cursor for interactive buttons
-        const interactiveCursor = document.getElementById('interactiveCursor');
-        const interactiveElements = document.querySelectorAll('.btn-primary, .btn-secondary, .theme-toggle, .menu-toggle, .week-document-button');
+        function openIotTaskOne() {
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskOneView = document.getElementById('iotTaskOneView');
+            taskOneView.classList.add('active');
+            taskOneView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
+        function closeIotTaskOne() {
+            document.getElementById('iotTaskOneView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskTwo() {
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskTwoView = document.getElementById('iotTaskTwoView');
+            taskTwoView.classList.add('active');
+            taskTwoView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskTwo() {
+            document.getElementById('iotTaskTwoView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskThree() {
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskThreeView = document.getElementById('iotTaskThreeView');
+            taskThreeView.classList.add('active');
+            taskThreeView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskThree() {
+            document.getElementById('iotTaskThreeView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskFour() {
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskFourView = document.getElementById('iotTaskFourView');
+            taskFourView.classList.add('active');
+            taskFourView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskFour() {
+            document.getElementById('iotTaskFourView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskFive(button) {
+            selectIotTask(5, button);
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskFiveView = document.getElementById('iotTaskFiveView');
+            taskFiveView.classList.add('active');
+            taskFiveView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskFive() {
+            document.getElementById('iotTaskFiveView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function styleIotDocument(frame) {
+            const doc = frame.contentDocument;
+            if (!doc) return;
+            const style = doc.createElement('style');
+            style.textContent = `
+                * { box-sizing: border-box; }
+                html { background: #f4f7f6; scroll-behavior: smooth; }
+                body { max-width: 960px; min-height: 100%; margin: 0 auto; padding: clamp(1.5rem, 5vw, 4rem); background: linear-gradient(145deg, #ffffff 0%, #f7faf8 100%); color: #263330; font: 400 16px/1.75 Inter, "Segoe UI", Arial, sans-serif !important; }
+                .page { max-width: none !important; margin: 0 !important; padding: 0 !important; }
+                p, li, td, th, span { color: inherit !important; font: inherit !important; letter-spacing: normal !important; }
+                p { margin: 0 0 1rem !important; }
+                p:has(span:empty) { display: none !important; }
+                h1, h2, h3 { color: #172320 !important; font-family: Inter, "Segoe UI", Arial, sans-serif !important; letter-spacing: -0.035em !important; line-height: 1.2 !important; }
+                h1 { margin: 0 0 2.5rem !important; padding-bottom: 1.5rem; border-bottom: 1px solid #dce5e2; font-size: clamp(2.2rem, 6vw, 3.6rem) !important; }
+                h2 { margin: 3rem 0 1.1rem !important; padding-top: 1rem; border-top: 1px solid #e5ece9; font-size: clamp(1.45rem, 4vw, 2rem) !important; }
+                h3 { margin: 1.75rem 0 .75rem !important; font-size: 1.2rem !important; }
+                code { padding: .15rem .4rem; border-radius: 5px; background: #e8f1ed; color: #176b4d; font-size: .9em; }
+                ul, ol { margin: .75rem 0 1.5rem !important; padding-left: 1.5rem !important; }
+                li { margin: .35rem 0 !important; padding-left: .25rem; }
+                table { width: 100% !important; margin: 1.25rem 0 1.75rem !important; border-collapse: collapse !important; border: 1px solid #dce5e2 !important; border-radius: 12px; overflow: hidden; }
+                td, th { padding: .8rem 1rem !important; border: 1px solid #dce5e2 !important; text-align: left !important; vertical-align: top !important; }
+                tr:first-child { background: #edf4f1 !important; font-weight: 700 !important; }
+                figure { margin: 1.5rem 0 2rem !important; padding: 1rem; border: 1px solid #dce5e2; border-radius: 14px; background: rgba(255, 255, 255, .78); box-shadow: 0 12px 30px rgba(23, 49, 38, .06); }
+                figure img { display: block; width: 100%; max-height: 680px; border-radius: 8px; object-fit: contain; background: #101313; }
+                img, video { max-width: 100%; }
+                video, video::-webkit-media-controls, video::-webkit-media-controls-panel, video::-webkit-media-controls-play-button { cursor: pointer !important; }
+                figcaption { margin-top: .8rem; color: #586762; font-size: .9rem; line-height: 1.5; }
+                hr { margin: 2rem 0 !important; border: 0; border-top: 1px solid #e5ece9; }
+                @media (max-width: 600px) { body { padding: 1.25rem 1rem; } table { display: block; overflow-x: auto; } }
+            `;
+            if (frame.getAttribute('src')?.includes('iot-task1-content.html')) {
+                style.textContent += `
+                    body { width: 100%; max-width: none; min-height: 0; padding: clamp(1.25rem, 3vw, 3rem); font-size: 15.5px !important; line-height: 1.75 !important; }
+                    body.c26.doc-content { width: 100% !important; max-width: none !important; margin: 0 auto !important; padding: clamp(1.5rem, 5vw, 4rem) !important; }
+                    h1 { max-width: none; margin: 0 0 2.5rem !important; text-align: left; font-size: clamp(2.2rem, 6vw, 3.6rem) !important; line-height: 1.08 !important; }
+                    .task1-media { width: 100%; margin: 0 auto 3rem; padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid #dce5e2; border-radius: 22px; background: linear-gradient(145deg, #fff, #f5f9f7); box-shadow: 0 18px 44px rgba(23,49,38,.07); }
+                    .task1-media .task1-media-kicker { margin-bottom: .3rem !important; color: #17805b !important; font-size: .72rem !important; font-weight: 700 !important; letter-spacing: .15em !important; text-transform: uppercase; }
+                    .task1-media > h2 { margin: 0 0 .45rem !important; padding: 0 !important; border: 0 !important; font-size: clamp(1.6rem, 4vw, 2.15rem) !important; }
+                    .task1-media .task1-media-intro { margin-bottom: 1.35rem !important; color: #586762 !important; }
+                    .task1-media figure { display: flex; min-width: 0; flex-direction: column; margin: 0 !important; padding: .65rem; overflow: hidden; border: 1px solid #dce5e2; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(23,49,38,.05); }
+                    .task1-media video { display: block; width: 100%; height: clamp(320px, 48vw, 620px); max-height: 680px; margin: 0 auto; border-radius: 10px; aspect-ratio: 16 / 9; background: #101313; object-fit: contain; }
+                    .task1-media img { display: block; width: 100%; height: auto; max-height: 680px; margin: 0 auto; border-radius: 10px; background: #eef3f0; object-fit: contain; }
+                    .task1-media figcaption { min-height: 2.8em; margin: .7rem .35rem .15rem; color: #586762; font-size: .84rem; line-height: 1.5; }
+                    .task1-photo-grid { display: grid; grid-template-columns: minmax(0, 1fr); align-items: stretch; gap: 1rem; margin-top: 1rem; }
+                    h2 { margin-top: 2.75rem !important; padding-top: 1.25rem; }
+                    h3 { margin-top: 1.5rem !important; }
+                    li { line-height: 1.65 !important; }
+                    table { border-radius: 14px; }
+                    th { background: #edf4f1; }
+                    .task1-visuals { margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid #dce5e2; }
+                    .task1-visuals .eyebrow { margin-bottom: .35rem !important; color: #17805b !important; font-size: .75rem !important; font-weight: 700 !important; letter-spacing: .13em !important; text-transform: uppercase; }
+                    .task1-visuals > h2:first-of-type { margin-top: .25rem !important; padding-top: 0 !important; border: 0 !important; font-size: clamp(1.8rem, 4vw, 2.5rem) !important; }
+                    .task1-visuals .subhead { color: #586762 !important; }
+                    .task1-visuals .wiring, .task1-visuals .flow-node, .task1-visuals .concept { border: 1px solid #dce5e2; border-radius: 14px; background: rgba(255,255,255,.8); }
+                    .task1-visuals .wiring { padding: clamp(1rem, 3vw, 1.5rem); }
+                    .task1-visuals .wire-row { display: grid; grid-template-columns: minmax(5rem, auto) minmax(2rem, 1fr) minmax(0, 2fr); align-items: center; gap: 1rem; margin: .85rem 0; }
+                    .task1-visuals .wire-pin { font-weight: 700 !important; color: #176b4d !important; }
+                    .task1-visuals .wire-line { height: 1px; background: #bdcec6; }
+                    .task1-visuals .wire-detail { min-width: 0; }
+                    .task1-visuals .note { margin-top: 1.2rem !important; padding: .9rem 1rem; border-left: 3px solid #17805b; border-radius: 0 8px 8px 0; background: #edf4f1; color: #43534d !important; }
+                    .task1-visuals .flow { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: .75rem; margin: 1.25rem 0; }
+                    .task1-visuals .flow-node { min-width: 0; padding: 1rem .75rem; text-align: center; }
+                    .task1-visuals .flow-node strong, .task1-visuals .flow-node small { display: block; }
+                    .task1-visuals .flow-node small { margin-top: .25rem; color: #586762 !important; font-size: .78rem !important; }
+                    .task1-visuals .flow-arrow { color: #17805b; text-align: center; font-weight: 700; }
+                    .task1-visuals .flow-arrow small { color: #586762 !important; font-size: .7rem !important; }
+                    .task1-visuals .api-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; }
+                    .task1-visuals .api { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .9rem 1rem; border: 1px solid #dce5e2; border-radius: 10px; background: #fff; }
+                    .task1-visuals .api-state { color: #586762 !important; font-size: .8rem !important; }
+                    .task1-visuals .concept-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+                    .task1-visuals .concept { padding: 1.15rem; }
+                    .task1-visuals .concept small { display: block; margin-bottom: .45rem; color: #17805b !important; font-weight: 700 !important; }
+                    .task1-visuals .concept p { margin: .4rem 0 0 !important; color: #586762 !important; }
+                    @media (max-width: 680px) {
+                        body { padding: 1.25rem 1rem; }
+                        .task1-media video { height: clamp(240px, 70vw, 420px); max-height: none; }
+                        .task1-media img { max-height: none; }
+                        .task1-visuals .flow { grid-template-columns: 1fr; }
+                        .task1-visuals .flow-arrow { transform: rotate(90deg); }
+                        .task1-visuals .api-grid, .task1-visuals .concept-grid { grid-template-columns: 1fr; }
+                        .task1-visuals .wire-row { grid-template-columns: 5rem minmax(0,1fr); gap: .55rem .8rem; }
+                        .task1-visuals .wire-line { display: none; }
+                        .task1-visuals .wire-detail { grid-column: 2; }
+                    }
+                `;
+            } else if (frame.getAttribute('src')?.includes('iot-task2-content.html')) {
+                style.textContent += `
+                    .task2-video video { display: block; width: 100%; height: clamp(320px, 48vw, 620px); max-height: 680px; margin: 0 auto; border-radius: 8px; aspect-ratio: 16 / 9; background: #101313; object-fit: contain; }
+                    @media (max-width: 600px) { .task2-video video { height: clamp(240px, 70vw, 420px); max-height: none; } }
+                `;
+            } else if (frame.getAttribute('src')?.includes('iot-task3-content.html')) {
+                style.textContent += `
+                    .task3-video video { display: block; width: 100%; height: clamp(320px, 48vw, 620px); max-height: 680px; margin: 0 auto; border-radius: 8px; aspect-ratio: 16 / 9; background: #101313; object-fit: contain; }
+                    @media (max-width: 600px) { .task3-video video { height: clamp(240px, 70vw, 420px); max-height: none; } }
+                `;
+            }
+            doc.head.appendChild(style);
+            const resizeFrame = () => {
+                frame.style.height = `${Math.max(doc.body.scrollHeight + 32, 900)}px`;
+            };
+            if (frame.getAttribute('src')?.includes('iot-task1-content.html') && 'ResizeObserver' in window) {
+                frame._taskOneContentObserver = new ResizeObserver(resizeFrame);
+                frame._taskOneContentObserver.observe(doc.body);
+            }
+            doc.querySelectorAll('img').forEach(image => {
+                image.addEventListener('load', resizeFrame, { once: true });
+            });
+            doc.querySelectorAll('video').forEach(video => {
+                video.addEventListener('loadedmetadata', resizeFrame, { once: true });
+            });
+            resizeFrame();
+        }
+
+        const iotTaskDescriptions = {
+            3: 'Chains five platforms together for voice automation.',
+            4: 'Builds the web dashboard UI/UX.',
+            5: 'Integrates all Arduino coding, component connections, and the complete working system that watches temperature, humidity, and light 24/7, switches 230V appliances safely, and exports the data it collects.'
+        };
+
+        function selectIotTask(taskNumber, button) {
+            document.querySelectorAll('.iot-task-tab').forEach((tab) => {
+                const isSelected = tab === button;
+                tab.classList.toggle('active', isSelected);
+                tab.setAttribute('aria-selected', isSelected);
+            });
+            document.getElementById('iotTaskDetail').innerHTML = `<strong>Task ${taskNumber}:</strong> ${iotTaskDescriptions[taskNumber]}`;
+        }
+
+        const interactiveCursor = document.getElementById('interactiveCursor');
+        const interactiveElements = document.querySelectorAll('.btn-primary, .btn-secondary, .theme-toggle, .menu-toggle, .week-document-button, .program-trigger-card');
         document.addEventListener('mousemove', (event) => {
             interactiveCursor.style.left = `${event.clientX}px`;
             interactiveCursor.style.top = `${event.clientY}px`;
             interactiveCursor.classList.add('visible');
         });
-
         interactiveElements.forEach((element) => {
             element.addEventListener('mouseenter', () => interactiveCursor.classList.add('interactive'));
             element.addEventListener('mouseleave', () => interactiveCursor.classList.remove('interactive', 'pressed'));
