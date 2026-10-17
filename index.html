@@ -1474,8 +1474,8 @@
         ];
         const weekTitles = { 2: 'Learning, Thinking & Building' };
         const weekDocumentLinks = [
-            'week-0.html', 'week-1.html', 'week-2.html', 'week-3.html',
-            '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''
+            'week-0.html', 'week-1.html', 'week-2.html', 'week-3.html', 'week-4.html', 'week-5.html', 'week-6.html', 'week-7.html', 'week-8.html',
+            '', '', '', '', '', '', '', '', '', '', '', ''
         ];
 
         for (let i = 0; i <= 20; i++) {
@@ -1517,6 +1517,8 @@
         }
 
         function openIotTaskOne() {
+            selectIotTask(1, document.querySelectorAll('.iot-task-tab')[0]);
+            setIotTaskLink(1);
             document.getElementById('iotDetailedView').classList.remove('active');
             const taskOneView = document.getElementById('iotTaskOneView');
             taskOneView.classList.add('active');
@@ -1524,6 +1526,7 @@
         }
 
         function closeIotTaskOne() {
+            setIotTaskLink(null);
             document.getElementById('iotTaskOneView').classList.remove('active');
             const iotView = document.getElementById('iotDetailedView');
             iotView.classList.add('active');
@@ -1531,6 +1534,8 @@
         }
 
         function openIotTaskTwo() {
+            selectIotTask(2, document.querySelectorAll('.iot-task-tab')[1]);
+            setIotTaskLink(2);
             document.getElementById('iotDetailedView').classList.remove('active');
             const taskTwoView = document.getElementById('iotTaskTwoView');
             taskTwoView.classList.add('active');
@@ -1538,6 +1543,7 @@
         }
 
         function closeIotTaskTwo() {
+            setIotTaskLink(null);
             document.getElementById('iotTaskTwoView').classList.remove('active');
             const iotView = document.getElementById('iotDetailedView');
             iotView.classList.add('active');
@@ -1545,6 +1551,8 @@
         }
 
         function openIotTaskThree() {
+            selectIotTask(3, document.querySelectorAll('.iot-task-tab')[2]);
+            setIotTaskLink(3);
             document.getElementById('iotDetailedView').classList.remove('active');
             const taskThreeView = document.getElementById('iotTaskThreeView');
             taskThreeView.classList.add('active');
@@ -1552,6 +1560,7 @@
         }
 
         function closeIotTaskThree() {
+            setIotTaskLink(null);
             document.getElementById('iotTaskThreeView').classList.remove('active');
             const iotView = document.getElementById('iotDetailedView');
             iotView.classList.add('active');
@@ -1559,6 +1568,8 @@
         }
 
         function openIotTaskFour() {
+            selectIotTask(4, document.querySelectorAll('.iot-task-tab')[3]);
+            setIotTaskLink(4);
             document.getElementById('iotDetailedView').classList.remove('active');
             const taskFourView = document.getElementById('iotTaskFourView');
             taskFourView.classList.add('active');
@@ -1566,6 +1577,7 @@
         }
 
         function closeIotTaskFour() {
+            setIotTaskLink(null);
             document.getElementById('iotTaskFourView').classList.remove('active');
             const iotView = document.getElementById('iotDetailedView');
             iotView.classList.add('active');
@@ -1574,6 +1586,7 @@
 
         function openIotTaskFive(button) {
             selectIotTask(5, button);
+            setIotTaskLink(5);
             document.getElementById('iotDetailedView').classList.remove('active');
             const taskFiveView = document.getElementById('iotTaskFiveView');
             taskFiveView.classList.add('active');
@@ -1581,6 +1594,7 @@
         }
 
         function closeIotTaskFive() {
+            setIotTaskLink(null);
             document.getElementById('iotTaskFiveView').classList.remove('active');
             const iotView = document.getElementById('iotDetailedView');
             iotView.classList.add('active');
@@ -1591,6 +1605,27 @@
             'iotTaskOneView', 'iotTaskTwoView', 'iotTaskThreeView', 'iotTaskFourView', 'iotTaskFiveView'
         ].map(id => document.getElementById(id));
         const iotNextTaskButton = document.getElementById('iotNextTask');
+
+        function setIotTaskLink(taskNumber, replace = false) {
+            const hash = taskNumber ? `#iot-task-${taskNumber}` : '#iot';
+            if (window.location.hash === hash) return;
+            window.history[replace ? 'replaceState' : 'pushState']({}, '', hash);
+        }
+
+        function openIotTaskFromLocation(scroll = true) {
+            const match = window.location.hash.match(/^#iot-task-([1-5])$/i);
+            if (!match) return;
+            const taskNumber = Number(match[1]);
+            const taskView = iotTaskViews[taskNumber - 1];
+            document.getElementById('mainProjectsView').style.display = 'none';
+            document.getElementById('protosemDetailedView').classList.remove('active');
+            document.getElementById('iotDetailedView').classList.remove('active');
+            iotTaskViews.forEach(view => view.classList.remove('active'));
+            taskView.classList.add('active');
+            selectIotTask(taskNumber, document.querySelectorAll('.iot-task-tab')[taskNumber - 1]);
+            if (scroll) taskView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            updateIotNextTask();
+        }
 
         function getActiveIotTaskIndex() {
             return iotTaskViews.findIndex(view => view.classList.contains('active'));
@@ -1614,11 +1649,20 @@
             iotTaskViews[taskIndex].classList.remove('active');
             const nextView = iotTaskViews[taskIndex + 1];
             nextView.classList.add('active');
+            setIotTaskLink(taskIndex + 2);
+            selectIotTask(taskIndex + 2, document.querySelectorAll('.iot-task-tab')[taskIndex + 1]);
             nextView.scrollIntoView({ behavior: 'smooth', block: 'start' });
             updateIotNextTask();
         }
 
         iotNextTaskButton.addEventListener('click', openNextIotTask);
+        window.addEventListener('hashchange', () => {
+            if (/^#iot-task-[1-5]$/i.test(window.location.hash)) openIotTaskFromLocation();
+            else if (window.location.hash === '#iot') {
+                iotTaskViews.forEach(view => view.classList.remove('active'));
+                document.getElementById('iotDetailedView').classList.add('active');
+            }
+        });
         window.addEventListener('scroll', updateIotNextTask, { passive: true });
         document.addEventListener('mousemove', (event) => {
             iotNextTaskButton.style.top = `${Math.min(Math.max(event.clientY, 64), window.innerHeight - 64)}px`;
@@ -1739,12 +1783,15 @@
         }
 
         const iotTaskDescriptions = {
+            1: 'Controls an ESP32 connected LED through a local HTTP web page.',
+            2: 'Connects the ESP32 to an MQTT cloud dashboard with relay control.',
             3: 'Chains five platforms together for voice automation.',
             4: 'Builds the web dashboard UI/UX.',
             5: 'Integrates all Arduino coding, component connections, and the complete working system that watches temperature, humidity, and light 24/7, switches 230V appliances safely, and exports the data it collects.'
         };
 
         function selectIotTask(taskNumber, button) {
+            if (!button) button = document.querySelectorAll('.iot-task-tab')[taskNumber - 1];
             document.querySelectorAll('.iot-task-tab').forEach((tab) => {
                 const isSelected = tab === button;
                 tab.classList.toggle('active', isSelected);
@@ -1752,6 +1799,8 @@
             });
             document.getElementById('iotTaskDetail').innerHTML = `<strong>Task ${taskNumber}:</strong> ${iotTaskDescriptions[taskNumber]}`;
         }
+
+        openIotTaskFromLocation(false);
 
         const interactiveCursor = document.getElementById('interactiveCursor');
         const interactiveElements = document.querySelectorAll('.btn-primary, .btn-secondary, .theme-toggle, .menu-toggle, .week-document-button, .program-trigger-card, .iot-next-task');
