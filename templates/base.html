@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{% block meta_description %}ElectroStore - India's Premium Electronics Store. Shop smartphones, laptops, TVs, audio devices, gaming gear, and more with free shipping & easy returns.{% endblock %}">
+  <meta name="keywords" content="electronics, smartphones, laptops, buy online, India, best price">
+  <meta name="author" content="ElectroStore">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ElectroStore">
+  <title>{% block title %}ElectroStore - Premium Electronics{% endblock %}</title>
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- Page Loader -->
+<div class="page-loader" id="page-loader">
+  <div class="loader-spinner"></div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <!-- Logo -->
+    <a href="/" class="nav-logo">
+      <div class="logo-icon">⚡</div>
+      Electro<span class="logo-accent">Store</span>
+    </a>
+
+    <!-- Search Bar -->
+    <form class="nav-search" action="/products/" method="GET" role="search">
+      <i class="fas fa-search search-icon"></i>
+      <input
+        type="text"
+        name="q"
+        placeholder="Search for products, brands..."
+        value="{{ request.GET.q }}"
+        aria-label="Search products"
+        id="nav-search-input"
+        autocomplete="off"
+      >
+    </form>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+      <a href="/" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a href="/products/" class="nav-link {% if request.resolver_match.url_name == 'products' %}active{% endif %}">
+        <i class="fas fa-th-large"></i> Products
+      </a>
+      <a href="/faq/" class="nav-link {% if request.resolver_match.url_name == 'faq' %}active{% endif %}">
+        <i class="fas fa-question-circle"></i> FAQ
+      </a>
+      <a href="/about/" class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+        <i class="fas fa-info-circle"></i> About
+      </a>
+    </div>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      <a href="/products/" class="nav-icon-btn" title="Search" aria-label="Search products">
+        <i class="fas fa-search"></i>
+      </a>
+      <a href="#" class="nav-icon-btn" title="Wishlist" aria-label="Wishlist" id="wishlist-btn">
+        <i class="far fa-heart"></i>
+      </a>
+      <a href="#" class="nav-icon-btn" title="Cart" aria-label="Shopping cart" id="cart-btn">
+        <i class="fas fa-shopping-cart"></i>
+      </a>
+      <a href="/admin/" class="nav-icon-btn" title="Admin" aria-label="Admin panel">
+        <i class="fas fa-cog"></i>
+      </a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <div class="hamburger" id="hamburger" role="button" aria-label="Toggle menu" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" style="display:none; padding: 12px 16px; border-top: 1px solid var(--border);">
+    <form action="/products/" method="GET" style="margin-bottom: 12px;">
+      <input type="text" name="q" placeholder="Search products..." style="width:100%; padding:10px 16px; background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius); color:var(--text-primary);">
+    </form>
+    <a href="/" class="nav-link" style="display:block; padding: 10px 0;">🏠 Home</a>
+    <a href="/products/" class="nav-link" style="display:block; padding: 10px 0;">🛍️ Products</a>
+    <a href="/faq/" class="nav-link" style="display:block; padding: 10px 0;">❓ FAQ</a>
+    <a href="/about/" class="nav-link" style="display:block; padding: 10px 0;">ℹ️ About</a>
+    <a href="/contact/" class="nav-link" style="display:block; padding: 10px 0;">📩 Contact</a>
+    <a href="/health/" class="nav-link" style="display:block; padding: 10px 0;">💚 Health Check</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+<main id="main-content">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="nav-logo" style="margin-bottom:16px;">
+          <div class="logo-icon">⚡</div>
+          Electro<span class="logo-accent">Store</span>
+        </div>
+        <p class="footer-desc">India's premium electronics destination. Get the latest gadgets, best deals, and expert support — all in one place.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="social-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <div class="footer-links">
+          <a href="/" class="footer-link">Home</a>
+          <a href="/products/" class="footer-link">All Products</a>
+          <a href="/products/?category=smartphones" class="footer-link">Smartphones</a>
+          <a href="/products/?category=laptops" class="footer-link">Laptops</a>
+          <a href="/products/?sort=-price" class="footer-link">Premium Picks</a>
+          <a href="/products/?is_in_stock=yes&sort=price" class="footer-link">Best Deals</a>
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div class="footer-col">
+        <h4>Support</h4>
+        <div class="footer-links">
+          <a href="/faq/" class="footer-link">FAQs</a>
+          <a href="/error-codes/" class="footer-link">Error Codes</a>
+          <a href="/contact/" class="footer-link">Contact Us</a>
+          <a href="/health/" class="footer-link">System Status</a>
+          <a href="/about/" class="footer-link">About Us</a>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-links">
+          <span class="footer-link">📧 support@electrostore.in</span>
+          <span class="footer-link">📞 +91-1800-123-4567</span>
+          <span class="footer-link">🕐 Mon–Sat 9am–6pm IST</span>
+          <a href="/errors/ES001/" class="footer-link">Payment Issues</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 ElectroStore. All rights reserved.</p>
+      <div class="footer-badges">
+        <span class="footer-badge"><i class="fas fa-lock"></i> SSL Secured</span>
+        <span class="footer-badge"><i class="fas fa-shield-alt"></i> PCI DSS</span>
+        <span class="footer-badge"><i class="fas fa-truck"></i> Free Shipping</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════ AI CHAT WIDGET ═══════════════════ -->
+<div id="chat-widget" role="complementary" aria-label="AI Assistant">
+  <!-- Toggle Button -->
+  <button class="chat-toggle-btn" id="chat-toggle" title="Chat with ElectroBot" aria-expanded="false" aria-controls="chat-window">
+    <span class="chat-icon-open"><i class="fas fa-robot"></i></span>
+    <span class="chat-icon-close" style="display:none;"><i class="fas fa-times"></i></span>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="chat-window" id="chat-window" role="dialog" aria-labelledby="chat-title" aria-hidden="true">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="chat-avatar" aria-hidden="true">🤖</div>
+      <div class="chat-header-info">
+        <h4 id="chat-title">ElectroBot</h4>
+        <span><span class="online-dot" aria-hidden="true"></span> AI Assistant • Online</span>
+      </div>
+      <button class="chat-close" id="chat-close" aria-label="Close chat">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat messages">
+      <!-- Welcome message -->
+      <div class="message bot">
+        <div>
+          <div class="message-bubble">
+            👋 Hi! I'm <strong>ElectroBot</strong>, your AI shopping assistant.
+
+I can help you with:
+• Product recommendations
+• Order & shipping questions
+• Returns & warranty info
+• Error code explanations
+• Account support
+
+How can I help you today?
+          </div>
+          <div class="message-time">Just now</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="chat-suggestions" id="chat-suggestions">
+      <button class="suggestion-chip" data-question="How do I track my order?">📦 Track Order</button>
+      <button class="suggestion-chip" data-question="What is the return policy?">↩️ Returns</button>
+      <button class="suggestion-chip" data-question="What does error 404 mean?">⚠️ Error 404</button>
+      <button class="suggestion-chip" data-question="What payment methods do you accept?">💳 Payment</button>
+    </div>
+
+    <!-- Input Area -->
+    <div class="chat-input-area">
+      <div class="chat-input-row">
+        <textarea
+          class="chat-input"
+          id="chat-input"
+          placeholder="Type your message..."
+          rows="1"
+          aria-label="Chat message input"
+          maxlength="1000"
+        ></textarea>
+        <button class="chat-send-btn" id="chat-send" aria-label="Send message" title="Send">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+      <div style="font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 4px;">
+        Powered by Google Gemini AI
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MAIN JS ═══════════════════ -->
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/chat.js' %}"></script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

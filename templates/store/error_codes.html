@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Error Codes Guide | ElectroStore{% endblock %}
+{% block meta_description %}Understand HTTP error codes and ElectroStore-specific error codes. Learn what each error means and how to resolve it.{% endblock %}
+
+{% block content %}
+
+<section style="background: linear-gradient(135deg, var(--bg-800), var(--bg-900)); border-bottom: 1px solid var(--border); padding: 3rem 0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">Developer Guide</div>
+    <h1 style="margin-bottom: 0.75rem;">Error Codes Reference</h1>
+    <p style="color:var(--text-secondary); font-size:1.1rem; max-width:550px; margin:0 auto;">
+      A comprehensive guide to HTTP error codes and ElectroStore-specific error codes with solutions.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+      <h2 style="font-size:1.25rem;">All Error Codes</h2>
+      <button onclick="chatWidget.openChat();" class="btn btn-primary btn-sm" id="error-ask-ai-btn">
+        <i class="fas fa-robot"></i> Ask AI to explain an error
+      </button>
+    </div>
+
+    <div class="error-codes-grid">
+      {% for error in error_codes %}
+      <div class="error-code-card severity-{{ error.severity }}" id="error-{{ error.code }}">
+        <div class="error-code-number">{{ error.code }}</div>
+        <div class="error-code-title">{{ error.title }}</div>
+        <div class="error-code-desc">{{ error.description }}</div>
+        <div class="error-code-solution">
+          <strong>💡 Fix:</strong> {{ error.solution|truncatechars:150 }}
+        </div>
+        <div style="display:flex; gap:8px; margin-top:1rem;">
+          <span class="badge badge-{% if error.severity == 'warning' %}warning{% elif error.severity == 'error' %}danger{% elif error.severity == 'critical' %}danger{% else %}primary{% endif %}">
+            {{ error.get_severity_display }}
+          </span>
+          {% if not error.is_http_standard %}
+          <span class="badge badge-primary">Site-Specific</span>
+          {% endif %}
+          <a href="/errors/{{ error.code }}/" class="badge" style="background:rgba(99,102,241,0.15); color:var(--primary-light); margin-left:auto; text-decoration:none;">Demo →</a>
+        </div>
+      </div>
+      {% empty %}
+      <div style="grid-column:1/-1; text-align:center; padding:2rem; color:var(--text-muted);">
+        Run <code>python manage.py seed_data</code> to load error codes.
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Ask AI -->
+    <div style="margin-top:3rem; text-align:center; background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-xl); padding:2rem;">
+      <h3>Seeing an error you don't understand?</h3>
+      <p style="color:var(--text-secondary); margin:0.75rem 0 1.25rem;">Our AI assistant can explain any error code and guide you to a solution.</p>
+      <button onclick="chatWidget.openChat();" class="btn btn-primary" id="error-codes-ask-btn">
+        <i class="fas fa-comment-dots"></i> Ask ElectroBot Now
+      </button>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

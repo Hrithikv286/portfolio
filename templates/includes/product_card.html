@@ -1,0 +1,66 @@
+<a href="/products/{{ product.slug }}/" class="product-card" id="product-{{ product.id }}">
+  <div class="product-card-image">
+    <img
+      src="{{ product.display_image }}"
+      alt="{{ product.name }}"
+      loading="lazy"
+    >
+    <div class="product-card-badges">
+      {% if product.discount_percentage %}
+      <span class="badge badge-danger">-{{ product.discount_percentage }}%</span>
+      {% endif %}
+      {% if product.is_new_arrival %}
+      <span class="badge badge-success">New</span>
+      {% endif %}
+      {% if not product.is_in_stock %}
+      <span class="badge" style="background:rgba(100,116,139,0.3); color:var(--text-muted);">Out of Stock</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="product-card-body">
+    {% if product.brand %}
+    <div class="product-brand">{{ product.brand.name }}</div>
+    {% endif %}
+    <div class="product-name">{{ product.name }}</div>
+
+    {% if product.rating %}
+    <div class="product-rating">
+      <div class="stars" aria-label="{{ product.rating }} stars">
+        {% for i in "12345" %}
+        {% if product.rating >= forloop.counter %}
+        <i class="fas fa-star"></i>
+        {% elif product.rating >= forloop.counter|add:"-0.5" %}
+        <i class="fas fa-star-half-alt"></i>
+        {% else %}
+        <i class="far fa-star"></i>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% if product.review_count %}
+      <span class="rating-count">({{ product.review_count }})</span>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="product-price">
+      <span class="price-current">₹{{ product.price|floatformat:0 }}</span>
+      {% if product.original_price and product.original_price > product.price %}
+      <span class="price-original">₹{{ product.original_price|floatformat:0 }}</span>
+      <span class="price-discount">{{ product.discount_percentage }}% off</span>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="product-card-footer">
+    {% if product.is_in_stock %}
+    <button class="btn-add-cart" onclick="event.preventDefault(); event.stopPropagation();" id="cart-{{ product.id }}">
+      <i class="fas fa-cart-plus"></i> Add to Cart
+    </button>
+    {% else %}
+    <button class="btn-add-cart" disabled style="opacity:0.5; cursor:not-allowed;">
+      <i class="fas fa-ban"></i> Out of Stock
+    </button>
+    {% endif %}
+  </div>
+</a>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}500 - Server Error | ElectroStore{% endblock %}
+
+{% block content %}
+<div class="error-page" data-error-code="{{ error_code }}">
+  <div class="error-page-content">
+    <div class="error-code-display" style="background:linear-gradient(135deg,#ef4444,#dc2626); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">500</div>
+    <h1 class="error-page-title">Internal Server Error</h1>
+    <p class="error-page-msg">
+      {{ error_message }}<br>
+      <span style="color:var(--text-muted);">{{ error_description }}</span>
+    </p>
+    <div class="error-page-actions">
+      <a href="/" class="btn btn-primary btn-lg" id="error-500-home-btn">
+        <i class="fas fa-home"></i> Go Home
+      </a>
+      <button onclick="location.reload();" class="btn btn-secondary btn-lg" id="error-500-retry-btn">
+        <i class="fas fa-redo"></i> Try Again
+      </button>
+      <button class="btn btn-outline btn-lg" id="ask-assistant-btn">
+        <i class="fas fa-robot"></i> Ask Assistant
+      </button>
+    </div>
+
+    <div style="margin-top:2rem; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:var(--radius); padding:1rem; font-size:0.85rem; color:var(--text-secondary); text-align:left;">
+      <strong style="color:#f87171;">What happened?</strong>
+      <p style="margin-top:4px;">Our server encountered an unexpected error. Your cart and account data are safe. Our team has been automatically notified.</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

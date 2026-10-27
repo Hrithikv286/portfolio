@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About ElectroStore | Premium Electronics Online Store{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section style="background:linear-gradient(135deg, var(--bg-800), var(--bg-900)); border-bottom:1px solid var(--border); padding:4rem 0;">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">Our Story</div>
+    <h1 style="margin-bottom:1rem;">About <span style="color:var(--primary-light);">ElectroStore</span></h1>
+    <p style="color:var(--text-secondary); font-size:1.1rem; max-width:600px; margin:0 auto; line-height:1.8;">
+      India's most trusted online electronics retailer. We're passionate about connecting people with technology that transforms their lives.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Mission -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; margin-bottom:4rem;">
+      <div>
+        <div class="section-label">Our Mission</div>
+        <h2 style="margin-bottom:1rem;">Making Premium Tech <br>Accessible to Everyone</h2>
+        <p style="color:var(--text-secondary); line-height:1.8; margin-bottom:1rem;">
+          Founded in 2020, ElectroStore started with a simple mission: make premium electronics accessible to everyone across India. We believe technology should empower, not intimidate.
+        </p>
+        <p style="color:var(--text-secondary); line-height:1.8;">
+          Today, we serve over 500,000 customers across India with over 10,000 products from top global brands — with free shipping, easy returns, and 24/7 AI-powered support.
+        </p>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        {% for stat in "1234" %}{% endfor %}
+        <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; text-align:center;">
+          <div style="font-size:2rem; font-weight:800; color:var(--primary-light); font-family:'Outfit',sans-serif;">500K+</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Happy Customers</div>
+        </div>
+        <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; text-align:center;">
+          <div style="font-size:2rem; font-weight:800; color:var(--primary-light); font-family:'Outfit',sans-serif;">10K+</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Products</div>
+        </div>
+        <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; text-align:center;">
+          <div style="font-size:2rem; font-weight:800; color:var(--primary-light); font-family:'Outfit',sans-serif;">4.8★</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Average Rating</div>
+        </div>
+        <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.5rem; text-align:center;">
+          <div style="font-size:2rem; font-weight:800; color:var(--primary-light); font-family:'Outfit',sans-serif;">100+</div>
+          <div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">Brands</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div style="text-align:center; margin-bottom:3rem;">
+      <div class="section-label">Our Values</div>
+      <h2 style="margin-bottom:0.5rem;">What We Stand For</h2>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.5rem; margin-bottom:4rem;">
+      <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">🎯</div>
+        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Quality First</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">Only authentic products from authorized distributors</p>
+      </div>
+      <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">💡</div>
+        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Innovation</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">AI-powered support and personalized shopping experience</p>
+      </div>
+      <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">🤝</div>
+        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Trust</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">Transparent pricing, secure payments, and honest reviews</p>
+      </div>
+      <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:2rem; text-align:center;">
+        <div style="font-size:2.5rem; margin-bottom:1rem;">⚡</div>
+        <h3 style="font-size:1rem; margin-bottom:0.5rem;">Speed</h3>
+        <p style="color:var(--text-muted); font-size:0.85rem; line-height:1.6;">Same-day and express delivery in major Indian cities</p>
+      </div>
+    </div>
+
+    <!-- Tech Stack (as project context) -->
+    <div style="background:linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1)); border:1px solid rgba(99,102,241,0.3); border-radius:var(--radius-xl); padding:2.5rem; text-align:center;">
+      <div class="section-label">Built With</div>
+      <h2 style="margin-bottom:1rem;">Powered by Modern Technology</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:1.5rem;">
+        {% for tech in "Django,Python,SQLite,MongoDB,Google Gemini AI,OpenWeatherMap API,WhiteNoise,Gunicorn,Render" %}
+        <span style="background:var(--bg-700); border:1px solid var(--border); padding:6px 16px; border-radius:var(--radius-full); font-size:0.85rem; color:var(--text-secondary);">
+          {{ tech }}
+        </span>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

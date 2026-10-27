@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{% if search_query %}Search: "{{ search_query }}"{% elif selected_category %}{{ selected_category.name }}{% else %}All Products{% endif %} | ElectroStore
+{% endblock %}
+
+{% block content %}
+
+<section class="section" style="padding-top: 2rem;">
+  <div class="container">
+
+    <!-- Page Header -->
+    <div style="margin-bottom: 1.5rem;">
+      <h1 style="font-size:1.75rem; margin-bottom:0.25rem;">
+        {% if search_query %}
+        Search results for "{{ search_query }}"
+        {% elif selected_category %}
+        {{ selected_category.name }}
+        {% else %}
+        All Products
+        {% endif %}
+      </h1>
+      <p style="color:var(--text-muted); font-size:0.9rem;">
+        {{ total_count }} product{{ total_count|pluralize }} found
+      </p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 240px 1fr; gap: 1.5rem; align-items:start;">
+
+      <!-- ── SIDEBAR FILTERS ── -->
+      <aside style="position: sticky; top: 80px;">
+        <form method="GET" action="/products/" id="filter-form">
+          <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.25rem; margin-bottom:1rem;">
+            <h3 style="font-size:0.9rem; font-weight:700; margin-bottom:1rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">Categories</h3>
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <a href="/products/{% if search_query %}?q={{ search_query }}{% endif %}"
+                 style="padding:6px 10px; border-radius:var(--radius-sm); font-size:0.85rem; color: {% if not selected_category %}var(--primary-light){% else %}var(--text-secondary){% endif %}; background: {% if not selected_category %}rgba(99,102,241,0.1){% else %}transparent{% endif %};">
+                All Products
+              </a>
+              {% for category in categories %}
+              <a href="/products/?category={{ category.slug }}{% if search_query %}&q={{ search_query }}{% endif %}"
+                 style="padding:6px 10px; border-radius:var(--radius-sm); font-size:0.85rem; color: {% if selected_category.slug == category.slug %}var(--primary-light){% else %}var(--text-secondary){% endif %}; background: {% if selected_category.slug == category.slug %}rgba(99,102,241,0.1){% else %}transparent{% endif %}; transition: all 0.2s; display:flex; align-items:center; gap:6px;">
+                <i class="fas {{ category.icon }}" style="width:16px; text-align:center;"></i>
+                {{ category.name }}
+              </a>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Price Range -->
+          <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.25rem; margin-bottom:1rem;">
+            <h3 style="font-size:0.9rem; font-weight:700; margin-bottom:1rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">Price Range</h3>
+            <div style="display:flex; gap:8px; margin-bottom:8px;">
+              <input type="number" name="min_price" placeholder="Min ₹" value="{{ request.GET.min_price }}"
+                style="flex:1; padding:6px 10px; background:var(--bg-800); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text-primary); font-size:0.85rem;">
+              <input type="number" name="max_price" placeholder="Max ₹" value="{{ request.GET.max_price }}"
+                style="flex:1; padding:6px 10px; background:var(--bg-800); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text-primary); font-size:0.85rem;">
+            </div>
+          </div>
+
+          <!-- Sort -->
+          <div style="background:var(--bg-700); border:1px solid var(--border); border-radius:var(--radius-lg); padding:1.25rem; margin-bottom:1rem;">
+            <h3 style="font-size:0.9rem; font-weight:700; margin-bottom:1rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">Sort By</h3>
+            <select name="sort"
+              style="width:100%; padding:8px 10px; background:var(--bg-800); border:1px solid var(--border); border-radius:var(--radius-sm); color:var(--text-primary); font-size:0.85rem;"
+              onchange="this.form.submit()">
+              <option value="-created_at" {% if sort_by == '-created_at' %}selected{% endif %}>Newest First</option>
+              <option value="price" {% if sort_by == 'price' %}selected{% endif %}>Price: Low to High</option>
+              <option value="-price" {% if sort_by == '-price' %}selected{% endif %}>Price: High to Low</option>
+              <option value="-rating" {% if sort_by == '-rating' %}selected{% endif %}>Best Rated</option>
+              <option value="name" {% if sort_by == 'name' %}selected{% endif %}>A-Z</option>
+            </select>
+          </div>
+
+          {% if request.GET.category %}<input type="hidden" name="category" value="{{ request.GET.category }}">{% endif %}
+          {% if search_query %}<input type="hidden" name="q" value="{{ search_query }}">{% endif %}
+
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+            <i class="fas fa-filter"></i> Apply Filters
+          </button>
+          <a href="/products/" class="btn btn-secondary" style="width:100%; justify-content:center; margin-top:6px;">
+            <i class="fas fa-times"></i> Clear All
+          </a>
+        </form>
+      </aside>
+
+      <!-- ── PRODUCTS ── -->
+      <div>
+        {% if products %}
+        <div class="products-grid">
+          {% for product in products %}
+          {% include 'includes/product_card.html' %}
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if products.has_other_pages %}
+        <div class="pagination" role="navigation" aria-label="Product pages">
+          {% if products.has_previous %}
+          <a href="?page={{ products.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="page-link">
+            <i class="fas fa-chevron-left"></i> Prev
+          </a>
+          {% endif %}
+
+          {% for num in products.paginator.page_range %}
+          {% if products.number == num %}
+          <span class="page-link active">{{ num }}</span>
+          {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+          <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="page-link">{{ num }}</a>
+          {% endif %}
+          {% endfor %}
+
+          {% if products.has_next %}
+          <a href="?page={{ products.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="page-link">
+            Next <i class="fas fa-chevron-right"></i>
+          </a>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        {% else %}
+        <!-- No results -->
+        <div style="text-align:center; padding:4rem 2rem;">
+          <div style="font-size:4rem; margin-bottom:1rem;">🔍</div>
+          <h3 style="margin-bottom:0.5rem;">No products found</h3>
+          <p style="color:var(--text-muted); margin-bottom:1.5rem;">
+            {% if search_query %}No results for "{{ search_query }}"{% else %}No products in this category{% endif %}
+          </p>
+          <a href="/products/" class="btn btn-primary">Browse All Products</a>
+          <button onclick="chatWidget.openChat(); setTimeout(()=>{ chatWidget.elements.input.value='Help me find {{ search_query }} alternatives'; chatWidget.elements.input.focus(); }, 400);" class="btn btn-secondary" style="margin-left:8px;">
+            <i class="fas fa-robot"></i> Ask AI for help
+          </button>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

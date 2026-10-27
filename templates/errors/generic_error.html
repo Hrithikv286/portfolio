@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}{{ error_code }} - {{ error_title }} | ElectroStore{% endblock %}
+
+{% block content %}
+<div class="error-page" data-error-code="{{ error_code }}">
+  <div class="error-page-content">
+    <div class="error-code-display">{{ error_code }}</div>
+    <h1 class="error-page-title">{{ error_title }}</h1>
+    <p class="error-page-msg">
+      {{ error_message }}<br>
+      {% if error_description %}<span style="color:var(--text-muted);">{{ error_description }}</span>{% endif %}
+    </p>
+    <div class="error-page-actions">
+      <a href="/" class="btn btn-primary btn-lg" id="generic-error-home-btn">
+        <i class="fas fa-home"></i> Go Home
+      </a>
+      <a href="/error-codes/" class="btn btn-secondary btn-lg">
+        <i class="fas fa-book"></i> Error Codes Guide
+      </a>
+      <button class="btn btn-outline btn-lg" id="ask-assistant-btn">
+        <i class="fas fa-robot"></i> Ask Assistant
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
