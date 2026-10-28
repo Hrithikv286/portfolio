@@ -1,6 +1,6 @@
 # ⚡ ElectroStore — Premium Electronics E-Commerce
 
-> **Live Site:** [https://electrostore.onrender.com](https://electrostore.onrender.com)
+> **Live Site:** [https://electrostore-fawn.vercel.app](https://electrostore-fawn.vercel.app)
 > **GitHub:** [https://github.com/Hrithikv286/portfolio](https://github.com/Hrithikv286/portfolio)
 
 A full-featured electronics e-commerce platform with an integrated AI assistant, built with Django (Python).
