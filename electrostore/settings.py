@@ -65,10 +65,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'electrostore.wsgi.application'
 
 # Database - SQLite (Support tickets, FAQs, Products)
+import shutil
+
+IS_VERCEL = bool(os.environ.get('VERCEL') == '1' or os.environ.get('VERCEL_ENV'))
+
+if IS_VERCEL:
+    tmp_db = Path('/tmp/db.sqlite3')
+    orig_db = BASE_DIR / 'db.sqlite3'
+    if not tmp_db.exists() and orig_db.exists():
+        try:
+            shutil.copy2(orig_db, tmp_db)
+        except Exception:
+            pass
+    DB_PATH = tmp_db if tmp_db.exists() else orig_db
+else:
+    DB_PATH = BASE_DIR / 'db.sqlite3'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': DB_PATH,
     }
 }
 
@@ -109,6 +125,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Logging
+if not IS_VERCEL:
+    try:
+        os.makedirs(BASE_DIR / 'logs', exist_ok=True)
+    except Exception:
+        pass
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -123,42 +145,45 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'electrostore.log',
-            'formatter': 'verbose',
-        },
         'console': {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
     },
     'root': {
-        'handlers': ['console', 'file'],
+        'handlers': ['console'],
         'level': 'INFO',
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
         'store': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False,
         },
         'chat': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],
             'level': 'DEBUG',
             'propagate': False,
         },
     },
 }
 
-# Ensure logs directory exists
-os.makedirs(BASE_DIR / 'logs', exist_ok=True)
+if not IS_VERCEL:
+    LOGGING['handlers']['file'] = {
+        'level': 'INFO',
+        'class': 'logging.FileHandler',
+        'filename': BASE_DIR / 'logs' / 'electrostore.log',
+        'formatter': 'verbose',
+    }
+    LOGGING['root']['handlers'].append('file')
+    LOGGING['loggers']['django']['handlers'].append('file')
+    LOGGING['loggers']['store']['handlers'].append('file')
+    LOGGING['loggers']['chat']['handlers'].append('file')
 
 # CORS settings
 CORS_ALLOW_ALL_ORIGINS = DEBUG
