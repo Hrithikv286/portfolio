@@ -93,9 +93,9 @@ def get_faq_matches(user_message):
 
 def get_error_matches(user_message):
     """Find relevant error codes mentioned in the message"""
-    # Look for error codes like 404, 500, ES001
-    error_pattern = re.compile(r'\b(ES\d+|\d{3})\b')
-    matches = error_pattern.findall(user_message)
+    # Look for error codes like 404, 500, ES001 (case-insensitive)
+    error_pattern = re.compile(r'\b(es\d+|\d{3})\b', re.IGNORECASE)
+    matches = [m.upper() for m in error_pattern.findall(user_message)]
 
     if matches:
         return ErrorCode.objects.filter(code__in=matches)
@@ -135,6 +135,21 @@ def process_chat_message(user_message, session_id):
             'source': 'gemini',
         }
 
+    # Error code fallback - prioritize when an error code is detected
+    if context_errors:
+        error = context_errors[0]
+        error_response = (
+            f"**Error {error.code}: {error.title}**\n\n"
+            f"{error.description}\n\n"
+            f"**How to fix:**\n{error.solution}"
+        )
+        return {
+            'response': error_response,
+            'ticket_created': False,
+            'ticket_id': None,
+            'source': 'error_fallback',
+        }
+
     # Fallback: Rule-based responses using FAQ data
     if context_faqs:
         faq_response = f"Based on our FAQs, here's what I found:\n\n"
@@ -145,21 +160,6 @@ def process_chat_message(user_message, session_id):
             'ticket_created': False,
             'ticket_id': None,
             'source': 'faq_fallback',
-        }
-
-    # Error code fallback
-    if context_errors:
-        error = context_errors[0]
-        error_response = (
-            f"**Error {error.code}: {error.title}**\n\n"
-            f"{error.description}\n\n"
-            f"**How to fix:** {error.solution}"
-        )
-        return {
-            'response': error_response,
-            'ticket_created': False,
-            'ticket_id': None,
-            'source': 'error_fallback',
         }
 
     # Cannot answer - create a support ticket
