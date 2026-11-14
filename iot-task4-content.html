@@ -36,6 +36,36 @@
         .feature { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
         .feature strong { display: block; margin-bottom: 5px; }
         .feature p { margin: 0; color: #65736b; font-size: 13px; }
+        .cloud-module { margin-top: 36px; padding: clamp(18px, 4vw, 34px); border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(145deg, #fff, #f3f8f5); box-shadow: 0 18px 48px #1731260c; }
+        .cloud-kicker { color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+        .cloud-title { margin: 7px 0 8px; font-size: clamp(25px, 4vw, 36px); letter-spacing: -.04em; }
+        .cloud-lead { max-width: 760px; margin: 0; color: #59685f; }
+        .cloud-section-title { margin: 30px 0 12px; font-size: 21px; letter-spacing: -.025em; }
+        .cloud-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+        .cloud-card { padding: 17px; border: 1px solid var(--line); border-radius: 15px; background: #fff; }
+        .cloud-card h4 { margin: 0 0 7px; color: #176b4d; font-size: 15px; }
+        .cloud-card p { margin: 0; color: #65736b; font-size: 13px; }
+        .cloud-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+        .cloud-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 13px; }
+        .cloud-table th, .cloud-table td { padding: 11px 13px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+        .cloud-table th { background: #edf5f0; color: #275840; font-size: 12px; }
+        .cloud-table tr:last-child td { border-bottom: 0; }
+        .cloud-flow { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 9px; padding: 17px; border: 1px solid var(--line); border-radius: 17px; background: #fff; }
+        .cloud-flow-node { flex: 1 1 115px; min-width: 115px; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: #f8fbf9; font-size: 13px; font-weight: 700; text-align: center; }
+        .cloud-flow-node small { display: block; margin-top: 4px; color: #718078; font-size: 11px; font-weight: 500; }
+        .cloud-flow-node.primary { border-color: #9ecdb3; background: #eaf7ef; color: #176b4d; }
+        .cloud-flow-arrow { display: grid; place-items: center; color: var(--green); font-size: 19px; }
+        .cloud-note { margin: 12px 0 0; padding: 13px 15px; border: 1px solid #dce9e2; border-radius: 13px; background: #f8fbf9; color: #59685f; font-size: 13px; }
+        .cloud-outcomes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 8px; margin: 0; padding: 0; list-style: none; }
+        .cloud-outcomes li { padding: 11px 13px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: #42534a; font-size: 13px; }
+        .cloud-code-card { margin-top: 14px; overflow: hidden; border: 1px solid #263a33; border-radius: 15px; background: #101715; box-shadow: 0 10px 24px #17312612; }
+        .cloud-code-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; border-bottom: 1px solid #293a33; background: #17211d; color: #e8f5ee; font-size: 12px; font-weight: 700; }
+        .cloud-code-head span { color: #9de0b7; font-size: 10px; letter-spacing: .1em; }
+        .cloud-code-card pre { max-height: 420px; margin: 0; padding: 15px; overflow: auto; color: #d8e5de; background: #101715; font: 400 12px/1.65 Consolas, Monaco, monospace; tab-size: 2; }
+        .cloud-code-card code { color: inherit; font: inherit; }
+        .cloud-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: 10px; margin: 14px 0; padding: 0; list-style: none; counter-reset: flow-step; }
+        .cloud-steps li { counter-increment: flow-step; padding: 13px; border: 1px solid var(--line); border-radius: 13px; background: #fff; color: #42534a; font-size: 13px; }
+        .cloud-steps li::before { display: block; margin-bottom: 5px; color: var(--green); content: "STEP " counter(flow-step, decimal-leading-zero); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
         @media (max-width: 650px) { .metrics, .feature-grid { grid-template-columns: 1fr; } .lower { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -165,6 +195,355 @@
                 <li>The user toggles the bulb, changes the mode or moves the slider; the change is written to the database.</li>
                 <li>The user can export up to the latest 5000 readings as a CSV file</li>
             </ol>
+
+            <section class="cloud-module" aria-labelledby="cloud-module-title">
+                <div class="cloud-kicker">Cloud computing &middot; Firebase &middot; IoT integration</div>
+                <h2 class="cloud-title" id="cloud-module-title">Cloud Computing &amp; Firebase Fundamentals</h2>
+                <p class="cloud-lead">A foundation in cloud services, databases, dashboards, authentication, and Firebase configuration for connected IoT applications.</p>
+
+                <h3 class="cloud-section-title">01. Cloud Computing Fundamentals</h3>
+                <p>Cloud computing delivers services such as servers, storage, databases, networking, and software over the internet. Instead of maintaining physical servers locally, users can access computing resources from a cloud provider when they need them.</p>
+                <div class="cloud-grid" style="margin-top:12px">
+                    <article class="cloud-card"><h4>Access anywhere</h4><p>Reach cloud resources from connected locations and devices.</p></article>
+                    <article class="cloud-card"><h4>Lower infrastructure burden</h4><p>Reduce the need to purchase and maintain local server hardware.</p></article>
+                    <article class="cloud-card"><h4>Scalable resources</h4><p>Adjust capacity as an application or its data grows.</p></article>
+                    <article class="cloud-card"><h4>Centralized data</h4><p>Store and manage application data in a shared cloud environment.</p></article>
+                    <article class="cloud-card"><h4>Faster deployment</h4><p>Use managed services to build and release applications more quickly.</p></article>
+                </div>
+
+                <h3 class="cloud-section-title">02. Cloud Service Models</h3>
+                <p>Service models describe how much of the infrastructure is managed by the provider and how much is managed by the developer or user.</p>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Model</th><th>Full form</th><th>What it provides</th><th>Example</th></tr></thead><tbody>
+                    <tr><td><strong>IaaS</strong></td><td>Infrastructure as a Service</td><td>Virtual servers, storage, and networking.</td><td>AWS EC2</td></tr>
+                    <tr><td><strong>PaaS</strong></td><td>Platform as a Service</td><td>A managed platform to develop and deploy applications.</td><td>Google App Engine</td></tr>
+                    <tr><td><strong>SaaS</strong></td><td>Software as a Service</td><td>Ready-to-use software accessed online.</td><td>Google Workspace</td></tr>
+                    <tr><td><strong>BaaS</strong></td><td>Backend as a Service</td><td>Ready-made backend tools such as authentication, databases, and APIs.</td><td>Firebase</td></tr>
+                </tbody></table></div>
+                <div class="cloud-grid" style="margin-top:12px">
+                    <article class="cloud-card"><h4>IaaS</h4><p>Provides computing infrastructure without purchasing physical hardware.</p></article>
+                    <article class="cloud-card"><h4>PaaS</h4><p>Lets developers focus on applications without managing the underlying platform.</p></article>
+                    <article class="cloud-card"><h4>SaaS</h4><p>Lets users access software directly through a browser or app.</p></article>
+                    <article class="cloud-card"><h4>BaaS</h4><p>Simplifies backend work with services such as sign-in and cloud data storage.</p></article>
+                </div>
+
+                <h3 class="cloud-section-title">03. Cloud Platforms</h3>
+                <p>A cloud platform provides online tools to build, host, manage, and operate applications. It can store data, connect devices, manage users, and provide computing resources over the internet.</p>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>Google Cloud Platform</h4><p>Cloud infrastructure and managed services.</p></article>
+                    <article class="cloud-card"><h4>Amazon Web Services</h4><p>Compute, storage, networking, and application services.</p></article>
+                    <article class="cloud-card"><h4>Microsoft Azure</h4><p>Cloud infrastructure and development services.</p></article>
+                    <article class="cloud-card"><h4>Firebase</h4><p>Application backend services for data, sign-in, and hosting.</p></article>
+                </div>
+                <p class="cloud-note"><strong>IoT example:</strong> An ESP32 can send sensor readings to a cloud platform, where the data is stored and made available to a dashboard.</p>
+
+                <h3 class="cloud-section-title">04. Databases</h3>
+                <p>A database is an organized collection of information that can be stored, accessed, managed, and updated. IoT applications use databases for sensor readings, device information, user details, and control commands.</p>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Database type</th><th>How it stores or serves data</th></tr></thead><tbody>
+                    <tr><td>Relational</td><td>Structured data organized in tables.</td></tr>
+                    <tr><td>NoSQL</td><td>Flexible data formats such as documents or key-value pairs.</td></tr>
+                    <tr><td>Cloud database</td><td>Data hosted on cloud infrastructure for remote access.</td></tr>
+                    <tr><td>Real-time database</td><td>Updates synchronized between connected applications and devices.</td></tr>
+                </tbody></table></div>
+                <p class="cloud-note"><strong>Example:</strong> Firebase Realtime Database can store readings from an ESP32 and make updated values available to a connected dashboard.</p>
+
+                <h3 class="cloud-section-title">05. Cloud-Based Dashboards</h3>
+                <p>A cloud-based dashboard is a web interface for viewing information from connected devices and applications and sending commands remotely.</p>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>Monitor</h4><p>Show live sensor readings and device status.</p></article>
+                    <article class="cloud-card"><h4>Visualize</h4><p>Present values with charts, indicators, and history.</p></article>
+                    <article class="cloud-card"><h4>Control</h4><p>Send commands to connected devices from different locations.</p></article>
+                </div>
+                <p class="cloud-note"><strong>IoT example:</strong> An ESP32 sends temperature and humidity readings to Firebase; the dashboard retrieves and displays the latest values.</p>
+
+                <h3 class="cloud-section-title">06. Authentication vs. Authorization</h3>
+                <p>Authentication verifies identity. Authorization decides what an authenticated user is allowed to access.</p>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Authentication</th><th>Authorization</th></tr></thead><tbody>
+                    <tr><td>Answers, "Who are you?"</td><td>Answers, "What are you allowed to do?"</td></tr>
+                    <tr><td>Uses passwords, one-time codes, or other sign-in methods.</td><td>Uses roles, permissions, and access rules.</td></tr>
+                    <tr><td>Example: signing into Firebase with email and password.</td><td>Example: an admin controls devices while a standard user can only monitor them.</td></tr>
+                </tbody></table></div>
+                <ol>
+                    <li>A user enters their sign-in details.</li>
+                    <li>Authentication verifies the user's identity.</li>
+                    <li>Authorization checks the user's permissions.</li>
+                    <li>The user receives access only to permitted features.</li>
+                </ol>
+
+                <h3 class="cloud-section-title">07. Firebase Project Setup</h3>
+                <p>Firebase is a Backend as a Service (BaaS) platform from Google. It provides backend tools so developers can build applications without managing all the backend infrastructure themselves.</p>
+                <div class="cloud-flow" role="img" aria-label="Firebase setup flow: Open Firebase Console, create a project, enter project details, register an app, add Firebase configuration, enable services, configure database rules, connect the app, and test data communication">
+                    <div class="cloud-flow-node">Open Firebase Console</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Create a project</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Enter project details</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Register an app</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Add Firebase configuration</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Enable services</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Set database rules</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Connect the app</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node primary">Test data communication</div>
+                </div>
+                <ol>
+                    <li>Open the Firebase Console and sign in with a Google account.</li>
+                    <li>Create a project and enter its details and settings.</li>
+                    <li>Register the required application.</li>
+                    <li>Add the Firebase configuration to the application.</li>
+                    <li>Enable the services needed, such as Authentication or Realtime Database.</li>
+                    <li>Configure database security rules, connect the application, and test uploading and retrieving data.</li>
+                </ol>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Firebase service</th><th>Purpose</th></tr></thead><tbody>
+                    <tr><td>Firebase Authentication</td><td>Manages user identity and sign-in.</td></tr>
+                    <tr><td>Firebase Realtime Database</td><td>Stores and synchronizes data in real time.</td></tr>
+                    <tr><td>Cloud Firestore</td><td>Provides a scalable NoSQL document database.</td></tr>
+                    <tr><td>Firebase Hosting</td><td>Hosts web applications.</td></tr>
+                </tbody></table></div>
+
+                <h3 class="cloud-section-title">08. Overall Cloud Communication Flow</h3>
+                <p>Sensor data travels from the device to the cloud dashboard. Control commands can travel back through the database to the ESP32 and its connected output.</p>
+                <div class="cloud-flow" role="img" aria-label="Sensor data flow from sensors to ESP32 over Wi-Fi and internet to Firebase Cloud Database, then to the dashboard and user">
+                    <div class="cloud-flow-node">Sensors</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">ESP32</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Wi-Fi / Internet</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node primary">Firebase Cloud Database</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Cloud Dashboard</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">User</div>
+                </div>
+                <div class="cloud-flow" role="img" aria-label="Control command flow from user through dashboard and Firebase to the ESP32, relay module, and electrical device" style="margin-top:10px">
+                    <div class="cloud-flow-node">User command</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Dashboard</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node primary">Firebase</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">ESP32</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Relay module</div><span class="cloud-flow-arrow" aria-hidden="true">&rarr;</span>
+                    <div class="cloud-flow-node">Electrical device</div>
+                </div>
+
+                <h3 class="cloud-section-title">Learning Outcomes</h3>
+                <p>After completing this module, I gained an understanding of:</p>
+                <ul class="cloud-outcomes">
+                    <li>Cloud computing concepts and benefits.</li>
+                    <li>The differences between IaaS, PaaS, SaaS, and BaaS.</li>
+                    <li>The purpose and uses of cloud platforms.</li>
+                    <li>Databases and cloud-based data storage.</li>
+                    <li>Real-time monitoring with cloud dashboards.</li>
+                    <li>Authentication and authorization.</li>
+                    <li>The basic workflow for configuring a Firebase project.</li>
+                </ul>
+                <p class="cloud-note" style="text-align:center"><strong>Cloud Computing &middot; Firebase &middot; IoT Integration</strong><br><small>Learning &middot; Understanding &middot; Building connected applications</small></p>
+            </section>
+
+            <section class="cloud-module" aria-labelledby="important-code-sections-title">
+                <div class="cloud-kicker">Task 4 &middot; Dashboard implementation</div>
+                <h2 class="cloud-title" id="important-code-sections-title">11. Important Code Sections</h2>
+                <p class="cloud-lead">These JavaScript patterns protect the dashboard, keep its Firebase data current, control how relay state is displayed, validate settings, and export readings.</p>
+
+                <h3 class="cloud-section-title">11.1 Authentication Guard</h3>
+                <p>The authentication guard allows only signed-in users to access the dashboard. Firebase Authentication checks the login state, and the user's unique ID (UID) becomes the root of that user's database path.</p>
+                <div class="cloud-code-card"><div class="cloud-code-head">Dashboard authentication <span>JAVASCRIPT</span></div><pre><code>onAuthStateChanged(auth, (user) =&gt; {
+  if (!user) {
+    location.replace(&quot;login.html&quot;);
+    return;
+  }
+
+  base = &quot;users/&quot; + user.uid;
+  start();
+});</code></pre></div>
+                <div class="cloud-grid" style="margin-top:12px">
+                    <article class="cloud-card"><h4>Check sign-in</h4><p>Firebase reports whether a user is currently authenticated.</p></article>
+                    <article class="cloud-card"><h4>Protect the dashboard</h4><p>Unauthenticated visitors are redirected to the login page.</p></article>
+                    <article class="cloud-card"><h4>Scope user data</h4><p>The authenticated UID sets the user's database root before the dashboard starts.</p></article>
+                </div>
+
+                <h3 class="cloud-section-title">11.2 Real-Time Firebase Listeners</h3>
+                <p>Firebase <code>onValue</code> listeners watch database paths and update the dashboard when new values arrive.</p>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>Bulb state</h4><p>Monitor ON/OFF state and keep the interface current.</p></article>
+                    <article class="cloud-card"><h4>Operating mode</h4><p>Track whether control is manual or automatic.</p></article>
+                    <article class="cloud-card"><h4>Sensor readings</h4><p>Update values as new measurements arrive.</p></article>
+                    <article class="cloud-card"><h4>Publisher integration</h4><p>Synchronize dashboard fields with the ESP32-C3 Rust publisher.</p></article>
+                </div>
+                <p class="cloud-note"><strong>Integration requirement:</strong> The ESP32-C3 publisher and dashboard must use matching Firebase database paths and field names so they exchange the intended values.</p>
+
+                <h3 class="cloud-section-title">11.3 Manual and Automatic Display Logic</h3>
+                <p>The display logic uses the requested state in manual mode and the latest reported relay state in automatic mode.</p>
+                <div class="cloud-code-card"><div class="cloud-code-head">Mode-based relay display <span>JAVASCRIPT</span></div><pre><code>const on = mode === &quot;auto&quot;
+  ? !!(latest &amp;&amp; latest.relay)
+  : bulbWanted;
+
+toggle.checked = on;
+toggle.disabled = mode === &quot;auto&quot;;</code></pre></div>
+                <div class="cloud-table-wrap" style="margin-top:12px"><table class="cloud-table"><thead><tr><th>Mode or control</th><th>Dashboard behaviour</th></tr></thead><tbody>
+                    <tr><td>Manual mode</td><td>Displays the user's requested bulb state.</td></tr>
+                    <tr><td>Automatic mode</td><td>Displays the actual relay state from the latest data.</td></tr>
+                    <tr><td>Toggle control</td><td>Disabled in automatic mode to prevent a manual override through this toggle.</td></tr>
+                </tbody></table></div>
+                <p class="cloud-note">This keeps the display aligned with the selected operating mode.</p>
+
+                <h3 class="cloud-section-title">11.4 Threshold Validation</h3>
+                <p>The threshold slider sets the sensor level used by automatic operation. The value is checked before it is written to Firebase.</p>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>Allowed range</h4><p><code>0</code> to <code>4095</code>.</p></article>
+                    <article class="cloud-card"><h4>Validate before saving</h4><p>Reject values outside the supported range before sending them to the database.</p></article>
+                    <article class="cloud-card"><h4>Match the ADC scale</h4><p>The range corresponds to the ESP32 ADC values used by this application.</p></article>
+                </div>
+
+                <h3 class="cloud-section-title">11.5 Loading, Error, and CSV Handling</h3>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Feature</th><th>Purpose</th></tr></thead><tbody>
+                    <tr><td>Loading status</td><td>Shows that data is still being loaded.</td></tr>
+                    <tr><td>Live status</td><td>Indicates that the dashboard is receiving updates.</td></tr>
+                    <tr><td>Offline status</td><td>Indicates that the system is not currently connected.</td></tr>
+                    <tr><td>Error handling</td><td>Displays readable messages when an operation fails.</td></tr>
+                    <tr><td>CSV export</td><td>Downloads stored readings for offline analysis.</td></tr>
+                </tbody></table></div>
+                <p class="cloud-note"><strong>CSV export:</strong> Requests up to 5,000 records, downloads a <code>.csv</code> file named <code>forge-readings.csv</code>, and uses a browser-based download so the readings can be analyzed in a spreadsheet.</p>
+
+                <h3 class="cloud-section-title">11.6 Overall Dashboard Workflow</h3>
+                <ol class="cloud-steps" aria-label="Dashboard workflow">
+                    <li>User opens the dashboard.</li>
+                    <li>Firebase checks authentication. If nobody is signed in, redirect to login.</li>
+                    <li>For a signed-in user, set the database path using the user's UID.</li>
+                    <li>Start the dashboard and listen for Firebase updates.</li>
+                    <li>Update bulb state and sensor readings when data changes.</li>
+                    <li>Choose the display source based on the operating mode.</li>
+                    <li>Update the dashboard; validate threshold changes and support CSV export.</li>
+                    <li>Continue listening for new Firebase updates.</li>
+                </ol>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>Manual branch</h4><p>Show the bulb state requested by the user.</p></article>
+                    <article class="cloud-card"><h4>Automatic branch</h4><p>Show the actual relay state reported by the latest data.</p></article>
+                </div>
+
+                <h3 class="cloud-section-title">Key Learning Outcomes</h3>
+                <p>Through these code sections, I learned how to:</p>
+                <ul class="cloud-outcomes">
+                    <li>Implement Firebase Authentication and protect dashboard access.</li>
+                    <li>Synchronize data with real-time Firebase listeners.</li>
+                    <li>Display manual and automatic relay states correctly.</li>
+                    <li>Validate sensor thresholds before writing to the database.</li>
+                    <li>Handle loading, errors, and offline conditions.</li>
+                    <li>Export sensor readings as CSV for further analysis.</li>
+                </ul>
+                <p class="cloud-note" style="text-align:center"><strong>Authentication &middot; Real-Time Sync &middot; Device Control &middot; Data Management</strong><br><small>Task 5 - ESP32 Smart Home Integration</small></p>
+            </section>
+
+            <section class="cloud-module" aria-labelledby="esp32-integration-title">
+                <div class="cloud-kicker">Task 4 &middot; Hardware integration</div>
+                <h2 class="cloud-title" id="esp32-integration-title">18. ESP32 Source Code &amp; Hardware Integration</h2>
+                <p class="cloud-lead">The ESP32 is the hardware controller in the smart home IoT system. It reads environmental sensors, communicates with Firebase over Wi-Fi, receives appliance commands, and controls the relay module.</p>
+
+                <h3 class="cloud-section-title">18.1 System Responsibilities</h3>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Function</th><th>Responsibility</th></tr></thead><tbody>
+                    <tr><td>Wi-Fi connection</td><td>Connects the ESP32 to the wireless network.</td></tr>
+                    <tr><td>Firebase connection</td><td>Communicates with Firebase Realtime Database.</td></tr>
+                    <tr><td>Temperature and humidity</td><td>Reads environmental measurements from the DHT11.</td></tr>
+                    <tr><td>Light monitoring</td><td>Reads ambient light levels from the LDR.</td></tr>
+                    <tr><td>Sensor upload</td><td>Sends sensor readings to Firebase.</td></tr>
+                    <tr><td>Command retrieval</td><td>Reads the bulb-control value from Firebase.</td></tr>
+                    <tr><td>Relay control</td><td>Switches the connected appliance ON or OFF.</td></tr>
+                </tbody></table></div>
+
+                <h3 class="cloud-section-title">18.2 Hardware Pin Configuration</h3>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Component</th><th>ESP32 pin</th><th>Function</th></tr></thead><tbody>
+                    <tr><td>DHT11</td><td>GPIO 4</td><td>Temperature and humidity</td></tr>
+                    <tr><td>LDR</td><td>GPIO 34</td><td>Analog light measurement</td></tr>
+                    <tr><td>Relay module</td><td>GPIO 5</td><td>Appliance switching</td></tr>
+                </tbody></table></div>
+
+                <h3 class="cloud-section-title">18.3 ESP32 Communication Workflow</h3>
+                <ol class="cloud-steps" aria-label="ESP32 communication workflow">
+                    <li>Power on and initialize the ESP32.</li>
+                    <li>Connect to Wi-Fi.</li>
+                    <li>Connect to Firebase.</li>
+                    <li>Read temperature and humidity from the DHT11.</li>
+                    <li>Read the LDR value.</li>
+                    <li>Upload sensor readings to Firebase.</li>
+                    <li>Read the bulb control command.</li>
+                    <li>Activate or deactivate the relay based on the command.</li>
+                    <li>Print status to Serial Monitor and repeat the cycle.</li>
+                </ol>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>ON command</h4><p>Activate the relay and report the bulb ON state.</p></article>
+                    <article class="cloud-card"><h4>OFF command</h4><p>Deactivate the relay and report the bulb OFF state.</p></article>
+                </div>
+
+                <h3 class="cloud-section-title">18.4 Important Programming Concepts</h3>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>Wi-Fi connectivity</h4><p>The ESP32 joins the configured wireless network using the <code>WiFi.h</code> library.</p></article>
+                    <article class="cloud-card"><h4>Sensor data acquisition</h4><p>The DHT library reads temperature and humidity; <code>analogRead()</code> reads the LDR.</p></article>
+                    <article class="cloud-card"><h4>Firebase communication</h4><p><code>Firebase_ESP_Client</code> uploads readings and retrieves bulb-control commands.</p></article>
+                    <article class="cloud-card"><h4>Relay automation</h4><p>The ESP32 checks the received Boolean value and changes the relay output.</p></article>
+                    <article class="cloud-card"><h4>Periodic execution</h4><p><code>millis()</code> schedules sensor updates every two seconds without blocking the main loop with a delay.</p></article>
+                </div>
+
+                <h3 class="cloud-section-title">18.5 Important Code Snippets</h3>
+                <h4 style="margin:14px 0 0">Sensor reading</h4>
+                <div class="cloud-code-card"><div class="cloud-code-head">Sensor acquisition <span>ARDUINO / C++</span></div><pre><code>float temperature = dht.readTemperature();
+float humidity = dht.readHumidity();
+int ldrValue = analogRead(LDR_PIN);</code></pre></div>
+                <h4 style="margin:18px 0 0">Upload sensor data to Firebase</h4>
+                <div class="cloud-code-card"><div class="cloud-code-head">Firebase Realtime Database writes <span>ARDUINO / C++</span></div><pre><code>Firebase.RTDB.setFloat(&amp;fbdo, &quot;/IoT/sensors/temperature&quot;, temperature);
+Firebase.RTDB.setFloat(&amp;fbdo, &quot;/IoT/sensors/humidity&quot;, humidity);
+Firebase.RTDB.setInt(&amp;fbdo, &quot;/IoT/sensors/ldr&quot;, ldrValue);</code></pre></div>
+                <h4 style="margin:18px 0 0">Relay control</h4>
+                <div class="cloud-code-card"><div class="cloud-code-head">Read command and switch relay <span>ARDUINO / C++</span></div><pre><code>if (Firebase.RTDB.getBool(&amp;fbdo, &quot;/IoT/control/bulb&quot;)) {
+  bool bulbState = fbdo.boolData();
+
+  if (bulbState) {
+    digitalWrite(RELAY_PIN, HIGH);
+    Serial.println(&quot;Bulb: ON&quot;);
+  } else {
+    digitalWrite(RELAY_PIN, LOW);
+    Serial.println(&quot;Bulb: OFF&quot;);
+  }
+}</code></pre></div>
+
+                <h3 class="cloud-section-title">18.6 Required Libraries</h3>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Library</th><th>Purpose</th></tr></thead><tbody>
+                    <tr><td><code>WiFi.h</code></td><td>ESP32 wireless connectivity.</td></tr>
+                    <tr><td><code>Firebase_ESP_Client.h</code></td><td>Firebase communication.</td></tr>
+                    <tr><td><code>DHT.h</code></td><td>DHT11 sensor interfacing.</td></tr>
+                </tbody></table></div>
+
+                <h3 class="cloud-section-title">18.7 Complete ESP32 Source Code</h3>
+                <p>The complete Arduino program brings together Wi-Fi configuration, Firebase initialization, sensor acquisition, database communication, and relay control.</p>
+                <p class="cloud-note"><strong>Source file:</strong> <code>esp32_smart_home.ino</code><br>Add the complete ESP32 source code to this file in the project repository.</p>
+            </section>
+
+            <section class="cloud-module" aria-labelledby="dashboard-source-title">
+                <div class="cloud-kicker">Task 4 &middot; Web integration</div>
+                <h2 class="cloud-title" id="dashboard-source-title">19. Dashboard Source Code &amp; Web Integration</h2>
+                <p class="cloud-lead">The smart home dashboard combines HTML, CSS, JavaScript, and Firebase integration to monitor sensor values, control appliances, review history, and manage settings.</p>
+
+                <h3 class="cloud-section-title">19.1 Dashboard Features</h3>
+                <div class="cloud-table-wrap"><table class="cloud-table"><thead><tr><th>Feature</th><th>Description</th></tr></thead><tbody>
+                    <tr><td>User interface</td><td>Clean, responsive smart home dashboard.</td></tr>
+                    <tr><td>Account interface</td><td>Sign-in and account creation using the supplied localStorage-based implementation.</td></tr>
+                    <tr><td>Temperature and humidity</td><td>Displays DHT11 readings, with a visual humidity indicator.</td></tr>
+                    <tr><td>System mode</td><td>Provides Manual and Automatic mode selection.</td></tr>
+                    <tr><td>Appliance control</td><td>Lets the user operate the bulb control interface.</td></tr>
+                    <tr><td>Historical analytics</td><td>Displays temperature and humidity trends.</td></tr>
+                    <tr><td>Sensor log and CSV export</td><td>Displays recorded sensor information and provides an export interface.</td></tr>
+                    <tr><td>Notifications and settings</td><td>Provides system notifications and access to platform settings.</td></tr>
+                </tbody></table></div>
+
+                <h3 class="cloud-section-title">19.2 Dashboard Interface Structure</h3>
+                <p>The interface groups authentication, navigation, monitoring, device controls, analytics, and sensor history into a single dashboard.</p>
+                <div class="cloud-grid">
+                    <article class="cloud-card"><h4>Authentication</h4><p>Sign in or create an account.</p></article>
+                    <article class="cloud-card"><h4>Top navigation</h4><p>Account, settings, and notifications.</p></article>
+                    <article class="cloud-card"><h4>Monitoring cards</h4><p>Temperature, humidity, and system mode.</p></article>
+                    <article class="cloud-card"><h4>Appliance control</h4><p>Bulb ON/OFF control.</p></article>
+                    <article class="cloud-card"><h4>Historical analytics</h4><p>Performance charts for recorded values.</p></article>
+                    <article class="cloud-card"><h4>Sensor log</h4><p>History table and CSV export.</p></article>
+                </div>
+                <div class="cloud-flow" role="img" aria-label="Dashboard structure: Smart Home Dashboard connects to authentication, navigation, monitoring cards, appliance control, historical analytics, and sensor log. These contain sign-in and account creation, account settings and notifications, sensor values and mode, bulb controls, performance charts, and history with CSV export.">
+                    <div class="cloud-flow-node primary">Smart Home Dashboard</div><span class="cloud-flow-arrow" aria-hidden="true">&darr;</span>
+                    <div class="cloud-flow-node">Authentication<small>Sign in / Create account</small></div>
+                    <div class="cloud-flow-node">Navigation<small>Account / Settings / Notifications</small></div>
+                    <div class="cloud-flow-node">Monitoring cards<small>Temperature / Humidity / Mode</small></div>
+                    <div class="cloud-flow-node">Appliance control<small>Bulb ON / OFF</small></div>
+                    <div class="cloud-flow-node">Historical analytics<small>Performance charts</small></div>
+                    <div class="cloud-flow-node">Sensor log<small>History / CSV export</small></div>
+                </div>
+            </section>
         </section>
     </main>
 </body>

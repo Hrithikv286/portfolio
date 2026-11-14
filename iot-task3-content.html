@@ -84,5 +84,52 @@
         </video>
         <figcaption>Voice-controlled relay project demonstration.</figcaption>
     </figure>
+
+    <section style="margin:3rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #dce9e2;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#f5faf7 100%);box-shadow:0 14px 34px rgba(23,49,38,.06)">
+        <h2>Transcript</h2>
+        <p>Sample Google Assistant voice commands and confirmations:</p>
+        <div aria-label="Google Assistant voice transcript" style="display:grid;gap:.85rem;margin:1.25rem 0 2rem">
+            <article style="max-width:88%;padding:1rem 1.15rem;border:1px solid #dce9e2;border-radius:16px 16px 16px 5px;background:#f5f8f7"><small style="display:block;margin-bottom:.35rem;color:#65736d;font-weight:700">VOICE COMMAND</small><strong>"Okay Google, activate Bulb On."</strong></article>
+            <article style="max-width:88%;justify-self:end;padding:1rem 1.15rem;border:1px solid #cfe8d8;border-radius:16px 16px 5px 16px;background:#eaf7ef"><small style="display:block;margin-bottom:.35rem;color:#16805b;font-weight:700">GOOGLE ASSISTANT</small><strong>"Sure, activating the Bulb On."</strong></article>
+            <article style="max-width:88%;padding:1rem 1.15rem;border:1px solid #dce9e2;border-radius:16px 16px 16px 5px;background:#f5f8f7"><small style="display:block;margin-bottom:.35rem;color:#65736d;font-weight:700">VOICE COMMAND</small><strong>"Okay Google, activate Bulb of."</strong></article>
+            <article style="max-width:88%;justify-self:end;padding:1rem 1.15rem;border:1px solid #cfe8d8;border-radius:16px 16px 5px 16px;background:#eaf7ef"><small style="display:block;margin-bottom:.35rem;color:#16805b;font-weight:700">GOOGLE ASSISTANT</small><strong>"Got it, activating the Bulb of."</strong></article>
+        </div>
+        <h2>How the trigger reaches the IoT system</h2>
+        <p>A spoken request starts the automation, and each service passes the command to the next part of the system:</p>
+        <div role="img" aria-label="Flow: Google Assistant voice trigger to IFTTT applet and Webhook, to the Adafruit IO bulb-control feed over MQTT, to the subscribed ESP32, to the relay and bulb" style="display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:.6rem;padding:1rem;border:1px solid #dce9e2;border-radius:16px;background:#fff">
+            <div style="flex:1 1 125px;min-width:125px;padding:1rem;border:1px solid #dce9e2;border-radius:12px;background:#f8fbf9"><strong>Google Assistant</strong><br><small>Voice trigger</small></div><span aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.25rem">&rarr;</span>
+            <div style="flex:1 1 125px;min-width:125px;padding:1rem;border:1px solid #dce9e2;border-radius:12px;background:#f8fbf9"><strong>IFTTT</strong><br><small>Applet and Webhook</small></div><span aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.25rem">&rarr;</span>
+            <div style="flex:1 1 145px;min-width:145px;padding:1rem;border:1px solid #16805b;border-radius:12px;background:#eaf7ef"><strong>Adafruit IO</strong><br><small><code>bulb-control</code> feed</small></div><span aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.25rem">&rarr;</span>
+            <div style="flex:1 1 125px;min-width:125px;padding:1rem;border:1px solid #dce9e2;border-radius:12px;background:#f8fbf9"><strong>ESP32</strong><br><small>MQTT subscriber</small></div><span aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.25rem">&rarr;</span>
+            <div style="flex:1 1 125px;min-width:125px;padding:1rem;border:1px solid #dce9e2;border-radius:12px;background:#fff8f3"><strong>Relay and bulb</strong><br><small>Physical output</small></div>
+        </div>
+        <p style="margin-bottom:0"><strong>What happens:</strong> Google Assistant recognizes the configured phrase and starts the IFTTT applet. IFTTT sends the selected value, such as <code>1</code> for ON or <code>0</code> for OFF, to the Adafruit IO feed. The MQTT broker delivers it to the ESP32 subscribed to that feed; the sketch processes the command and sets the relay output. A status message or device log can then confirm the state the ESP32 applied.</p>
+    </section>
+
+    <section style="margin:2rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #dce9e2;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#f5faf7 100%);box-shadow:0 14px 34px rgba(23,49,38,.06)">
+        <h2>Role of Adafruit IO in the automation</h2>
+        <p>Adafruit IO is the cloud link between the IFTTT applet and the ESP32. When IFTTT writes a command such as <code>1</code> or <code>0</code> to the <code>bulb-control</code> feed, Adafruit IO records the feed value and makes it available through its MQTT broker. The ESP32 stays subscribed to the matching feed and receives new values when they are published.</p>
+        <p>Because both IFTTT and the ESP32 connect outward to Adafruit IO, they do not need a direct connection to each other or an exposed inbound port on the local network. The feed carries the requested command; a separate status update or device log is needed to confirm that the ESP32 received it and changed the relay.</p>
+    </section>
+
+    <section style="margin:3rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #dce9e2;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#f5faf7 100%);box-shadow:0 14px 34px rgba(23,49,38,.06)">
+        <h2>Challenges &amp; Fixes</h2>
+        <ul>
+            <li><strong>One applet could only ever turn the bulb ON</strong> - my first instinct was that a single "Bulb" scene could toggle the light, but an IFTTT Activate-scene trigger only fires an action; it cannot read the bulb's current state to flip it. I had to create a second, separate applet with its own scene name (<em>Bulb off</em>) and its own action sending <code>0</code>, so ON and OFF are two independent automations that write to the same feed.</li>
+            <li><strong>IFTTT couldn't write to my feed until I authorized it</strong> - the first attempt at the action step stalled because I had not granted the Adafruit authorization request. Approving the "Read and write to your feed data" permission on the Adafruit account page let the action save.</li>
+            <li><strong>Making sure the value matched what the sketch expects</strong> - since <code>processBulbCommand()</code> already accepts <code>1</code>/<code>0</code>, I entered those values in the "Data to save" field instead of leaving IFTTT's default text.</li>
+        </ul>
+    </section>
+
+    <section style="margin:3rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #dce9e2;border-left:4px solid #16805b;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#f5faf7 100%);box-shadow:0 14px 34px rgba(23,49,38,.06)">
+        <h2>Reflection</h2>
+        <p>What stood out most is how little the ESP32 side had to change for a completely different kind of trigger. Task 2 proved that publish/subscribe decouples the dashboard from the device, and this task pushed that further: IFTTT is just another publisher on the same feed, alongside the dashboard toggle, and the ESP32 never needs to know which one sent the value. That's the real payoff of building on Adafruit IO rather than hardcoding a single control path.</p>
+        <p style="margin-bottom:0">The automation does have a seam, though - needing two separate applets for ON and OFF instead of one smart toggle shows that IFTTT's Activate-scene trigger only knows how to fire a fixed action, not read or branch on current state. Anything more conditional (say, "turn off only if it's already on") would need a service on IFTTT's Pro tier or logic added back on the ESP32 itself.</p>
+    </section>
+
+    <section style="margin:3rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #dce9e2;border-left:4px solid #16805b;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#f5faf7 100%);box-shadow:0 14px 34px rgba(23,49,38,.06)">
+        <h2>What I Learned About Cloud-Based Automation</h2>
+        <p style="margin-bottom:0">I learned that cloud automation can connect services that do not communicate directly. A voice trigger in Google Assistant starts an IFTTT applet, which publishes a command to an Adafruit IO feed; MQTT then delivers that value to the ESP32 subscribed to the feed. The same feed can accept commands from more than one publisher, so the device can respond without needing to know whether a dashboard or voice automation sent them. I also learned that each handoff depends on correct configuration, authorization, and an active network connection, and that a published command should be followed by device status feedback to confirm the result.</p>
+    </section>
 </body>
 </html>

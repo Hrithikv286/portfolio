@@ -161,6 +161,85 @@
     <h2>Outcome</h2>
     <p>The completed system links physical sensing, cloud storage, and web control. Sensor readings reach the dashboard in near real time, and relay commands travel back to the ESP32. If Wi-Fi or Firebase communication is lost, the firmware places the relay in the OFF state.</p>
     <p>The project demonstrates how embedded sensors, cloud databases, authentication, and a web interface can operate as one system. It also highlights the value of filtering noisy sensor data and using realtime listeners to keep the dashboard current without page refreshes.</p>
+
+    <h2>20. Current Prototype Limitations</h2>
+    <p>The prototype demonstrates the integration of an ESP32, sensors, Firebase, and a web dashboard. These areas could be improved in future development:</p>
+    <div class="card" style="overflow-x:auto"><table class="pin-table"><thead><tr><th>No.</th><th>Limitation</th><th>Explanation</th></tr></thead><tbody>
+        <tr><td>01</td><td>Sensor accuracy</td><td>DHT11 provides basic temperature and humidity measurements and is less accurate than advanced environmental sensors.</td></tr>
+        <tr><td>02</td><td>Light measurement</td><td>The LDR provides relative light readings rather than calibrated illumination in lux.</td></tr>
+        <tr><td>03</td><td>Internet dependency</td><td>Firebase communication requires an active internet connection.</td></tr>
+        <tr><td>04</td><td>Network reliability</td><td>Unstable Wi-Fi can interrupt data transmission and remote appliance control.</td></tr>
+        <tr><td>05</td><td>Data update interval</td><td>Sensor readings are uploaded at a fixed two-second interval.</td></tr>
+        <tr><td>06</td><td>Local account storage</td><td>The supplied dashboard account interface uses browser LocalStorage rather than demonstrating a complete cloud authentication system.</td></tr>
+        <tr><td>07</td><td>Hardware expansion</td><td>The current prototype supports a limited number of sensors and controlled appliances.</td></tr>
+        <tr><td>08</td><td>Power management</td><td>Continuous operation of the ESP32, sensors, and relay requires reliable power management.</td></tr>
+    </tbody></table></div>
+    <div class="callout"><strong>Key observation:</strong> The prototype is suitable for demonstrating basic IoT monitoring and appliance control. Improving reliability, sensor accuracy, security, and scalability would make it more suitable for practical applications.</div>
+
+    <h2>21. Possible Future Improvements</h2>
+    <p>These improvements could enhance the performance, reliability, and functionality of the smart home system.</p>
+    <div class="card" style="overflow-x:auto"><table class="pin-table"><thead><tr><th>Area</th><th>Proposed improvement</th><th>Expected benefit</th></tr></thead><tbody>
+        <tr><td>Sensors</td><td>Upgrade DHT11 to DHT22 or SHT31.</td><td>Better environmental measurement.</td></tr>
+        <tr><td>Light monitoring</td><td>Use a BH1750 digital light sensor.</td><td>Direct illumination measurement in lux.</td></tr>
+        <tr><td>Connectivity</td><td>Implement automatic Wi-Fi reconnection.</td><td>Improved communication reliability.</td></tr>
+        <tr><td>Cloud security</td><td>Integrate Firebase Authentication and security rules.</td><td>Better user access management.</td></tr>
+        <tr><td>Database</td><td>Improve historical data storage and organization.</td><td>Easier data analysis.</td></tr>
+        <tr><td>Dashboard</td><td>Add responsive mobile-friendly controls.</td><td>Better user experience.</td></tr>
+        <tr><td>Notifications</td><td>Implement email or mobile alerts.</td><td>Faster notification of important events.</td></tr>
+        <tr><td>Power management</td><td>Introduce optimized power-saving techniques.</td><td>Reduced energy consumption.</td></tr>
+        <tr><td>Automation</td><td>Add configurable sensor-based control conditions.</td><td>More intelligent appliance automation.</td></tr>
+        <tr><td>Scalability</td><td>Support multiple appliances and sensor nodes.</td><td>Expansion for larger smart home systems.</td></tr>
+    </tbody></table></div>
+    <h3 style="margin-top:1.5rem">Future Development Roadmap</h3>
+    <div class="grid">
+        <article class="card"><span class="tag">01</span><h3>Improve sensor accuracy</h3><p>Adopt more precise environmental and light sensors.</p></article>
+        <article class="card"><span class="tag">02</span><h3>Enhance Wi-Fi reliability</h3><p>Reconnect automatically after a network interruption.</p></article>
+        <article class="card"><span class="tag">03</span><h3>Implement cloud authentication</h3><p>Use Firebase Authentication and access rules.</p></article>
+        <article class="card"><span class="tag">04</span><h3>Improve dashboard features</h3><p>Refine responsive monitoring and control.</p></article>
+        <article class="card"><span class="tag">05</span><h3>Add smart notifications</h3><p>Notify users about important system events.</p></article>
+        <article class="card"><span class="tag">06</span><h3>Optimize power consumption</h3><p>Reduce energy use during continuous operation.</p></article>
+        <article class="card"><span class="tag">07</span><h3>Develop advanced automation</h3><p>Expand sensor-based control and support more devices.</p></article>
+    </div>
+
+    <h2>22. Final Learning Reflection</h2>
+    <div class="grid">
+        <article class="card"><p>Working on this smart home IoT project helped me understand how hardware, programming, cloud services, and web technologies can be combined to develop a connected application.</p><p>Initially, I focused on the ESP32, DHT11, LDR, and relay module. Later, I explored how sensor readings could be transmitted to Firebase and displayed through a web dashboard.</p><p>One important learning experience was understanding communication between the ESP32 and Firebase. I also gained knowledge of JavaScript-based dashboard development, database operations, and remote appliance control.</p><p style="margin-bottom:0">I learned that an IoT system involves more than connecting hardware and writing code. Network reliability, data accuracy, security, power management, and user experience are equally important. This project improved my practical understanding of IoT and gave me confidence to explore more advanced cloud-connected automation systems.</p></article>
+        <article class="card"><span class="tag">Key skills developed</span><ul class="list"><li>ESP32 programming with Arduino IDE.</li><li>Sensor interfacing and data acquisition.</li><li>Wi-Fi-based communication.</li><li>Firebase Realtime Database integration.</li><li>HTML, CSS, and JavaScript fundamentals.</li><li>Web-based dashboard development.</li><li>Relay-based appliance control.</li><li>Basic debugging and system testing.</li><li>Evaluating IoT limitations and future improvements.</li></ul></article>
+    </div>
+
+    <h2>23. Source Code &amp; Project Repository</h2>
+    <p>Organize source files and documentation in the GitHub repository so the implementation is easier to understand, test, and reproduce.</p>
+    <h3>Recommended Repository Structure</h3>
+    <pre style="margin:1rem 0;padding:1.2rem;overflow:auto;border:1px solid #263a33;border-radius:16px;background:#101715;color:#d8e5de;font:400 .88rem/1.7 Consolas,Monaco,monospace"><code>ESP32-Smart-Home/
+|-- esp32/
+|   |-- esp32_smart_home.ino
+|-- dashboard/
+|   |-- index.html
+|   |-- login.html
+|   |-- css/
+|   |   |-- style.css
+|   |-- js/
+|       |-- app.js
+|-- screenshots/
+|   |-- dashboard.png
+|   |-- firebase_database.png
+|   |-- hardware_setup.png
+|-- documentation/
+|   |-- project_report.pdf
+|-- README.md</code></pre>
+    <h3>Repository Completion Checklist</h3>
+    <div class="grid">
+        <article class="card"><ul class="list"><li>ESP32 Arduino source code uploaded.</li><li>Dashboard HTML files uploaded.</li><li>CSS and JavaScript files uploaded.</li><li>Firebase configuration instructions documented.</li><li>Hardware connection details documented.</li></ul></article>
+        <article class="card"><ul class="list"><li>Dashboard screenshots included.</li><li>Firebase database screenshots included.</li><li>Project documentation uploaded.</li><li>Sensitive credentials excluded from public files.</li></ul></article>
+    </div>
+
+    <section class="hero" style="margin-top:2rem;text-align:center">
+        <div class="eyebrow">Final project summary</div>
+        <p>The ESP32 Smart Home Integration project demonstrates a connection between embedded hardware, cloud computing, real-time data communication, and web-based monitoring. It provides a foundation for developing more reliable, secure, and intelligent home automation systems.</p>
+        <strong>Embedded Systems &middot; Cloud Computing &middot; IoT Automation</strong><br>
+        <small>Learn &middot; Build &middot; Test &middot; Improve</small>
+    </section>
+
 </main>
 </body>
 </html>
