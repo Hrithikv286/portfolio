@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 2: MQTT Cloud Dashboard with Relay Control</title>
+</head>
+<body>
+    <p>IoT project · Task 2</p>
+    <h1>MQTT Cloud Dashboard with Relay Control</h1>
+    <p>This project extends local ESP32 control to the internet. An ESP32 connects to Adafruit IO over Wi-Fi and uses MQTT to receive commands from a cloud dashboard. The board translates a command into a GPIO output for a relay module, which switches a connected lamp. This demonstrates how a dashboard, cloud messaging service, embedded device, and physical output can work together.</p>
+
+    <h2>Project at a glance</h2>
+    <table>
+        <thead><tr><th>Area</th><th>Technology or role</th></tr></thead>
+        <tbody>
+            <tr><td>Controller</td><td>ESP32 Dev Module</td></tr>
+            <tr><td>Cloud service</td><td>Adafruit IO dashboard and MQTT broker</td></tr>
+            <tr><td>Communication</td><td>MQTT publish and subscribe messaging</td></tr>
+            <tr><td>Output interface</td><td>Relay module controlled by an ESP32 GPIO</td></tr>
+            <tr><td>Demonstration load</td><td>Lamp connected through the relay</td></tr>
+            <tr><td>Development tools</td><td>Arduino IDE and ESP32 firmware</td></tr>
+        </tbody>
+    </table>
+
+    <h2>How the system works</h2>
+    <p><strong>Dashboard → Adafruit IO MQTT broker → ESP32 → GPIO → relay → lamp</strong></p>
+    <ol>
+        <li>The ESP32 joins Wi-Fi and establishes an MQTT connection to Adafruit IO using its device credentials.</li>
+        <li>The device subscribes to the feed used for relay commands. The dashboard publishes a value such as <code>ON</code> or <code>OFF</code> to that feed.</li>
+        <li>The broker forwards the published message to connected subscribers, including the ESP32.</li>
+        <li>The ESP32 checks the received value and sets its relay-control GPIO to the corresponding state.</li>
+        <li>The relay switches the connected load. The firmware can then publish the resulting state to a status feed for the dashboard to display.</li>
+    </ol>
+    <p>MQTT uses a broker to route messages between publishers and subscribers. The dashboard publishes a command; the ESP32 subscribes to the relevant feed. Neither needs a direct network connection to the other, which makes it easier to add more devices or dashboards later.</p>
+
+    <h2>Dashboard and device feedback</h2>
+    <p>The Adafruit IO dashboard provides the remote control interface. A control widget publishes the relay command, while status widgets can show whether the ESP32 is connected and what state the relay reports. A feed can also retain a history of reported values or control events, depending on the dashboard and firmware configuration.</p>
+    <p>Command and status are separate responsibilities: sending <code>ON</code> requests a change, while a status message reports what the device has applied. Keeping these distinct helps the interface reflect device feedback instead of treating a button press as proof that the load changed.</p>
+
+    <h2>Why MQTT instead of local HTTP?</h2>
+    <p>The previous HTTP project served its control page from the ESP32 and worked when the browser and board were on the same local network. This project routes messages through a cloud broker, so a dashboard can reach the device from another network when both the ESP32 and dashboard have internet access and valid credentials.</p>
+    <table>
+        <thead><tr><th>Local HTTP project</th><th>MQTT cloud project</th></tr></thead>
+        <tbody>
+            <tr><td>Browser sends a request directly to the ESP32.</td><td>Dashboard publishes to a broker; the ESP32 receives the subscribed message.</td></tr>
+            <tr><td>Typically limited to the local network unless extra remote access is configured.</td><td>Supports remote messaging through the cloud service when devices are online.</td></tr>
+            <tr><td>Request and response model.</td><td>Publish and subscribe model with a broker.</td></tr>
+            <tr><td>Status may be checked by repeated HTTP requests.</td><td>A persistent MQTT connection can deliver new messages without polling for each command.</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Relay control and safety</h2>
+    <p>The ESP32 GPIO is a low-voltage control signal. It does not power the lamp; it controls the relay module, whose contacts switch the load. The relay and its isolation are central to the design, but they do not make exposed mains wiring safe by themselves.</p>
+    <p>Because the demonstration involves a 230 V AC load, mains-side construction and inspection must be handled by a qualified person using properly rated, enclosed components and appropriate protection. Disconnect power before any service. Keep the mains circuit physically separated from the ESP32 and low-voltage wiring, and do not expose this prototype as a finished household installation.</p>
+
+    <h2>Engineering concepts demonstrated</h2>
+    <ul>
+        <li><strong>Embedded networking:</strong> connecting an ESP32 to Wi-Fi and maintaining a cloud connection.</li>
+        <li><strong>MQTT messaging:</strong> using a broker, feeds, publishers, and subscribers to route commands.</li>
+        <li><strong>Device state:</strong> translating messages into GPIO actions and reporting status back to a dashboard.</li>
+        <li><strong>Cloud monitoring:</strong> using dashboard widgets and feed history to observe device activity.</li>
+        <li><strong>System integration:</strong> linking software, cloud services, a microcontroller, a relay, and a physical load.</li>
+    </ul>
+
+    <h2>Outcome and next steps</h2>
+    <p>The project demonstrates an end-to-end cloud control path: a dashboard command travels through an MQTT broker to an ESP32, which controls a relay output. It builds on the local HTTP exercise by introducing broker-based messaging, remote access, and cloud-visible device state.</p>
+    <p>Possible next steps include adding more devices and feeds, monitoring sensors or energy use, showing connection-loss states clearly, and improving credential management. A production system should also define safe startup behavior, handle broker disconnections and invalid commands, protect dashboard access, and use hardware rated for the intended load.</p>
+
+    <h2>Project photo</h2>
+    <figure>
+        <img src="task%202%20image.jpeg" alt="ESP32 relay and lamp demonstration being controlled from a cloud dashboard during a project session">
+        <figcaption>Relay and lamp control demonstrated alongside the Adafruit IO dashboard.</figcaption>
+    </figure>
+    <figure>
+        <img src="on%20off%20task%202.jpeg" alt="Adafruit IO switch dashboard displaying the relay control in the OFF state">
+        <figcaption>Adafruit IO dashboard switch used to send an OFF command to the relay.</figcaption>
+    </figure>
+</body>
+</html>

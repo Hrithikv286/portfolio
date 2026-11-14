@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 2: MQTT Cloud Dashboard with Relay Control</title>
+</head>
+<body>
+    <p>IoT project · Task 2</p>
+    <h1>MQTT Cloud Dashboard with Relay Control</h1>
+    <p>This project extends local ESP32 control to the internet. An ESP32 connects to Adafruit IO over Wi-Fi and uses MQTT to receive commands from a cloud dashboard. The board translates a command into a GPIO output for a relay module, which switches a connected lamp. This demonstrates how a dashboard, cloud messaging service, embedded device, and physical output can work together.</p>
+    <section aria-labelledby="task2-concepts-title" style="margin:2rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #dce9e2;border-radius:22px;background:linear-gradient(145deg,#fff 0%,#f3f9f5 100%);box-shadow:0 16px 38px rgba(23,49,38,.07)">
+        <h2 id="task2-concepts-title" style="margin-top:0">Concepts</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem">
+            <article style="padding:1.15rem;border:1px solid #dce9e2;border-radius:15px;background:#fff"><h3 style="margin:.1rem 0 .55rem;color:#176b4d">Adafruit IO</h3><p style="margin:0">A cloud IoT platform that stores data in feeds and displays it on dashboards with switches, gauges, and charts.</p></article>
+            <article style="padding:1.15rem;border:1px solid #dce9e2;border-radius:15px;background:#fff"><h3 style="margin:.1rem 0 .55rem;color:#176b4d">MQTT</h3><p style="margin:0">A lightweight publish/subscribe protocol for small devices. Devices exchange short messages through a broker instead of communicating directly with each other.</p></article>
+            <article style="padding:1.15rem;border:1px solid #dce9e2;border-radius:15px;background:#fff"><h3 style="margin:.1rem 0 .55rem;color:#176b4d">Publisher, subscriber, and broker</h3><p style="margin:0">The dashboard switch publishes a message, the ESP32 subscribes to receive it, and Adafruit IO acts as the broker that routes it between them.</p></article>
+            <article style="padding:1.15rem;border:1px solid #dce9e2;border-radius:15px;background:#fff"><h3 style="margin:.1rem 0 .55rem;color:#176b4d">Topic and feed</h3><p style="margin:0">A topic is the named channel messages travel on. In Adafruit IO, each feed maps to a topic, for example <code>username/feeds/led</code>.</p></article>
+        </div>
+        <h2 style="margin:2.5rem 0 1rem">System Design</h2>
+        <div role="img" aria-label="System design flow chart: Adafruit IO dashboard toggle publishes to the bulb-control feed, Adafruit IO routes the MQTT message to the subscribed ESP32, which switches a relay module and 230 volt AC bulb" style="display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;gap:.65rem;padding:clamp(1rem,3vw,1.5rem);border:1px solid #dce9e2;border-radius:18px;background:#fff">
+            <div style="flex:1 1 135px;min-width:135px;padding:1rem;border:1px solid #dce9e2;border-radius:13px;background:#f8fbf9"><small style="display:block;margin-bottom:.4rem;color:#16805b;font-weight:700;letter-spacing:.08em">01 ? CONTROL</small><strong>Adafruit IO dashboard</strong><br><span style="color:#65736d">Bulb Control toggle</span></div>
+            <div aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.3rem">&rarr;</div>
+            <div style="flex:1 1 150px;min-width:150px;padding:1rem;border:1px solid #16805b;border-radius:13px;background:linear-gradient(145deg,#eaf7ef,#f8fcf9)"><small style="display:block;margin-bottom:.4rem;color:#16805b;font-weight:700;letter-spacing:.08em">02 ? MQTT BROKER</small><strong>bulb-control feed</strong><br><span style="color:#526a5d">Publishes command value</span></div>
+            <div aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.3rem">&rarr;</div>
+            <div style="flex:1 1 135px;min-width:135px;padding:1rem;border:1px solid #dce9e2;border-radius:13px;background:#f8fbf9"><small style="display:block;margin-bottom:.4rem;color:#16805b;font-weight:700;letter-spacing:.08em">03 ? DEVICE</small><strong>ESP32 subscriber</strong><br><span style="color:#65736d">Runs <code>processBulbCommand()</code></span></div>
+            <div aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.3rem">&rarr;</div>
+            <div style="flex:1 1 115px;min-width:115px;padding:1rem;border:1px solid #dce9e2;border-radius:13px;background:#f8fbf9"><small style="display:block;margin-bottom:.4rem;color:#16805b;font-weight:700;letter-spacing:.08em">04 ? OUTPUT</small><strong>Relay module</strong></div>
+            <div aria-hidden="true" style="display:grid;place-items:center;color:#16805b;font-size:1.3rem">&rarr;</div>
+            <div style="flex:1 1 120px;min-width:120px;padding:1rem;border:1px solid #f0d9ca;border-radius:13px;background:#fff8f3"><small style="display:block;margin-bottom:.4rem;color:#b45a2b;font-weight:700;letter-spacing:.08em">05 ? LOAD</small><strong>230 V AC bulb</strong></div>
+        </div>
+        <p style="margin:1rem 0 0"><strong>Data flow:</strong> Adafruit IO dashboard toggle &rarr; <code>bulb-control</code> feed &rarr; ESP32 subscriber &rarr; relay module &rarr; 230 V AC bulb.</p>
+        <p style="margin:1rem 0 0">Tapping the switch on the <em>Bulb Control</em> dashboard publishes a value to the <code>bulb-control</code> feed. Adafruit IO, acting as the MQTT broker, routes that value to the ESP32 subscribed to the same feed. When a new value arrives, the ESP32 runs <code>processBulbCommand()</code> and switches the relay. The ESP32 initiates the connection to Adafruit IO, so this setup needs no port forwarding or fixed public IP address.</p>
+    </section>
+
+
+    <section aria-labelledby="task2-configuration-title" style="margin:2rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #dce9e2;border-radius:22px;background:linear-gradient(145deg,#fff 0%,#f3f9f5 100%);box-shadow:0 16px 38px rgba(23,49,38,.07)">
+        <h2 id="task2-configuration-title" style="margin-top:0">Configuration</h2>
+        <ol style="display:grid;gap:.85rem;margin:0;padding:0;list-style:none;counter-reset:config-step">
+            <li style="counter-increment:config-step;display:flex;gap:.85rem;align-items:flex-start;padding:1rem;border:1px solid #dce9e2;border-radius:14px;background:#fff"><span style="flex:0 0 2rem;display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:#e1f3e9;color:#176b4d;font-weight:700">1</span><span>Create a free <a href="https://io.adafruit.com/" target="_blank" rel="noopener noreferrer">Adafruit IO account</a> and note the username <code>Hrithik__v</code>.</span></li>
+            <li style="counter-increment:config-step;display:flex;gap:.85rem;align-items:flex-start;padding:1rem;border:1px solid #dce9e2;border-radius:14px;background:#fff"><span style="flex:0 0 2rem;display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:#e1f3e9;color:#176b4d;font-weight:700">2</span><span>Create a feed named <code>bulb-control</code> under <strong>Feeds &rarr; New Feed</strong>.</span></li>
+            <li style="counter-increment:config-step;display:flex;gap:.85rem;align-items:flex-start;padding:1rem;border:1px solid #dce9e2;border-radius:14px;background:#fff"><span style="flex:0 0 2rem;display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:#e1f3e9;color:#176b4d;font-weight:700">3</span><span>Create a dashboard named <em>Bulb Control</em> and add a Toggle block linked to the <code>bulb-control</code> feed.</span></li>
+            <li style="counter-increment:config-step;display:flex;gap:.85rem;align-items:flex-start;padding:1rem;border:1px solid #dce9e2;border-radius:14px;background:#fff"><span style="flex:0 0 2rem;display:grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:#e1f3e9;color:#176b4d;font-weight:700">4</span><span>Open <strong>View AIO Key</strong>. Copy the username and key into the sketch's <code>AIO_USERNAME</code> and <code>AIO_KEY</code> fields. Keep the key out of the public repository.</span></li>
+        </ol>
+    </section>
+
+    <section aria-labelledby="task2-setup-problems-title" style="margin:2rem 0;padding:clamp(1.2rem,3vw,2rem);border:1px solid #f0e3d7;border-radius:22px;background:linear-gradient(145deg,#fff 0%,#fff8f2 100%);box-shadow:0 16px 38px rgba(80,55,34,.06)">
+        <h2 id="task2-setup-problems-title" style="margin-top:0">Problems encountered during MQTT/cloud setup</h2>
+        <p>The dashboard, Adafruit IO account, Wi-Fi connection, and ESP32 firmware must use matching settings. These checks help identify where a command stops if the relay does not respond.</p>
+        <table>
+            <thead><tr><th>Problem</th><th>What to check</th></tr></thead>
+            <tbody>
+                <tr><td>Authentication fails</td><td>Confirm the Adafruit IO username and active AIO key are in the correct firmware fields. Keep the key private and out of the public repository.</td></tr>
+                <tr><td>Dashboard command never reaches the ESP32</td><td>Make sure the dashboard toggle publishes to <code>bulb-control</code> and the ESP32 subscribes to the matching feed topic.</td></tr>
+                <tr><td>Cloud connection drops</td><td>Check that the ESP32 has joined Wi-Fi and re-establishes its MQTT connection after a disconnect before expecting new commands.</td></tr>
+                <tr><td>Command arrives but relay state is wrong</td><td>Compare the toggle's published values with the exact values handled by <code>processBulbCommand()</code>, such as <code>ON</code> and <code>OFF</code>.</td></tr>
+                <tr><td>Dashboard state is unclear</td><td>Distinguish a published command from device confirmation. Use a status feed or device logs to verify the relay state the ESP32 applied.</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <h2>Project at a glance</h2>
+    <table>
+        <thead><tr><th>Area</th><th>Technology or role</th></tr></thead>
+        <tbody>
+            <tr><td>Controller</td><td>ESP32 Dev Module</td></tr>
+            <tr><td>Cloud service</td><td>Adafruit IO dashboard and MQTT broker</td></tr>
+            <tr><td>Communication</td><td>MQTT publish and subscribe messaging</td></tr>
+            <tr><td>Output interface</td><td>Relay module controlled by an ESP32 GPIO</td></tr>
+            <tr><td>Demonstration load</td><td>Lamp connected through the relay</td></tr>
+            <tr><td>Development tools</td><td>Arduino IDE and ESP32 firmware</td></tr>
+        </tbody>
+    </table>
+
+    <h2>How the system works</h2>
+    <p><strong>Dashboard → Adafruit IO MQTT broker → ESP32 → GPIO → relay → lamp</strong></p>
+    <ol>
+        <li>The ESP32 joins Wi-Fi and establishes an MQTT connection to Adafruit IO using its device credentials.</li>
+        <li>The device subscribes to the feed used for relay commands. The dashboard publishes a value such as <code>ON</code> or <code>OFF</code> to that feed.</li>
+        <li>The broker forwards the published message to connected subscribers, including the ESP32.</li>
+        <li>The ESP32 checks the received value and sets its relay-control GPIO to the corresponding state.</li>
+        <li>The relay switches the connected load. The firmware can then publish the resulting state to a status feed for the dashboard to display.</li>
+    </ol>
+    <p>MQTT uses a broker to route messages between publishers and subscribers. The dashboard publishes a command; the ESP32 subscribes to the relevant feed. Neither needs a direct network connection to the other, which makes it easier to add more devices or dashboards later.</p>
+
+    <h2>Dashboard and device feedback</h2>
+    <p>The Adafruit IO dashboard provides the remote control interface. A control widget publishes the relay command, while status widgets can show whether the ESP32 is connected and what state the relay reports. A feed can also retain a history of reported values or control events, depending on the dashboard and firmware configuration.</p>
+    <p>Command and status are separate responsibilities: sending <code>ON</code> requests a change, while a status message reports what the device has applied. Keeping these distinct helps the interface reflect device feedback instead of treating a button press as proof that the load changed.</p>
+
+    <h2>Why MQTT instead of local HTTP?</h2>
+    <p>The previous HTTP project served its control page from the ESP32 and worked when the browser and board were on the same local network. This project routes messages through a cloud broker, so a dashboard can reach the device from another network when both the ESP32 and dashboard have internet access and valid credentials.</p>
+    <table>
+        <thead><tr><th>Local HTTP project</th><th>MQTT cloud project</th></tr></thead>
+        <tbody>
+            <tr><td>Browser sends a request directly to the ESP32.</td><td>Dashboard publishes to a broker; the ESP32 receives the subscribed message.</td></tr>
+            <tr><td>Typically limited to the local network unless extra remote access is configured.</td><td>Supports remote messaging through the cloud service when devices are online.</td></tr>
+            <tr><td>Request and response model.</td><td>Publish and subscribe model with a broker.</td></tr>
+            <tr><td>Status may be checked by repeated HTTP requests.</td><td>A persistent MQTT connection can deliver new messages without polling for each command.</td></tr>
+        </tbody>
+    </table>
+
+    <h2>Relay control and safety</h2>
+    <p>The ESP32 GPIO is a low-voltage control signal. It does not power the lamp; it controls the relay module, whose contacts switch the load. The relay and its isolation are central to the design, but they do not make exposed mains wiring safe by themselves.</p>
+    <p>Because the demonstration involves a 230 V AC load, mains-side construction and inspection must be handled by a qualified person using properly rated, enclosed components and appropriate protection. Disconnect power before any service. Keep the mains circuit physically separated from the ESP32 and low-voltage wiring, and do not expose this prototype as a finished household installation.</p>
+
+    <h2>Engineering concepts demonstrated</h2>
+    <ul>
+        <li><strong>Embedded networking:</strong> connecting an ESP32 to Wi-Fi and maintaining a cloud connection.</li>
+        <li><strong>MQTT messaging:</strong> using a broker, feeds, publishers, and subscribers to route commands.</li>
+        <li><strong>Device state:</strong> translating messages into GPIO actions and reporting status back to a dashboard.</li>
+        <li><strong>Cloud monitoring:</strong> using dashboard widgets and feed history to observe device activity.</li>
+        <li><strong>System integration:</strong> linking software, cloud services, a microcontroller, a relay, and a physical load.</li>
+    </ul>
+
+    <h2>Implementation</h2><div style="margin:1.25rem 0 2rem;overflow:hidden;border:1px solid #263a33;border-radius:18px;background:#101715;box-shadow:0 18px 42px rgba(23,49,38,.16)"><div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1.2rem;border-bottom:1px solid #293a33;background:#17211d"><strong style="color:#e8f5ee">task2_adafruit_mqtt.ino</strong><span style="padding:.3rem .65rem;border:1px solid #345244;border-radius:999px;background:#20352b;color:#9de0b7;font-size:.75rem;font-weight:700;letter-spacing:.08em">ARDUINO &middot; C++</span></div><pre style="max-height:75vh;margin:0;padding:1.25rem;overflow:auto;color:#d8e5de;background:#101715;font:400 .84rem/1.7 Consolas,Monaco,monospace;tab-size:2"><code>// task2_adafruit_mqtt.ino
+#include &lt;WiFi.h&gt;
+#include &quot;Adafruit_MQTT.h&quot;
+#include &quot;Adafruit_MQTT_Client.h&quot;
+
+// Wi-Fi
+#define WIFI_SSID &quot;YOUR_WIFI_NAME&quot;
+#define WIFI_PASS &quot;YOUR_WIFI_PASSWORD&quot;
+
+// Adafruit IO
+#define AIO_SERVER      &quot;io.adafruit.com&quot;
+#define AIO_SERVERPORT  1883
+#define AIO_USERNAME    &quot;Hrithik__v&quot;
+#define AIO_KEY         &quot;YOUR_NEW_ADAFRUIT_IO_KEY&quot;
+
+// Relay
+#define RELAY_PIN 23
+#define RELAY_ON  HIGH
+#define RELAY_OFF LOW
+
+// MQTT
+WiFiClient client;
+Adafruit_MQTT_Client mqtt(
+  &amp;client,
+  AIO_SERVER,
+  AIO_SERVERPORT,
+  AIO_USERNAME,
+  AIO_KEY
+);
+
+// Bulb feed
+Adafruit_MQTT_Subscribe bulbControl = Adafruit_MQTT_Subscribe(
+  &amp;mqtt,
+  AIO_USERNAME &quot;/feeds/bulb-control&quot;
+);
+
+void connectWiFi() {
+  Serial.print(&quot;Connecting to WiFi&quot;);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(&quot;.&quot;);
+  }
+
+  Serial.println();
+  Serial.println(&quot;WiFi Connected!&quot;);
+  Serial.print(&quot;IP Address: &quot;);
+  Serial.println(WiFi.localIP());
+}
+
+void connectMQTT() {
+  while (!mqtt.connected()) {
+    Serial.print(&quot;Connecting to Adafruit IO...&quot;);
+    int8_t ret = mqtt.connect();
+    if (ret == 0) {
+      Serial.println(&quot;Connected to Adafruit IO!&quot;);
+    } else {
+      Serial.print(&quot;Failed, error = &quot;);
+      Serial.println(mqtt.connectErrorString(ret));
+      mqtt.disconnect();
+      delay(5000);
+    }
+  }
+}
+
+void processBulbCommand(String command) {
+  command.trim();
+  command.toLowerCase();
+
+  Serial.print(&quot;Received command: &quot;);
+  Serial.println(command);
+
+  if (command == &quot;1&quot; || command == &quot;on&quot; ||
+      command == &quot;bulb on&quot; || command == &quot;bulbon&quot;) {
+    digitalWrite(RELAY_PIN, RELAY_ON);
+    Serial.println(&quot;&gt;&gt;&gt; BULB ON&quot;);
+  } else if (command == &quot;0&quot; || command == &quot;off&quot; ||
+             command == &quot;bulb off&quot; || command == &quot;bulb of&quot; ||
+             command == &quot;bulboff&quot; || command == &quot;of&quot;) {
+    digitalWrite(RELAY_PIN, RELAY_OFF);
+    Serial.println(&quot;&gt;&gt;&gt; BULB OFF&quot;);
+  } else {
+    Serial.print(&quot;Unknown command: &quot;);
+    Serial.println(command);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+  Serial.println();
+  Serial.println(&quot;================================&quot;);
+  Serial.println(&quot;ESP32 BULB CONTROL&quot;);
+  Serial.println(&quot;================================&quot;);
+
+  // Start with the bulb OFF.
+  pinMode(RELAY_PIN, OUTPUT);
+  digitalWrite(RELAY_PIN, RELAY_OFF);
+
+  connectWiFi();
+  mqtt.subscribe(&amp;bulbControl);
+  connectMQTT();
+  Serial.println(&quot;System ready!&quot;);
+}
+
+void loop() {
+  // Reconnect Wi-Fi if necessary.
+  if (WiFi.status() != WL_CONNECTED) {
+    connectWiFi();
+  }
+
+  // Reconnect MQTT if necessary.
+  if (!mqtt.connected()) {
+    connectMQTT();
+  }
+
+  // Keep the MQTT connection alive and process new feed values.
+  mqtt.processPackets(1000);
+
+  Adafruit_MQTT_Subscribe* subscription;
+  while ((subscription = mqtt.readSubscription(100)) != NULL) {
+    if (subscription == &amp;bulbControl) {
+      String command = String((char*)bulbControl.lastread);
+      processBulbCommand(command);
+    }
+  }
+}</code></pre></div>
+
+    <h2>Outcome and next steps</h2>
+    <p>The project demonstrates an end-to-end cloud control path: a dashboard command travels through an MQTT broker to an ESP32, which controls a relay output. It builds on the local HTTP exercise by introducing broker-based messaging, remote access, and cloud-visible device state.</p>
+    <p>Possible next steps include adding more devices and feeds, monitoring sensors or energy use, showing connection-loss states clearly, and improving credential management. A production system should also define safe startup behavior, handle broker disconnections and invalid commands, protect dashboard access, and use hardware rated for the intended load.</p>
+
+    <h2>Project photo</h2>
+    <figure>
+        <img src="task%202%20image.jpeg" alt="ESP32 relay and lamp demonstration being controlled from a cloud dashboard during a project session">
+        <figcaption>Relay and lamp control demonstrated alongside the Adafruit IO dashboard.</figcaption>
+    </figure>
+    <figure>
+        <img src="on%20off%20task%202.jpeg" alt="Adafruit IO switch dashboard displaying the relay control in the OFF state">
+        <figcaption>Adafruit IO dashboard switch used to send an OFF command to the relay.</figcaption>
+    </figure>
+    <h2>Project video</h2>
+    <figure class="task2-video">
+        <video controls preload="metadata" playsinline aria-label="Task 2 relay control demonstration">
+            <source src="images/IOT/task2/WhatsApp%20Video%202026-09-29%20at%203.05.18%20PM.mp4" type="video/mp4">
+            Your browser does not support the video element.
+        </video>
+        <figcaption>ESP32 relay control demonstration.</figcaption>
+    </figure>
+</body>
+</html>

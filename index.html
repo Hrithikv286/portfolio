@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hrithik Venkatesh — Mechatronics Engineer & Portfolio</title>
+    <meta name="description" content="Professional engineering portfolio of Hrithik Venkatesh, a pre-final year Mechatronics Engineering student specializing in mechanical design, robotics, and automation.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #FAF8F3;
+            --bg-card: #F4EFE6;
+            --text-main: #111111;
+            --text-muted: #333333;
+            --accent: #E85D2A;
+            --accent-hover: #d04d1f;
+            --border-color: rgba(17, 17, 17, 0.1);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --font-heading: 'Playfair Display', 'Cormorant Garamond', serif;
+            --font-body: 'Inter', 'Poppins', sans-serif;
+            --shadow: 0 10px 30px rgba(0,0,0,0.03);
+            --modal-bg: rgba(250, 248, 243, 0.98);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0d0d0d;
+            --bg-card: #161616;
+            --text-main: #FAF8F3;
+            --text-muted: #cccccc;
+            --accent: #E85D2A;
+            --accent-hover: #ff6b35;
+            --border-color: rgba(250, 248, 243, 0.12);
+            --shadow: 0 10px 30px rgba(0,0,0,0.3);
+            --modal-bg: rgba(13, 13, 13, 0.98);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            body, body * {
+                cursor: none !important;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 5vw;
+        }
+
+        #projects > .container:has(#iotTaskOneView.active) {
+            max-width: 1800px;
+        }
+
+        section {
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5vw;
+            background: rgba(250, 248, 243, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(13, 13, 13, 0.85);
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.03em;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 0.7rem 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            border: 1px solid var(--text-main);
+            cursor: none;
+        }
+
+        .btn-primary {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 8rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+            gap: clamp(2.5rem, 6vw, 6rem);
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 3vw, 3.6rem);
+            line-height: 1.05;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-content p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            line-height: 1.7;
+        }
+
+        .hero-content {
+            text-align: left;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-portrait {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .hero-portrait img {
+            display: block;
+            width: min(100%, 440px);
+            height: auto;
+            max-height: min(68vh, 640px);
+            object-fit: contain;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.09);
+        }
+
+        .interactive-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--accent);
+            border-radius: 50%;
+            background: var(--bg-color);
+            color: var(--accent);
+            display: grid;
+            place-items: center;
+            pointer-events: none;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.6);
+            transition: width 160ms ease, height 160ms ease, opacity 160ms ease, transform 160ms ease, background-color 160ms ease;
+            z-index: 3000;
+        }
+
+        .interactive-cursor::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .interactive-cursor.interactive {
+            width: 42px;
+            height: 42px;
+        }
+
+        .interactive-cursor.interactive::before {
+            content: '\f061';
+            width: auto;
+            height: auto;
+            background: none;
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.8rem;
+        }
+
+        .interactive-cursor.visible {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .interactive-cursor.pressed {
+            transform: translate(-50%, -50%) scale(0.8);
+            background: var(--accent);
+            color: #fff;
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .interactive-cursor {
+                display: none;
+            }
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            line-height: 1.1;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-text .section-title {
+            font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .skill-group h4 {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            margin-top: 4rem;
+            padding-left: 2rem;
+            border-left: 2px solid var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3.5rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.3rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            border: 3px solid var(--bg-color);
+        }
+
+        .timeline-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .timeline-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .timeline-role {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .timeline-company {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-list {
+            margin-top: 1rem;
+            padding-left: 1.2rem;
+        }
+
+        .timeline-list li {
+            list-style-type: disc;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .project-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 0 0 2rem;
+        }
+
+        .project-gallery figure {
+            margin: 0;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .project-gallery img {
+            display: block;
+            width: 100%;
+            height: 210px;
+            object-fit: contain;
+        }
+
+        .project-gallery figcaption {
+            padding: 0.7rem 0.8rem;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            line-height: 1.35;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-pill {
+            font-size: 0.75rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        /* Protosem View Styles */
+        .program-trigger-card {
+            cursor: pointer;
+            border: 2px dashed var(--accent);
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            transition: var(--transition);
+            margin-top: 2rem;
+            width: 100%;
+            font: inherit;
+            color: inherit;
+        }
+        .program-trigger-card:hover,
+        .program-trigger-card:focus-visible {
+            background: var(--border-color);
+            transform: translateY(-3px);
+            outline: none;
+        }
+
+        .iot-trigger-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.7rem;
+            width: fit-content;
+            margin: 1.25rem auto 0;
+            padding: 0.8rem 1.25rem;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 999px;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .iot-trigger-card i {
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .protosem-view {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .protosem-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes quoteFade {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-designation {
+            display: block;
+            text-align: left;
+            font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 0.4rem;
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-quote {
+            display: block;
+            text-align: left;
+            font-family: var(--font-heading);
+            font-style: italic;
+            color: var(--accent);
+            font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+            max-width: 900px;
+            margin: 0.2rem 0 2rem;
+            line-height: 1.45;
+            opacity: 0;
+            animation: quoteFade 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 220ms;
+        }
+
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .week-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .week-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        .week-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .week-card h5 {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 0.45rem;
+        }
+        .week-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .iot-showcase {
+            background: radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 38%), var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: clamp(1.75rem, 5vw, 4rem);
+            overflow: hidden;
+        }
+
+        .iot-showcase-title {
+            font-family: var(--font-body);
+            font-size: clamp(2.5rem, 7vw, 5.5rem);
+            font-weight: 500;
+            letter-spacing: -0.055em;
+            line-height: 1;
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        .iot-showcase-intro {
+            max-width: 900px;
+            color: var(--text-muted);
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            line-height: 1.65;
+        }
+
+        .iot-task-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .iot-task-tab {
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: transparent;
+            color: var(--text-main);
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+            padding: 0.85rem 1.35rem;
+        }
+
+        .iot-task-tab:hover,
+        .iot-task-tab:focus-visible,
+        .iot-task-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+            outline: none;
+        }
+
+        .iot-task-detail {
+            min-height: 3.5rem;
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .iot-detail-view {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .iot-detail-view.active {
+            display: block;
+        }
+
+        .iot-next-task {
+            position: fixed;
+            z-index: 1100;
+            left: 1rem;
+            top: 50vh;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 999px;
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+            font: 600 .9rem/1 var(--font-body);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-50%) translateX(-8px);
+            transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+        }
+
+        .iot-next-task.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50%);
+        }
+
+        .iot-next-task:disabled {
+            background: var(--bg-card);
+            border-color: var(--border-color);
+            color: var(--text-muted);
+            cursor: default;
+        }
+
+        .iot-page-next {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            margin: 0 0 1.5rem;
+        }
+
+        .iot-page-next-bottom {
+            margin: 1.5rem 0 0;
+        }
+
+        @media (max-width: 600px) {
+            .iot-next-task { left: .6rem; padding: .75rem .85rem; font-size: .8rem; }
+        }
+
+        .iot-document-frame {
+            width: 100%;
+            min-height: 80vh;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            background: #fff;
+            cursor: auto !important;
+        }
+
+        .web-control-hero {
+            background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 15%, var(--bg-card)), var(--bg-card));
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: clamp(1.75rem, 5vw, 4rem);
+        }
+
+        .web-control-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .web-control-title {
+            font-family: var(--font-body);
+            font-size: clamp(2.5rem, 6vw, 4.8rem);
+            letter-spacing: -0.05em;
+            line-height: 1;
+            margin: 1rem 0;
+        }
+
+        .web-control-lead {
+            max-width: 850px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.75;
+        }
+
+        .web-control-stack {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .web-control-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.5rem;
+        }
+
+        .web-control-card h3 {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .web-control-card ul {
+            display: grid;
+            gap: 0.75rem;
+            list-style: disc inside;
+            color: var(--text-muted);
+        }
+
+        .web-control-code {
+            background: #101313;
+            border-radius: 12px;
+            color: #d9e5e2;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            padding: 1.25rem;
+        }
+
+        .web-control-code .code-accent { color: #ff8a5c; }
+
+        .web-control-screenshot {
+            margin: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            overflow: hidden;
+        }
+
+        .web-control-gallery {
+            display: grid;
+            grid-template-columns: minmax(0, 1.55fr) minmax(220px, 0.65fr);
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .web-control-screenshot img {
+            display: block;
+            width: 100%;
+            max-height: 720px;
+            object-fit: contain;
+            background: #101313;
+        }
+
+        .web-control-screenshot figcaption {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 0.85rem 1.1rem;
+        }
+
+        .web-control-build-photo img {
+            height: min(520px, 45vw);
+            object-fit: cover;
+        }
+
+        .web-control-cloud-photo {
+            width: min(100%, 520px);
+            margin: 1.25rem auto 0 !important;
+        }
+
+        .web-control-cloud-photo img {
+            height: auto;
+            max-height: 680px;
+            object-fit: contain;
+        }
+
+        @media (max-width: 760px) {
+            .web-control-stack { grid-template-columns: 1fr; }
+            .web-control-gallery { grid-template-columns: 1fr; }
+            .web-control-build-photo img { height: auto; object-fit: contain; }
+        }
+
+        .week-document-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            margin-top: 1.25rem;
+            padding: 0.55rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            background: transparent;
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: inherit;
+            line-height: 1.2;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .week-document-button:hover:not(:disabled) {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .week-document-button:disabled {
+            border-color: var(--border-color);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .week-document-button:disabled:hover {
+            background: transparent;
+            color: var(--text-muted);
+            transform: none;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-details {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+        }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input, .form-group textarea {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--text-main);
+            outline: none;
+            font-family: var(--font-body);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--accent);
+        }
+
+        footer {
+            padding: 4rem 5vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .hero-grid, .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .project-gallery {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-bg);
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <!-- Sticky Navigation -->
+    <nav>
+        <a href="#home" class="nav-logo">H.V. // Hrithik Venkatesh</a>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+            <button class="theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <i class="fa-solid fa-moon" id="themeIcon"></i>
+            </button>
+            <button class="menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="theme-toggle" onclick="toggleMobileMenu()" style="position: absolute; top: 2rem; right: 2rem;"><i class="fa-solid fa-xmark"></i></button>
+        <a href="#home" onclick="toggleMobileMenu()">Home</a>
+        <a href="#about" onclick="toggleMobileMenu()">About</a>
+        <a href="#experience" onclick="toggleMobileMenu()">Experience</a>
+        <a href="#projects" onclick="toggleMobileMenu()">Projects</a>
+        <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Engineering the Future Through Innovation, Precision, and Intelligent Design.</h1>
+                    <p>Hello! I'm <strong>Hrithik Venkatesh</strong>, a pre-final year Mechatronics Engineering student passionate about mechanical design, robotics, manufacturing, and industrial automation.</p>
+                    <p class="hero-designation">Mechatronics Engineering Student | Mechanical Design Enthusiast | Robotics &amp; Manufacturing Enthusiast</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn-primary">Explore Projects <i class="fa-solid fa-arrow-right"></i></a>
+                        <a href="#contact" class="btn-secondary">Get in Touch</a>
+                    </div>
+                </div>
+                <div class="hero-portrait">
+                    <img src="Hrithik%20photo.png" alt="Hrithik Venkatesh">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="project-category">Profile & Background</span>
+                    <h2 class="section-title">Bridging mechanical precision with smart automation.</h2>
+                    <p>As a pre-final year Mechatronics Engineering student, I combine core mechanical engineering concepts with industrial control systems. I possess strong soft skills like <strong>teamwork and problem-solving</strong> which help me excel in collaborative engineering environments.</p>
+                    <p>Outside of engineering, I enjoy <strong>reading books, traveling, watching movies, gaining knowledge in manufacturing and automotive systems, and playing outdoor games</strong>.</p>
+                </div>
+                <div class="skills-container">
+                    <div class="skill-group">
+                        <h4>CAD & Design Tools</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">SolidWorks</span>
+                            <span class="skill-tag">Fusion 360</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h4>Automation & Controls</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">PLC Programming</span>
+                            <span class="skill-tag">LiDAR Integration</span>
+                            <span class="skill-tag">Robotic Hardware</span>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h4>Manufacturing & Core</h4>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Drilling & Tapping Machines</span>
+                            <span class="skill-tag">Friction Stir Welding</span>
+                            <span class="skill-tag">Transformers & Chokes (Assembly)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <span class="project-category">Career & Activities</span>
+            <h2 class="section-title">Experience & Leadership</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-role">Intern</h3>
+                                <span class="timeline-company">RV Machine Tools</span>
+                            </div>
+                            <span class="timeline-date">Core Industry Internship</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Learned machine manufacturing, specifically working with drilling and tapping machines and friction stir welding machines.</li>
+                            <li>Utilized SolidWorks for design tasks and participated in quality control procedures.</li>
+                            <li>Gained a basic idea of the electronics department and worked with PLC.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-role">Intern</h3>
+                                <span class="timeline-company">Procon Controls</span>
+                            </div>
+                            <span class="timeline-date">Manufacturing Internship</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Worked in the assembly and winding section for industrial transformer and choke manufacturing operations.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-card">
+                        <div class="timeline-header">
+                            <div>
+                                <h3 class="timeline-role">Qbotix Club</h3>
+                                <span class="timeline-company">College Technical Club</span>
+                            </div>
+                            <span class="timeline-date">Robotics & Mechanical Design</span>
+                        </div>
+                        <ul class="timeline-list">
+                            <li>Gained fundamental mechanical engineering knowledge and used Fusion 360 for component design.</li>
+                            <li>Won the competitive <strong>Tug of War Robot Competition</strong>.</li>
+                            <li>Observed and identified the necessary electronics equipment required to build a fully functional robot.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects & Protosem Section -->
+    <section id="projects">
+        <div class="container">
+            <span class="project-category">Portfolio Showcase</span>
+            <h2 class="section-title">Featured Projects & Programs</h2>
+            <button class="program-trigger-card iot-trigger-card" type="button" onclick="showProgramView('iot')" aria-label="View IoT projects and programs">
+                <i class="fa-solid fa-microchip"></i>
+                <span>Explore IoT</span>
+            </button>
+            
+            <!-- Main Projects View -->
+            <div id="mainProjectsView">
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <span class="project-category">AGV Project | Management &amp; Mechanical Design</span>
+                        <h3 class="project-title">Automated Guided Vehicle (AGV)</h3>
+                        <p class="project-desc">Leading project coordination while contributing to the mechanical design and development of an AGV. My work focuses on chassis design, structural arrangement, wheel configuration, mobility, and overall mechanical integration.</p>
+                        <div class="project-gallery">
+                            <figure>
+                                <img src="AGV/WhatsApp%20Image%202026-08-08%20at%201.46.05%20PM.jpeg" alt="AGV chassis assembly in progress">
+                                <figcaption>Chassis assembly and mechanical integration</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="AGV/WhatsApp%20Image%202026-08-08%20at%201.51.20%20PM.jpeg" alt="AGV chassis prototype with wheel configuration">
+                                <figcaption>AGV prototype and wheel configuration</figcaption>
+                            </figure>
+                            <figure>
+                                <img src="AGV/WhatsApp%20Image%202026-08-08%20at%201.51.19%20PM.jpeg" alt="CAD model of the Automated Guided Vehicle">
+                                <figcaption>CAD concept for the AGV structure</figcaption>
+                            </figure>
+                        </div>
+                        <div class="project-tech">
+                            <span class="tech-pill">Project Management</span>
+                            <span class="tech-pill">Chassis Design</span>
+                            <span class="tech-pill">Structural Design</span>
+                            <span class="tech-pill">Wheel Configuration</span>
+                            <span class="tech-pill">Mechanical Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program Tab Trigger Cards -->
+                <button class="program-trigger-card" type="button" onclick="showProgramView('protosem')">
+                    <i class="fa-solid fa-laptop-code" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.8rem; margin-bottom: 0.5rem;">Protosem Immersion Program</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Click here to view week-by-week curriculum and progress tracking from Week 0 to Week 20.</p>
+                </button>
+
+            </div>
+
+            <!-- Protosem Detailed View (Week 0 to Week 20) -->
+            <div id="protosemDetailedView" class="protosem-view">
+                <button class="btn-secondary" onclick="showProgramView()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Projects
+                </button>
+                <span class="project-category">Immersion Program</span>
+                <h2 class="section-title">Protosem Journey: Week 0 to Week 20</h2>
+                <p class="project-desc">An extensive engineering innovation and design thinking journey structured week-by-week.</p>
+
+                <div class="weeks-grid" id="weeksContainer">
+                    <!-- Populated via JavaScript -->
+                </div>
+            </div>
+
+            <!-- IoT Detailed View -->
+            <div id="iotDetailedView" class="protosem-view">
+                <button class="btn-secondary" onclick="showProgramView()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Projects
+                </button>
+                <div class="iot-showcase">
+                    <span class="project-category">Internet of Things</span>
+                    <h2 class="iot-showcase-title">From Prototype to Production</h2>
+                    <p class="iot-showcase-intro">5 tasks, 1 vision — building a smart home from the ground up on an ESP32, from local web control to a voice-controlled, self-monitoring system with production-grade UI and complete Arduino integration.</p>
+                    <div class="iot-task-tabs" role="tablist" aria-label="IoT project tasks">
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskOne()">Task 1: HTTP LED Web Control</button>
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskTwo()">Task 2: MQTT Cloud Dashboard</button>
+                        <button class="iot-task-tab active" type="button" role="tab" aria-selected="true" onclick="openIotTaskThree()">Task 3: Voice Control</button>
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskFour()">Task 4: Dashboard UI</button>
+                        <button class="iot-task-tab" type="button" role="tab" aria-selected="false" onclick="openIotTaskFive(this)">Task 5: Arduino Integration</button>
+                    </div>
+                    <p id="iotTaskDetail" class="iot-task-detail" role="tabpanel"><strong>Task 3:</strong> Chains five platforms together for voice automation.</p>
+                </div>
+            </div>
+
+            <div id="iotTaskOneView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskOne()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-wifi"></i> Task 1 · ESP32</span>
+                    <h2 class="web-control-title">HTTP LED Web Control</h2>
+                    <p class="web-control-lead">Control an ESP32 onboard LED from a browser over the local Wi-Fi network using an embedded HTTP server.</p>
+                </div>
+                <iframe
+                    class="iot-document-frame"
+                    src="iot-task1-content.html?v=6"
+                    title="Task 1: HTTP LED Web Control"
+                    onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+
+            <div id="iotTaskTwoView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskTwo()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-cloud"></i> Task 2 · MQTT</span>
+                    <h2 class="web-control-title">MQTT Cloud Dashboard with Relay Control</h2>
+                    <p class="web-control-lead">Control a relay connected to an ESP32 through an Adafruit IO dashboard and MQTT messaging.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task2-content.html?v=5" title="Task 2: MQTT Cloud Dashboard with Relay Control details" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+
+            <div id="iotTaskThreeView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskThree()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-microphone"></i> Task 3 · Voice automation</span>
+                    <h2 class="web-control-title">Voice Control with Google Assistant and IFTTT</h2>
+                    <p class="web-control-lead">Add hands-free control to the MQTT relay system through voice triggers, IFTTT automation, and Adafruit IO.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task3-content.html?v=3" title="Task 3: Voice Control project details" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+
+            <div id="iotTaskFourView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskFour()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <button class="btn-primary iot-page-next" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-table-columns"></i> Task 4 · Dashboard UI</span>
+                    <h2 class="web-control-title">Smart Home Monitoring Dashboard</h2>
+                    <p class="web-control-lead">A clear web interface for checking live sensor readings and controlling the ESP32 relay from one place.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task4-content.html?v=4" title="Task 4: Smart Home Dashboard UI" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" onclick="openNextIotTask()">Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+            </div>
+
+            <div id="iotTaskFiveView" class="iot-detail-view">
+                <button class="btn-secondary" type="button" onclick="closeIotTaskFive()" style="margin-bottom: 2rem;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to IoT
+                </button>
+                <button class="btn-primary iot-page-next" type="button" disabled>All tasks complete <i class="fa-solid fa-check" aria-hidden="true"></i></button>
+                <div class="web-control-hero" style="margin-bottom: 1.25rem;">
+                    <span class="web-control-kicker"><i class="fa-solid fa-microchip"></i> Task 5 · Arduino Integration</span>
+                    <h2 class="web-control-title">ESP32 Smart Home Integration</h2>
+                    <p class="web-control-lead">Sensors, Firebase, the dashboard, and relay control working together as one connected IoT system.</p>
+                </div>
+                <iframe class="iot-document-frame" src="iot-task5-content.html?v=2" title="Task 5: Arduino Integration project details" onload="styleIotDocument(this)"></iframe>
+                <button class="btn-primary iot-page-next iot-page-next-bottom" type="button" disabled>All tasks complete <i class="fa-solid fa-check" aria-hidden="true"></i></button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div>
+                    <span class="project-category">Get in Touch</span>
+                    <h2 class="section-title">Let's build something great together.</h2>
+                    <p style="color: var(--text-muted); margin-top: 1rem;">I am actively looking for internship and career opportunities in mechatronics, robotics, and industrial manufacturing.</p>
+                    <div class="contact-details">
+                        <div class="contact-item"><i class="fa-solid fa-envelope"></i><a href="mailto:hrithikv286@gmail.com">hrithikv286@gmail.com</a></div>
+                        <div class="contact-item"><i class="fa-solid fa-phone"></i><a href="tel:8248387615">8248387615</a></div>
+                        <div class="contact-item"><i class="fa-brands fa-linkedin"></i><a href="https://www.linkedin.com/in/hrithik-venkatesh-9b936132a?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a></div>
+                    </div>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent.');">
+                    <div class="form-group"><label>Your Name</label><input type="text" placeholder="Enter your name" required></div>
+                    <div class="form-group"><label>Your Email</label><input type="email" placeholder="Enter your email" required></div>
+                    <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Type your message here..." required></textarea></div>
+                    <button type="submit" class="btn-primary" style="justify-content: center;">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="nav-logo">Hrithik Venkatesh // 2026</div>
+        <p class="footer-quote">"Design. Build. Innovate."</p>
+    </footer>
+
+    <div class="interactive-cursor" id="interactiveCursor" aria-hidden="true"></div>
+    <button class="iot-next-task" id="iotNextTask" type="button" aria-label="Go to the next IoT task">
+        Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </button>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const isLight = body.getAttribute('data-theme') === 'light';
+            body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            themeIcon.className = isLight ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        const weeksContainer = document.getElementById('weeksContainer');
+        const weekData = [
+            '<strong>Learned 16 Personalities and Zen Pencils.</strong>',
+            '<strong>Created portfolio and learned 5S methodology.</strong>',
+            ''
+        ];
+        const weekTitles = { 2: 'Learning, Thinking & Building' };
+        const weekDocumentLinks = [
+            'week-0.html', 'week-1.html', 'week-2.html', 'week-3.html', 'week-4.html', 'week-5.html', 'week-6.html', 'week-7.html', 'week-8.html',
+            '', '', '', '', '', '', '', '', '', '', '', ''
+        ];
+
+        for (let i = 0; i <= 20; i++) {
+            const card = document.createElement('div');
+            card.className = 'week-card';
+            const description = i < weekData.length
+                ? weekData[i]
+                : '<span style="color: var(--accent); font-weight: 500;">Coming Soon</span>';
+            const documentLink = weekDocumentLinks[i];
+            const documentButton = documentLink
+                ? `<a class="week-document-button" href="${documentLink}">View document <i class="fa-solid fa-arrow-right"></i></a>`
+                : '<button class="week-document-button" type="button" disabled title="This week\'s document has not been added yet">Document coming soon</button>';
+            const title = weekTitles[i] ? `<h5>${weekTitles[i]}</h5>` : '';
+            const descriptionMarkup = description ? `<p>${description}</p>` : '';
+            card.innerHTML = `<h4>Week ${i}</h4>${title}${descriptionMarkup}${documentButton}`;
+            weeksContainer.appendChild(card);
+        }
+
+        function showProgramView(program) {
+            const mainView = document.getElementById('mainProjectsView');
+            const protosemView = document.getElementById('protosemDetailedView');
+            const iotView = document.getElementById('iotDetailedView');
+            const iotTaskOneView = document.getElementById('iotTaskOneView');
+            const iotTaskTwoView = document.getElementById('iotTaskTwoView');
+            const iotTaskThreeView = document.getElementById('iotTaskThreeView');
+            const iotTaskFourView = document.getElementById('iotTaskFourView');
+            const iotTaskFiveView = document.getElementById('iotTaskFiveView');
+            const selectedView = program === 'protosem' ? protosemView : program === 'iot' ? iotView : null;
+
+            mainView.style.display = selectedView ? 'none' : 'block';
+            protosemView.classList.toggle('active', program === 'protosem');
+            iotView.classList.toggle('active', program === 'iot');
+            iotTaskOneView.classList.remove('active');
+            iotTaskTwoView.classList.remove('active');
+            iotTaskThreeView.classList.remove('active');
+            iotTaskFourView.classList.remove('active');
+            iotTaskFiveView.classList.remove('active');
+            if (selectedView) selectedView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskOne() {
+            selectIotTask(1, document.querySelectorAll('.iot-task-tab')[0]);
+            setIotTaskLink(1);
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskOneView = document.getElementById('iotTaskOneView');
+            taskOneView.classList.add('active');
+            taskOneView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskOne() {
+            setIotTaskLink(null);
+            document.getElementById('iotTaskOneView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskTwo() {
+            selectIotTask(2, document.querySelectorAll('.iot-task-tab')[1]);
+            setIotTaskLink(2);
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskTwoView = document.getElementById('iotTaskTwoView');
+            taskTwoView.classList.add('active');
+            taskTwoView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskTwo() {
+            setIotTaskLink(null);
+            document.getElementById('iotTaskTwoView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskThree() {
+            selectIotTask(3, document.querySelectorAll('.iot-task-tab')[2]);
+            setIotTaskLink(3);
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskThreeView = document.getElementById('iotTaskThreeView');
+            taskThreeView.classList.add('active');
+            taskThreeView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskThree() {
+            setIotTaskLink(null);
+            document.getElementById('iotTaskThreeView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskFour() {
+            selectIotTask(4, document.querySelectorAll('.iot-task-tab')[3]);
+            setIotTaskLink(4);
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskFourView = document.getElementById('iotTaskFourView');
+            taskFourView.classList.add('active');
+            taskFourView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskFour() {
+            setIotTaskLink(null);
+            document.getElementById('iotTaskFourView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function openIotTaskFive(button) {
+            selectIotTask(5, button);
+            setIotTaskLink(5);
+            document.getElementById('iotDetailedView').classList.remove('active');
+            const taskFiveView = document.getElementById('iotTaskFiveView');
+            taskFiveView.classList.add('active');
+            taskFiveView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeIotTaskFive() {
+            setIotTaskLink(null);
+            document.getElementById('iotTaskFiveView').classList.remove('active');
+            const iotView = document.getElementById('iotDetailedView');
+            iotView.classList.add('active');
+            iotView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        const iotTaskViews = [
+            'iotTaskOneView', 'iotTaskTwoView', 'iotTaskThreeView', 'iotTaskFourView', 'iotTaskFiveView'
+        ].map(id => document.getElementById(id));
+        const iotNextTaskButton = document.getElementById('iotNextTask');
+
+        function setIotTaskLink(taskNumber, replace = false) {
+            const hash = taskNumber ? `#iot-task-${taskNumber}` : '#iot';
+            if (window.location.hash === hash) return;
+            window.history[replace ? 'replaceState' : 'pushState']({}, '', hash);
+        }
+
+        function openIotTaskFromLocation(scroll = true) {
+            const match = window.location.hash.match(/^#iot-task-([1-5])$/i);
+            if (!match) return;
+            const taskNumber = Number(match[1]);
+            const taskView = iotTaskViews[taskNumber - 1];
+            document.getElementById('mainProjectsView').style.display = 'none';
+            document.getElementById('protosemDetailedView').classList.remove('active');
+            document.getElementById('iotDetailedView').classList.remove('active');
+            iotTaskViews.forEach(view => view.classList.remove('active'));
+            taskView.classList.add('active');
+            selectIotTask(taskNumber, document.querySelectorAll('.iot-task-tab')[taskNumber - 1]);
+            if (scroll) taskView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            updateIotNextTask();
+        }
+
+        function getActiveIotTaskIndex() {
+            return iotTaskViews.findIndex(view => view.classList.contains('active'));
+        }
+
+        function updateIotNextTask() {
+            const taskIndex = getActiveIotTaskIndex();
+            const taskBounds = taskIndex >= 0 ? iotTaskViews[taskIndex].getBoundingClientRect() : null;
+            const taskIsVisible = taskBounds && taskBounds.bottom > 120 && taskBounds.top < window.innerHeight - 120;
+            const showButton = taskIndex >= 0 && window.scrollY > 300 && taskIsVisible;
+            iotNextTaskButton.classList.toggle('visible', showButton);
+            iotNextTaskButton.disabled = taskIndex === iotTaskViews.length - 1;
+            iotNextTaskButton.innerHTML = taskIndex === iotTaskViews.length - 1
+                ? 'Last task <i class="fa-solid fa-check" aria-hidden="true"></i>'
+                : `Next task <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>`;
+        }
+
+        function openNextIotTask() {
+            const taskIndex = getActiveIotTaskIndex();
+            if (taskIndex < 0 || taskIndex >= iotTaskViews.length - 1) return;
+            iotTaskViews[taskIndex].classList.remove('active');
+            const nextView = iotTaskViews[taskIndex + 1];
+            nextView.classList.add('active');
+            setIotTaskLink(taskIndex + 2);
+            selectIotTask(taskIndex + 2, document.querySelectorAll('.iot-task-tab')[taskIndex + 1]);
+            nextView.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            updateIotNextTask();
+        }
+
+        iotNextTaskButton.addEventListener('click', openNextIotTask);
+        window.addEventListener('hashchange', () => {
+            if (/^#iot-task-[1-5]$/i.test(window.location.hash)) openIotTaskFromLocation();
+            else if (window.location.hash === '#iot') {
+                iotTaskViews.forEach(view => view.classList.remove('active'));
+                document.getElementById('iotDetailedView').classList.add('active');
+            }
+        });
+        window.addEventListener('scroll', updateIotNextTask, { passive: true });
+        document.addEventListener('mousemove', (event) => {
+            iotNextTaskButton.style.top = `${Math.min(Math.max(event.clientY, 64), window.innerHeight - 64)}px`;
+            updateIotNextTask();
+        });
+
+        function styleIotDocument(frame) {
+            const doc = frame.contentDocument;
+            if (!doc) return;
+            const style = doc.createElement('style');
+            style.textContent = `
+                * { box-sizing: border-box; }
+                html { background: #f4f7f6; scroll-behavior: smooth; }
+                body { max-width: 960px; min-height: 100%; margin: 0 auto; padding: clamp(1.5rem, 5vw, 4rem); background: linear-gradient(145deg, #ffffff 0%, #f7faf8 100%); color: #263330; font: 400 16px/1.75 Inter, "Segoe UI", Arial, sans-serif !important; }
+                .page { max-width: none !important; margin: 0 !important; padding: 0 !important; }
+                p, li, td, th, span { color: inherit !important; font: inherit !important; letter-spacing: normal !important; }
+                p { margin: 0 0 1rem !important; }
+                p:has(span:empty) { display: none !important; }
+                h1, h2, h3 { color: #172320 !important; font-family: Inter, "Segoe UI", Arial, sans-serif !important; letter-spacing: -0.035em !important; line-height: 1.2 !important; }
+                h1 { margin: 0 0 2.5rem !important; padding-bottom: 1.5rem; border-bottom: 1px solid #dce5e2; font-size: clamp(2.2rem, 6vw, 3.6rem) !important; }
+                h2 { margin: 3rem 0 1.1rem !important; padding-top: 1rem; border-top: 1px solid #e5ece9; font-size: clamp(1.45rem, 4vw, 2rem) !important; }
+                h3 { margin: 1.75rem 0 .75rem !important; font-size: 1.2rem !important; }
+                code { padding: .15rem .4rem; border-radius: 5px; background: #e8f1ed; color: #176b4d; font-size: .9em; }
+                ul, ol { margin: .75rem 0 1.5rem !important; padding-left: 1.5rem !important; }
+                li { margin: .35rem 0 !important; padding-left: .25rem; }
+                table { width: 100% !important; margin: 1.25rem 0 1.75rem !important; border-collapse: collapse !important; border: 1px solid #dce5e2 !important; border-radius: 12px; overflow: hidden; }
+                td, th { padding: .8rem 1rem !important; border: 1px solid #dce5e2 !important; text-align: left !important; vertical-align: top !important; }
+                tr:first-child { background: #edf4f1 !important; font-weight: 700 !important; }
+                figure { margin: 1.5rem 0 2rem !important; padding: 1rem; border: 1px solid #dce5e2; border-radius: 14px; background: rgba(255, 255, 255, .78); box-shadow: 0 12px 30px rgba(23, 49, 38, .06); }
+                figure img { display: block; width: 100%; max-height: 680px; border-radius: 8px; object-fit: contain; background: #101313; }
+                img, video { max-width: 100%; }
+                video, video::-webkit-media-controls, video::-webkit-media-controls-panel, video::-webkit-media-controls-play-button { cursor: pointer !important; }
+                figcaption { margin-top: .8rem; color: #586762; font-size: .9rem; line-height: 1.5; }
+                hr { margin: 2rem 0 !important; border: 0; border-top: 1px solid #e5ece9; }
+                @media (max-width: 600px) { body { padding: 1.25rem 1rem; } table { display: block; overflow-x: auto; } }
+            `;
+            if (frame.getAttribute('src')?.includes('iot-task1-content.html')) {
+                style.textContent += `
+                    body { width: 100%; max-width: none; min-height: 0; padding: clamp(1.25rem, 3vw, 3rem); font-size: 15.5px !important; line-height: 1.75 !important; }
+                    body.c26.doc-content { width: 100% !important; max-width: none !important; margin: 0 auto !important; padding: clamp(1.5rem, 5vw, 4rem) !important; }
+                    h1 { max-width: none; margin: 0 0 2.5rem !important; text-align: left; font-size: clamp(2.2rem, 6vw, 3.6rem) !important; line-height: 1.08 !important; }
+                    .task1-media { width: 100%; margin: 0 auto 3rem; padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid #dce5e2; border-radius: 22px; background: linear-gradient(145deg, #fff, #f5f9f7); box-shadow: 0 18px 44px rgba(23,49,38,.07); }
+                    .task1-media .task1-media-kicker { margin-bottom: .3rem !important; color: #17805b !important; font-size: .72rem !important; font-weight: 700 !important; letter-spacing: .15em !important; text-transform: uppercase; }
+                    .task1-media > h2 { margin: 0 0 .45rem !important; padding: 0 !important; border: 0 !important; font-size: clamp(1.6rem, 4vw, 2.15rem) !important; }
+                    .task1-media .task1-media-intro { margin-bottom: 1.35rem !important; color: #586762 !important; }
+                    .task1-media figure { display: flex; min-width: 0; flex-direction: column; margin: 0 !important; padding: .65rem; overflow: hidden; border: 1px solid #dce5e2; border-radius: 16px; background: #fff; box-shadow: 0 8px 24px rgba(23,49,38,.05); }
+                    .task1-media video { display: block; width: 100%; height: clamp(320px, 48vw, 620px); max-height: 680px; margin: 0 auto; border-radius: 10px; aspect-ratio: 16 / 9; background: #101313; object-fit: contain; }
+                    .task1-media img { display: block; width: 100%; height: auto; max-height: 680px; margin: 0 auto; border-radius: 10px; background: #eef3f0; object-fit: contain; }
+                    .task1-media figcaption { min-height: 2.8em; margin: .7rem .35rem .15rem; color: #586762; font-size: .84rem; line-height: 1.5; }
+                    .task1-photo-grid { display: grid; grid-template-columns: minmax(0, 1fr); align-items: stretch; gap: 1rem; margin-top: 1rem; }
+                    h2 { margin-top: 2.75rem !important; padding-top: 1.25rem; }
+                    h3 { margin-top: 1.5rem !important; }
+                    li { line-height: 1.65 !important; }
+                    table { border-radius: 14px; }
+                    th { background: #edf4f1; }
+                    .task1-visuals { margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid #dce5e2; }
+                    .task1-visuals .eyebrow { margin-bottom: .35rem !important; color: #17805b !important; font-size: .75rem !important; font-weight: 700 !important; letter-spacing: .13em !important; text-transform: uppercase; }
+                    .task1-visuals > h2:first-of-type { margin-top: .25rem !important; padding-top: 0 !important; border: 0 !important; font-size: clamp(1.8rem, 4vw, 2.5rem) !important; }
+                    .task1-visuals .subhead { color: #586762 !important; }
+                    .task1-visuals .wiring, .task1-visuals .flow-node, .task1-visuals .concept { border: 1px solid #dce5e2; border-radius: 14px; background: rgba(255,255,255,.8); }
+                    .task1-visuals .wiring { padding: clamp(1rem, 3vw, 1.5rem); }
+                    .task1-visuals .wire-row { display: grid; grid-template-columns: minmax(5rem, auto) minmax(2rem, 1fr) minmax(0, 2fr); align-items: center; gap: 1rem; margin: .85rem 0; }
+                    .task1-visuals .wire-pin { font-weight: 700 !important; color: #176b4d !important; }
+                    .task1-visuals .wire-line { height: 1px; background: #bdcec6; }
+                    .task1-visuals .wire-detail { min-width: 0; }
+                    .task1-visuals .note { margin-top: 1.2rem !important; padding: .9rem 1rem; border-left: 3px solid #17805b; border-radius: 0 8px 8px 0; background: #edf4f1; color: #43534d !important; }
+                    .task1-visuals .flow { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: .75rem; margin: 1.25rem 0; }
+                    .task1-visuals .flow-node { min-width: 0; padding: 1rem .75rem; text-align: center; }
+                    .task1-visuals .flow-node strong, .task1-visuals .flow-node small { display: block; }
+                    .task1-visuals .flow-node small { margin-top: .25rem; color: #586762 !important; font-size: .78rem !important; }
+                    .task1-visuals .flow-arrow { color: #17805b; text-align: center; font-weight: 700; }
+                    .task1-visuals .flow-arrow small { color: #586762 !important; font-size: .7rem !important; }
+                    .task1-visuals .api-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .75rem; }
+                    .task1-visuals .api { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .9rem 1rem; border: 1px solid #dce5e2; border-radius: 10px; background: #fff; }
+                    .task1-visuals .api-state { color: #586762 !important; font-size: .8rem !important; }
+                    .task1-visuals .concept-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .85rem; }
+                    .task1-visuals .concept { padding: 1.15rem; }
+                    .task1-visuals .concept small { display: block; margin-bottom: .45rem; color: #17805b !important; font-weight: 700 !important; }
+                    .task1-visuals .concept p { margin: .4rem 0 0 !important; color: #586762 !important; }
+                    @media (max-width: 680px) {
+                        body { padding: 1.25rem 1rem; }
+                        .task1-media video { height: clamp(240px, 70vw, 420px); max-height: none; }
+                        .task1-media img { max-height: none; }
+                        .task1-visuals .flow { grid-template-columns: 1fr; }
+                        .task1-visuals .flow-arrow { transform: rotate(90deg); }
+                        .task1-visuals .api-grid, .task1-visuals .concept-grid { grid-template-columns: 1fr; }
+                        .task1-visuals .wire-row { grid-template-columns: 5rem minmax(0,1fr); gap: .55rem .8rem; }
+                        .task1-visuals .wire-line { display: none; }
+                        .task1-visuals .wire-detail { grid-column: 2; }
+                    }
+                `;
+            } else if (frame.getAttribute('src')?.includes('iot-task2-content.html')) {
+                style.textContent += `
+                    .task2-video video { display: block; width: 100%; height: clamp(320px, 48vw, 620px); max-height: 680px; margin: 0 auto; border-radius: 8px; aspect-ratio: 16 / 9; background: #101313; object-fit: contain; }
+                    @media (max-width: 600px) { .task2-video video { height: clamp(240px, 70vw, 420px); max-height: none; } }
+                `;
+            } else if (frame.getAttribute('src')?.includes('iot-task3-content.html')) {
+                style.textContent += `
+                    .task3-video video { display: block; width: 100%; height: clamp(320px, 48vw, 620px); max-height: 680px; margin: 0 auto; border-radius: 8px; aspect-ratio: 16 / 9; background: #101313; object-fit: contain; }
+                    @media (max-width: 600px) { .task3-video video { height: clamp(240px, 70vw, 420px); max-height: none; } }
+                `;
+            }
+            doc.head.appendChild(style);
+            const resizeFrame = () => {
+                frame.style.height = `${Math.max(doc.body.scrollHeight + 32, 900)}px`;
+            };
+            if (frame.getAttribute('src')?.includes('iot-task1-content.html') && 'ResizeObserver' in window) {
+                frame._taskOneContentObserver = new ResizeObserver(resizeFrame);
+                frame._taskOneContentObserver.observe(doc.body);
+            }
+            doc.querySelectorAll('img').forEach(image => {
+                image.addEventListener('load', resizeFrame, { once: true });
+            });
+            doc.querySelectorAll('video').forEach(video => {
+                video.addEventListener('loadedmetadata', resizeFrame, { once: true });
+            });
+            resizeFrame();
+        }
+
+        const iotTaskDescriptions = {
+            1: 'Controls an ESP32 connected LED through a local HTTP web page.',
+            2: 'Connects the ESP32 to an MQTT cloud dashboard with relay control.',
+            3: 'Chains five platforms together for voice automation.',
+            4: 'Builds the web dashboard UI/UX.',
+            5: 'Integrates all Arduino coding, component connections, and the complete working system that watches temperature, humidity, and light 24/7, switches 230V appliances safely, and exports the data it collects.'
+        };
+
+        function selectIotTask(taskNumber, button) {
+            if (!button) button = document.querySelectorAll('.iot-task-tab')[taskNumber - 1];
+            document.querySelectorAll('.iot-task-tab').forEach((tab) => {
+                const isSelected = tab === button;
+                tab.classList.toggle('active', isSelected);
+                tab.setAttribute('aria-selected', isSelected);
+            });
+            document.getElementById('iotTaskDetail').innerHTML = `<strong>Task ${taskNumber}:</strong> ${iotTaskDescriptions[taskNumber]}`;
+        }
+
+        openIotTaskFromLocation(false);
+
+        const interactiveCursor = document.getElementById('interactiveCursor');
+        const interactiveElements = document.querySelectorAll('.btn-primary, .btn-secondary, .theme-toggle, .menu-toggle, .week-document-button, .program-trigger-card, .iot-next-task');
+        document.addEventListener('mousemove', (event) => {
+            interactiveCursor.style.left = `${event.clientX}px`;
+            interactiveCursor.style.top = `${event.clientY}px`;
+            interactiveCursor.classList.add('visible');
+        });
+        interactiveElements.forEach((element) => {
+            element.addEventListener('mouseenter', () => interactiveCursor.classList.add('interactive'));
+            element.addEventListener('mouseleave', () => interactiveCursor.classList.remove('interactive', 'pressed'));
+            element.addEventListener('mousedown', () => interactiveCursor.classList.add('pressed'));
+            element.addEventListener('mouseup', () => interactiveCursor.classList.remove('pressed'));
+        });
+    </script>
+</body>
+</html>

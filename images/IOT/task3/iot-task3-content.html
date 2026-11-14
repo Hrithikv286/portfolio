@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task 3: Voice Control with Google Assistant and IFTTT</title>
+</head>
+<body>
+    <p>IoT project · Task 3</p>
+    <h1>Voice Control with Google Assistant and IFTTT</h1>
+    <p>This task adds a hands-free interface to the MQTT relay system from Task 2. A configured voice command triggers an IFTTT automation, which sends an HTTP Webhook request to Adafruit IO. Adafruit IO publishes the command over MQTT, and the ESP32 uses it to switch the relay. The core device-control system stays the same; voice automation becomes another way to send it a command.</p>
+
+    <h2>End-to-end flow</h2>
+    <p><strong>Voice command → Google Assistant → IFTTT → Webhook → Adafruit IO → MQTT → ESP32 → relay → lamp</strong></p>
+    <ol>
+        <li>The user speaks a configured command, such as a request to turn the lamp on or off.</li>
+        <li>Google Assistant recognizes the command and activates the matching IFTTT applet.</li>
+        <li>IFTTT sends an HTTP Webhook request carrying the selected value, such as <code>ON</code> or <code>OFF</code>.</li>
+        <li>Adafruit IO updates the control feed and publishes the new value through its MQTT broker.</li>
+        <li>The ESP32, already subscribed to that feed, receives the message and sets its relay-control GPIO.</li>
+        <li>The relay switches the connected lamp. The device can publish its state back to a feed for cloud monitoring.</li>
+    </ol>
+
+    <h2>Role of each service</h2>
+    <table>
+        <thead><tr><th>Component</th><th>What it does</th></tr></thead>
+        <tbody>
+            <tr><td>Google Assistant</td><td>Recognizes a configured spoken command and starts the automation.</td></tr>
+            <tr><td>IFTTT</td><td>Connects the voice trigger to an action and sends the Webhook request.</td></tr>
+            <tr><td>Webhook</td><td>Carries the requested control value to the cloud service over HTTP.</td></tr>
+            <tr><td>Adafruit IO</td><td>Receives the value, updates the feed, and routes it through MQTT.</td></tr>
+            <tr><td>ESP32 and relay</td><td>Turn the received value into a GPIO output and switch the connected load.</td></tr>
+        </tbody>
+    </table>
+
+    <h2>How the command reaches the hardware</h2>
+    <p>The voice assistant does not connect directly to the ESP32. IFTTT and the Webhook pass the command to Adafruit IO, while MQTT carries it from the broker to the subscribed device. This separates voice recognition, cloud automation, messaging, and physical control into clear stages.</p>
+    <p>An <code>ON</code> message asks the ESP32 to activate the relay; an <code>OFF</code> message asks it to deactivate the relay. The device can publish its resulting state separately. Reporting the state is useful because a voice trigger being recognized does not, by itself, confirm that the ESP32 received the message or that the relay changed.</p>
+
+    <h2>What this adds to Task 2</h2>
+    <p>Task 2 controls the relay from a cloud dashboard. Task 3 adds voice as another input while reusing the same Adafruit IO feed, MQTT connection, ESP32 firmware path, and relay output. The resulting system can support multiple control interfaces without creating a separate hardware-control chain for each one.</p>
+
+    <h2>Engineering concepts demonstrated</h2>
+    <ul>
+        <li><strong>Voice interaction:</strong> turning a spoken phrase into a defined device command.</li>
+        <li><strong>Automation:</strong> using an IFTTT applet to connect an event to an action.</li>
+        <li><strong>Web APIs:</strong> carrying a control value through an HTTP Webhook request.</li>
+        <li><strong>Cloud messaging:</strong> relaying the value to a subscribed device through MQTT.</li>
+        <li><strong>System integration:</strong> joining consumer services, cloud feeds, embedded firmware, and a physical output.</li>
+    </ul>
+
+    <h2>Reliability and safety</h2>
+    <p>Voice control depends on internet access and successful operation of each service in the chain. If the assistant, IFTTT applet, Webhook, cloud feed, Wi-Fi connection, or MQTT session is unavailable, the command may not reach the ESP32. A dashboard or device-status feed provides a way to check the reported state; the system should also handle reconnects and unexpected command values.</p>
+    <p>The relay may switch a mains-powered load, but the ESP32 GPIO is only a low-voltage control signal. Mains wiring must remain isolated, enclosed, and rated for the load, with construction and inspection handled by a qualified person. Do not treat voice activation or a relay module as a substitute for electrical protection.</p>
+
+    <h2>Outcome and next steps</h2>
+    <p>The project connects a voice request to physical relay control through a sequence of automation and messaging services. It demonstrates how a new user interface can be added to an existing IoT architecture while keeping device control on the ESP32.</p>
+    <p>Further work could add commands for multiple devices, improve confirmation and error reporting, show connection health, and provide a manual fallback through the dashboard. Each added device or action should use clearly defined commands and report its state independently.</p>
+
+    <h2>IFTTT setup and activity</h2>
+    <figure>
+        <img src="WhatsApp%20Image%202026-09-10%20at%206.03.17%20PM.jpeg" alt="IFTTT activity page for the voice-triggered light control applet">
+        <figcaption>The IFTTT applet listens for the configured Google Assistant voice trigger.</figcaption>
+    </figure>
+    <figure>
+        <img src="WhatsApp%20Image%202026-09-10%20at%206.04.12%20PM.jpeg" alt="Successful IFTTT run showing the Google Assistant trigger and Adafruit IO action with data value zero">
+        <figcaption>Run details show the voice trigger followed by an Adafruit IO feed update with the value <code>0</code>.</figcaption>
+    </figure>
+    <figure>
+        <img src="WhatsApp%20Image%202026-09-10%20at%206.04.35%20PM.jpeg" alt="IFTTT activity timeline showing repeated runs of the voice-triggered applet">
+        <figcaption>IFTTT activity history records repeated trigger and Adafruit IO action runs.</figcaption>
+    </figure>
+    <figure>
+        <img src="WhatsApp%20Image%202026-09-10%20at%206.05.06%20PM.jpeg" alt="IFTTT applet editor connecting a Google Assistant scene trigger to an Adafruit IO action">
+        <figcaption>Applet configuration connects the Google Assistant scene trigger to the Adafruit IO feed action.</figcaption>
+    </figure>
+</body>
+</html>
